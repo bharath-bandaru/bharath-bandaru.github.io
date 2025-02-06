@@ -80,11 +80,10 @@
     </a>
   </div>
   <button class="toggle-button" onclick="togglePrivacyPolicy()">Show Privacy Policy</button>
-  <div id="privacy-policy-section" style="display: flex; align-items: center; justify-content: center; margin-top: 20px; background: #191919; color: #a7a7a7; visibility: hidden;">
+  <div id="privacy-policy-section" style="display: flex; align-items: center; justify-content: center; margin-top: 20px; background: #191919; color: #a7a7a7; overflow: hidden; display: none;">
     <main id="content" class="main-content" role="main" style="text-align: left; width: 70%; ">
       <h2 id="chain-reaction---online-multiplayer-game" style="text-align: center;">Chain reaction - Online Multiplayer Game</h2>
     
-
       <div>
         <h3 style="text-align: center;" id="privacy-policy">Privacy Policy</h3>
         <p>Bharath Bandaru built the chain reaction app as a Free app. This SERVICE is provided by Bharath Bandaru at no cost and is intended for use as is.</p>
@@ -138,12 +137,12 @@
     function togglePrivacyPolicy() {
       const privacyPolicySection = document.getElementById('privacy-policy-section');
       const toggleButton = document.querySelector('.toggle-button');
-      if (privacyPolicySection.style.visibility === 'hidden') {
-        privacyPolicySection.style.visibility = 'visible';
-        toggleButton.textContent = 'Hide Privacy Policy';
+      if (privacyPolicySection.style.display === 'none') {
+      privacyPolicySection.style.display = 'flex';
+      toggleButton.textContent = 'Hide Privacy Policy';
       } else {
-        privacyPolicySection.style.visibility = 'hidden';
-        toggleButton.textContent = 'Show Privacy Policy';
+      privacyPolicySection.style.display = 'none';
+      toggleButton.textContent = 'Show Privacy Policy';
       }
     }
   </script>
