@@ -35,7 +35,6 @@ You can click the Preview link to take a look at your changes.
 --->
 
 
-If you are viewing this on Desktop 🖥️,  
-Check out my **Portfolio** 👉 [here](https://portfolio-4a2e3.web.app/) 👈  
+If you are viewing this on Desktop 🖥️, check out my **Portfolio** 👉 [here](https://portfolio-4a2e3.web.app/) 👈  
 
 **Glad to meet you! 🍻**  
