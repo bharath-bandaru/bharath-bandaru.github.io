@@ -1,5 +1,3 @@
-# Bharath Bandaru
-
 <p align="center">
   <img src="profile.jpg" alt="Profile Image" width="150" height="150" style="border-radius: 50%; border: 2px solid #000;">
 </p>
