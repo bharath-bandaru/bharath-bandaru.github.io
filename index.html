@@ -15,6 +15,16 @@
       text-align: center;
       font-family: Arial, sans-serif;
     }
+    .bold-text {
+      position: relative;
+      left: 16px;
+      top: -65px;
+      font-size: 100px;
+      font-weight: 700;
+      -webkit-text-fill-color: #000;
+      -webkit-text-stroke-width: 1.5px;
+      -webkit-text-stroke-color: #bfbfbf;
+    }
     .profile-img {
       width: 200px;
       height: 200px;
@@ -112,19 +122,51 @@
     </div>
     <!-- <hr style="border: none; border-top: 2px solid green; text-align: center; margin: 20px 0;"> -->
     <span style="position: relative; top: -12px; background-color: black; padding: 0 10px; color: green;">--------------------------------xoxoxoxooxoxoxxox------xoxoxoxooxoxoxxox--------------------------------</span>
-    <h2>Here is a game I created!</h2>
-    <p style="font-size: 21px;">Play chain reaction <a href="https://bharath-bandaru.github.io/chain-reaction-game/" style="color: green; text-decoration: underline;">here</a>. ✨</p>
-    <div class="image-container">
-      <a href="https://portfolio-4a2e3.web.app/" target="_blank" rel="noopener noreferrer">
-        <img src="avatar.png" alt="Avatar" class="avatar">
-      </a>
-      <a href="https://play.google.com/store/apps/details?id=com.bhvp.chainreaction"><img src="gplay.png" alt="Get it on Google Play" class="gplay"></a>
-      <a href="https://bharath-bandaru.github.io/chain-reaction-game/" target="_blank" rel="noopener noreferrer">
-        <img style="width: 100%; height: auto;" src="banner.png" alt="Chain Reaction Game" class="game-screenshot">
-      </a>
+    <h2>Here are the games I created!</h2>
+
+    <div class="game-item" style="display: flex; align-items: flex-start; margin-top: 20px;">
+      <p class="bold-text" style="margin: 96px 40px 0 0;">1.</p>
+      <div class="game-content" style="border: 1px dotted; padding: 20px;">
+        <p style="font-size: 21px;">Escape Puzzle Game <a href="https://play.google.com/store/apps/details?id=com.bhvp.escapeGame" style="color: green; text-decoration: underline;">here</a>. ✨</p>
+        <div class="image-container">
+          <a href="https://portfolio-4a2e3.web.app/" target="_blank" rel="noopener noreferrer">
+            <img src="avatar.png" alt="Avatar" class="avatar">
+          </a>
+          <a href="https://play.google.com/store/apps/details?id=com.bhvp.escapeGame">
+            <img src="gplay.png" alt="Get it on Google Play" class="gplay">
+          </a>
+          <a href="https://bharath-bandaru.github.io/chain-reaction-game/" target="_blank" rel="noopener noreferrer">
+            <img style="width: 100%; height: auto;" src="escape.png" alt="Chain Reaction Game" class="game-screenshot">
+          </a>
+        </div>
+        <div class="footer"></div>
+        <a href="https://play.google.com/store/apps/details?id=com.bhvp.escapeGame" style="color: gray; text-decoration: underline;">
+          Get it on Google Play
+        </a>
+      </div>
     </div>
-    <div class="footer"></div>
-      <a href="https://play.google.com/store/apps/details?id=com.bhvp.chainreaction" style="color: gray; text-decoration: underline;">Get it on Google Play</a>
+
+    <div class="game-item" style="display: flex; align-items: flex-start;">
+      <p class="bold-text" style="margin: 96px 40px 0 0;">2.</p>
+      <div class="game-content" style="border: 1px dotted; padding: 20px;">
+        <p style="font-size: 21px;">Play chain reaction <a href="https://bharath-bandaru.github.io/chain-reaction-game/" style="color: green; text-decoration: underline;">here</a>. ✨</p>
+        <div class="image-container">
+          <a href="https://portfolio-4a2e3.web.app/" target="_blank" rel="noopener noreferrer">
+            <img src="avatar.png" alt="Avatar" class="avatar">
+          </a>
+          <a href="https://play.google.com/store/apps/details?id=com.bhvp.chainreaction">
+            <img src="gplay.png" alt="Get it on Google Play" class="gplay">
+          </a>
+          <a href="https://bharath-bandaru.github.io/chain-reaction-game/" target="_blank" rel="noopener noreferrer">
+            <img style="width: 100%; height: auto;" src="banner.png" alt="Chain Reaction Game" class="game-screenshot">
+          </a>
+        </div>
+        <div class="footer"></div>
+        <a href="https://play.google.com/store/apps/details?id=com.bhvp.chainreaction" style="color: gray; text-decoration: underline;">
+          Get it on Google Play
+        </a>
+      </div>
+    </div>
     </div>
   </div>
   <div class="abme" style="display: flex; align-items: center; justify-content: center;">
@@ -137,18 +179,19 @@
   <button class="toggle-button" onclick="togglePrivacyPolicy()">Hide Privacy Policy</button>
   <div id="privacy-policy-section" style="display: flex; align-items: center; justify-content: center; margin-top: 20px; background: #191919; color: #a7a7a7; overflow: hidden; ">
     <main id="content" class="main-content" role="main" style="text-align: left; width: 70%; ">
-      <h2 id="chain-reaction---online-multiplayer-game" style="text-align: center;">Chain reaction - Online Multiplayer Game</h2>
+      <h2 id="chain-reaction---online-multiplayer-game" style="text-align: center;">Games Policy & Terms</h2>
     
       <div>
         <h3 style="text-align: center;" id="privacy-policy">Privacy Policy</h3>
-        <p>Bharath Bandaru built the chain reaction app as a Free app. This SERVICE is provided by Bharath Bandaru at no cost and is intended for use as is.</p>
-        <p>This page is used to inform visitors regarding my policies with the collection, use, and disclosure of Personal Information if anyone decided to use my Service.</p>
-        <p>If you choose to use my Service, then you agree to the collection and use of information in relation to this policy. The Personal Information that I collect is used for providing and improving the Service. I will not use or share your information with anyone except as described in this Privacy Policy.</p>
-        <p>The terms used in this Privacy Policy have the same meanings as in our Terms and Conditions, which are accessible at chain reaction unless otherwise defined in this Privacy Policy.</p>
+        <p>Bharath Bandaru built these games as Free apps. These Services are provided by Bharath Bandaru at no cost and are intended for use as is.</p>
+        <p>This page informs visitors about my policies regarding the collection, use, and disclosure of Personal Information if anyone decides to use my Services.</p>
+        <p>By choosing to use these Services, you agree to the collection and use of information as described in this Privacy Policy. Any Personal Information collected is used to provide and improve the Services. I will not use or share your information with anyone except as described in this policy.</p>
+        <p>The terms used in this Privacy Policy have the same meanings as in our Terms and Conditions, unless otherwise defined here.</p>
         <p><strong>Information Collection and Use</strong></p>
-        <p>For a better experience, while using our Service, I may require you to provide us with certain personally identifiable information. The information that I request will be retained on your device and is not collected by me in any way.</p>
-        <p>The app does use third-party services that may collect information used to identify you.</p>
-        <p>Link to the privacy policy of third-party service providers used by the app</p>
+        <p>For a better experience while using the Services, I may require you to provide certain personally identifiable information. However, any information requested will be retained on your device and not collected by me in any way.</p>
+        <p>These Services may use third-party services that could collect information used to identify you.</p>
+        <p><strong>Third-Party Services</strong></p>
+        <p>The games may include third-party services that have their own privacy policies regarding data collection and usage. Below are links to the privacy policies of some common third-party service providers that may be used in my games:</p>
         <ul>
             <li><a href="https://www.google.com/policies/privacy/" style="color: green;">Google Play Services</a></li>
             <li><a href="https://firebase.google.com/policies/analytics" style="color: green;">Google Analytics for Firebase</a></li>
