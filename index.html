@@ -16,7 +16,8 @@
       background-color: black;
       color: white;
       text-align: center;
-      font-family: Arial, sans-serif;
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", "Helvetica Neue", Helvetica, Arial, sans-serif;
+      font-weight: 300;
       position: relative;
       overflow-x: hidden;
     }
@@ -60,6 +61,16 @@
 
     .text-content {
       margin-top: 20px;
+    }
+
+    .about-me {
+      font-size: 15px;
+      line-height: 1.7;
+      color: #bababa;
+      max-width: 680px;
+      margin: 14px auto 0;
+      letter-spacing: 0.2px;
+      font-family: "SF Mono", SFMono-Regular, ui-monospace, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
     }
 
     .strikethrough {
@@ -277,10 +288,15 @@
       <p>Bharath Bandaru</p>
       <div class="text-content">
         <h2>👋 <strong>Hi there.</strong></h2>
+        <p class="about-me">
+          I am a Software Engineer with experience building scalable web, cloud, and mobile applications, with a strong focus on system design and real-world impact. Currently working at Script Health, I help deliver enterprise healthcare solutions for Fortune 500 clients by designing robust architectures, implementing cloud services, and building intuitive user experiences. I am also actively deepening my work in AI and machine learning, exploring how intelligent systems can be applied to real-world products. Outside of work, I enjoy building side projects, and I take pride in attention to detail and a strong commitment to creating software that makes a meaningful difference.
+        </p>
+        <p style="font-size: 18px; margin-bottom:0;">Glad to meet you! <span style="font-size: 24px;">🍻</span></p>
+        <br>
+        
         <p>Viewing on desktop? Check out my portfolio — built for big screens 👉 <a
             href="https://portfolio-4a2e3.web.app/" target="_blank" rel="noopener noreferrer"
             style="color: green; text-decoration: underline; font-size: 24px;">🔮</a> 👈</p>
-        <p style="font-size: 18px; margin-bottom:0;">Glad to meet you! <span style="font-size: 24px;">🍻</span></p>
       </div>
     </div>
     <!-- <hr style="border: none; border-top: 2px solid green; text-align: center; margin: 20px 0;"> -->
@@ -292,8 +308,30 @@
     <h2>🎮 Here are the few apps that I published!</h2>
 
 
-    <div class="game-item" style="display: flex; align-items: flex-start;  margin-top: 20px; margin-bottom: 20px;">
-      <p class="bold-text" style="margin: 96px 40px 0 -123px;">1.</p>
+    <div class="game-item" style="position: relative; margin-top: 20px; margin-bottom: 20px;">
+      <p class="bold-text" style="position: absolute; left: -107px; top: 30px; margin: 0;">...</p>
+      <div class="game-content" style="border: 1px dotted; padding: 20px;">
+        <p style="font-size: 21px;">Something big is coming... ✨</p>
+        <div style="text-align: center; padding: 40px 20px; color: #888;">
+          <p style="font-size: 18px; margin: 0;">🚀 Stay tuned!</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="game-item" style="position: relative; margin-top: 20px; margin-bottom: 20px;">
+      <p class="bold-text" style="position: absolute; left: -107px; top: 30px; margin: 0;">3.</p>
+      <div class="game-content" style="border: 1px dotted; padding: 20px;">
+        <p style="font-size: 21px;">Building something new  <a href="https://ephileo.us" target="_blank" rel="noopener noreferrer" style="color: green; text-decoration: underline;">here</a> ✨</p>
+        <div class="image-container">
+          <a href="https://ephileo.us" target="_blank" rel="noopener noreferrer">
+            <img style="width: 100%; height: auto;" src="ephileo.png" alt="Ephileo" class="game-screenshot">
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="game-item" style="position: relative; margin-top: 20px; margin-bottom: 20px;">
+      <p class="bold-text" style="position: absolute; left: -107px; top: 30px; margin: 0;">2.</p>
       <div class="game-content" style="border: 1px dotted; padding: 20px;">
         <p style="font-size: 21px;">Play chain reaction <a href="https://bharath-bandaru.github.io/chain-reaction-game/"
             target="_blank" style="color: green; text-decoration: underline;">here</a>. ✨</p>
@@ -316,8 +354,8 @@
       </div>
     </div>
 
-    <div class="game-item" style="display: flex; align-items: flex-start;">
-      <p class="bold-text" style="margin: 96px 40px 0 -123px;">2.</p>
+    <div class="game-item" style="position: relative; margin-top: 20px; margin-bottom: 20px;">
+      <p class="bold-text" style="position: absolute; left: -107px; top: 30px; margin: 0;">1.</p>
       <div class="game-content" style="border: 1px dotted; padding: 20px;">
         <p style="font-size: 21px;">Escape Puzzle Game <a href="https://bharath-bandaru.github.io/escape-web/"
             target="_blank" style="color: green; text-decoration: underline;">here</a>. ✨</p>
@@ -348,16 +386,6 @@
         </a>
       </div>
     </div>
-    <div class="game-item" style="display: flex; align-items: flex-start;  margin-top: 20px; margin-bottom: 20px;">
-      <p class="bold-text" style="margin: 96px 40px 0 -123px;">3.</p>
-      <div class="game-content" style="border: 1px dotted; padding: 20px;     width: -webkit-fill-available;">
-        <p style="font-size: 21px;">Something big is coming... ✨</p>
-        <div style="text-align: center; padding: 40px 20px; color: #888;">
-          <p style="font-size: 18px; margin: 0;">🚀 Stay tuned!</p>
-        </div>
-      </div>
-    </div>
-
   </div>
   </div>
 
