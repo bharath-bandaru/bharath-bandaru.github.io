@@ -3,883 +3,1538 @@
 
 <head>
   <meta charset="UTF-8">
-  <link rel="icon" href="logo.png" type="image/png">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Bharath Bandaru - GitHub Portfolio</title>
+  <title>Bharath Bandaru - Senior Full-Stack Engineer</title>
   <meta name="description"
-    content="Play Chain Reaction, an exciting online multiplayer game. Challenge your friends and enjoy the strategic gameplay. Available on Google Play.">
+    content="Bharath Bandaru — Senior Full-Stack Engineer with 9+ years building production systems at scale. Expert in React, Node.js, Flutter, AWS, Spring Boot, and Java.">
   <meta name="keywords"
-    content="Chain Reaction, Online Multiplayer Game, Strategic Game, Bharath Bandaru, Google Play Games, Chain reaction Game, chainreaction, chainreactiongame, bestchainreaction game, best chain reaction game, best design award goes to this chian reaction">
+    content="Bharath Bandaru, Senior Full-Stack Engineer, React, Node.js, Flutter, AWS, Spring Boot, Java, Portfolio">
   <meta name="author" content="Bharath Bandaru">
+  <link rel="icon" href="images/logo.png" type="image/png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
+    rel="stylesheet">
   <style>
-    body {
-      background-color: black;
-      color: white;
-      text-align: center;
-      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", "Helvetica Neue", Helvetica, Arial, sans-serif;
-      font-weight: 300;
-      position: relative;
-      overflow-x: hidden;
+    /* ============================================
+       1. DESIGN TOKENS
+       ============================================ */
+    :root {
+      --bg-primary: #0a0a0b;
+      --bg-secondary: #111113;
+      --bg-tertiary: #1a1a1f;
+      --border-subtle: rgba(255, 255, 255, 0.06);
+      --border-hover: rgba(255, 255, 255, 0.12);
+      --text-primary: #f5f5f7;
+      --text-secondary: #a1a1a6;
+      --text-tertiary: #6e6e73;
+      --accent: #64ffda;
+      --accent-dim: rgba(100, 255, 218, 0.1);
+      --accent-hover: #7affea;
+      --font-display: clamp(2.5rem, 5vw, 3.5rem);
+      --font-h1: clamp(1.75rem, 3vw, 2.25rem);
+      --font-h2: clamp(1.25rem, 2vw, 1.5rem);
+      --font-body: clamp(0.9rem, 1.2vw, 1.05rem);
+      --font-small: clamp(0.75rem, 1vw, 0.85rem);
     }
 
-    .background-pattern {
+    /* ============================================
+       2. RESET & BASE
+       ============================================ */
+    *,
+    *::before,
+    *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      scroll-padding-top: 80px;
+    }
+
+    body {
+      background-color: var(--bg-primary);
+      color: var(--text-primary);
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      font-weight: 400;
+      line-height: 1.6;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100%;
+      max-width: 1200px;
+      height: 600px;
+      background: radial-gradient(ellipse at 50% 0%, rgba(100, 255, 218, 0.05) 0%, transparent 70%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    ::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: var(--bg-primary);
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: var(--bg-tertiary);
+      border-radius: 3px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background: var(--text-tertiary);
+    }
+
+    /* ============================================
+       3. TYPOGRAPHY
+       ============================================ */
+    h1,
+    h2,
+    h3 {
+      color: var(--text-primary);
+      font-weight: 600;
+      line-height: 1.2;
+    }
+
+    a {
+      color: var(--accent);
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+
+    a:hover {
+      color: var(--accent-hover);
+    }
+
+    /* ============================================
+       4. LAYOUT
+       ============================================ */
+    .container {
+      width: 100%;
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    .container-wide {
+      max-width: 1000px;
+    }
+
+    .section {
+      position: relative;
+      padding: 80px 0;
+      z-index: 1;
+    }
+
+    .section+.section {
+      border-top: 1px solid var(--border-subtle);
+    }
+
+    .section-title {
+      font-size: var(--font-h1);
+      margin-bottom: 48px;
+      letter-spacing: -0.02em;
+    }
+
+    /* ============================================
+       5a. NAVIGATION
+       ============================================ */
+    .nav {
       position: fixed;
       top: 0;
       left: 0;
-      width: 100%;
-      height: 100%;
-      transform: rotate(45deg) translate(-50%, -50%);
-      transform-origin: center;
-      z-index: -1;
-      color: #00800042;
-      letter-spacing: 50px;
-      line-height: 4;
-      font-family: monospace;
-      font-size: 10px;
-      white-space: pre;
-      pointer-events: none;
-      user-select: none;
+      right: 0;
+      z-index: 100;
+      padding: 0 24px;
+      transition: background 0.3s ease, box-shadow 0.3s ease;
     }
 
-    .bold-text {
+    .nav.nav-scrolled {
+      background: rgba(10, 10, 11, 0.85);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      box-shadow: 0 1px 0 var(--border-subtle);
+    }
+
+    .nav-inner {
+      max-width: 1000px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 64px;
+    }
+
+    .nav-logo img {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      opacity: 0.8;
+      transition: opacity 0.3s ease;
+    }
+
+    .nav-logo:hover img {
+      opacity: 1;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 32px;
+    }
+
+    .nav-links a {
+      color: var(--text-tertiary);
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: 0.02em;
+      transition: color 0.3s ease;
       position: relative;
-      left: 16px;
-      top: -65px;
-      font-size: 100px;
-      font-weight: 700;
-      -webkit-text-fill-color: #000;
-      -webkit-text-stroke-width: 1.5px;
-      -webkit-text-stroke-color: #bfbfbf;
     }
 
-    .profile-img {
-      width: 200px;
-      height: 200px;
+    .nav-links a:hover,
+    .nav-links a.active {
+      color: var(--text-primary);
+    }
+
+    .nav-links a.active::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: var(--accent);
+    }
+
+    /* ============================================
+       5b. HERO
+       ============================================ */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding-top: 80px;
+      border-top: none !important;
+    }
+
+    .hero-inner {
+      max-width: 680px;
+    }
+
+    .hero-avatar {
+      margin-bottom: 32px;
+    }
+
+    .hero-avatar img {
+      width: 160px;
+      height: 160px;
       border-radius: 50%;
       object-fit: cover;
+      border: 3px solid var(--accent);
+      box-shadow: 0 0 40px rgba(100, 255, 218, 0.12);
     }
 
-    .text-content {
-      margin-top: 20px;
+    .hero-name {
+      font-size: var(--font-display);
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      margin-bottom: 8px;
     }
 
-    .about-me {
-      font-size: 14px;
-      line-height: 1.7;
-      color: #bababa;
-      max-width: 680px;
-      margin: 14px auto 0;
-      letter-spacing: 0.2px;
-      font-family: "SF Mono", SFMono-Regular, ui-monospace, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+    .hero-title {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: var(--font-small);
+      color: var(--accent);
+      font-weight: 500;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      margin-bottom: 24px;
     }
 
-    .strikethrough {
-      text-decoration: line-through;
+    .hero-bio {
+      font-size: var(--font-body);
+      color: var(--text-secondary);
+      line-height: 1.8;
+      margin-bottom: 32px;
     }
 
-    .highlight {
-      background: linear-gradient(180deg, transparent 0%, #00c300 0%);
-      color: black;
-      padding: 0 2px;
-    }
-
-    .social-icons {
-      position: absolute;
-      top: 20px;
-      right: 20px;
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-    }
-
-    .social-icons a {
-      color: white;
-      text-decoration: none;
-      font-size: 20px;
-    }
-
-    .container {
-      max-width: 800px;
-      margin: 0 auto;
-      padding: 20px;
-    }
-
-    .game-screenshot {
-      height: auto;
-      margin-top: 20px;
-      position: relative;
-      border-radius: 24px;
-    }
-
-    .game-content {
-      border-radius: 24px;
-    }
-
-    .avatar {
-      height: 70px;
-      position: absolute;
-      top: -60px;
-      left: 0;
-      margin: 10px;
-    }
-
-    .gplay {
-      height: 42px;
-      position: absolute;
-      top: -32px;
-      right: 0;
-      margin: 10px;
-    }
-
-    .image-container {
+    .hero-social {
       display: flex;
       justify-content: center;
+      gap: 20px;
+      margin-bottom: 32px;
+    }
+
+    .hero-social a {
+      display: flex;
       align-items: center;
-      flex-direction: column;
-      margin-top: 20px;
-      position: relative;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border-subtle);
+      transition: all 0.3s ease;
     }
 
-    .footer {
-      margin-top: 20px;
+    .hero-social a:hover {
+      border-color: var(--accent);
+      background: var(--accent-dim);
+      transform: translateY(-2px);
     }
 
-    .google-play {
-      width: 150px;
+    .hero-social a img {
+      width: 16px;
+      height: 16px;
+      opacity: 0.6;
+      transition: opacity 0.3s ease;
     }
 
-    .toggle-button {
-      margin-top: 20px;
-      padding: 10px 20px;
-      background-color: green;
-      color: white;
-      border: none;
-      cursor: pointer;
+    .hero-social a:hover img {
+      opacity: 1;
     }
 
-    .separator-row {
+    .hero-actions {
       display: flex;
       justify-content: center;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    /* ============================================
+       5c. BUTTONS
+       ============================================ */
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 28px;
+      background: var(--accent);
+      color: #0a0a0b;
+      font-weight: 600;
+      font-size: 14px;
+      border-radius: 100px;
+      transition: all 0.3s ease;
+      letter-spacing: 0.02em;
+    }
+
+    .btn-primary:hover {
+      background: var(--accent-hover);
+      color: #0a0a0b;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(100, 255, 218, 0.2);
+    }
+
+    .btn-secondary {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 28px;
+      background: transparent;
+      color: var(--text-secondary);
+      font-weight: 500;
+      font-size: 14px;
+      border: 1px solid var(--border-subtle);
+      border-radius: 100px;
+      transition: all 0.3s ease;
+      letter-spacing: 0.02em;
+    }
+
+    .btn-secondary:hover {
+      border-color: var(--border-hover);
+      color: var(--text-primary);
+      transform: translateY(-2px);
+    }
+
+    /* ============================================
+       5d. APP CARDS
+       ============================================ */
+    .apps-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+    }
+
+    .app-card {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border-subtle);
+      border-radius: 16px;
+      overflow: hidden;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .app-card:hover {
+      border-color: var(--border-hover);
+      transform: translateY(-4px);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+    }
+
+    .app-card-image {
+      overflow: hidden;
+      height: 160px;
+    }
+
+    .app-card-image img {
       width: 100%;
-      margin: 20px 0;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.5s ease;
     }
 
-    .separator-text {
-      display: inline-block;
-      width: 50vw;
-      /* 50% of screen width */
+    .app-card:hover .app-card-image img {
+      transform: scale(1.05);
+    }
+
+    .app-card-content {
+      padding: 20px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .app-card-title-row {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 12px;
+    }
+
+    .app-card-logo {
+      width: 56px;
+      height: 56px;
+      border-radius: 14px;
+      object-fit: cover;
+      flex-shrink: 0;
+    }
+
+    .app-card-logo-text {
+      width: 56px;
+      height: 56px;
+      border-radius: 14px;
+      background: var(--accent);
+      color: #0a0a0b;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 26px;
+      flex-shrink: 0;
+    }
+
+    .app-card-title-info {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .app-card-title {
+      font-size: var(--font-h2);
+      line-height: 1.3;
+    }
+
+    .app-card-tagline {
+      color: var(--text-tertiary);
+      font-size: var(--font-small);
+      margin-top: 2px;
+    }
+
+    .app-card-desc {
+      color: var(--text-secondary);
+      font-size: var(--font-small);
+      margin-bottom: 14px;
+      flex: 1;
+      line-height: 1.5;
+    }
+
+    .app-card-links {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .app-card-links a {
+      font-size: 13px;
+      font-weight: 500;
+    }
+
+    .app-card-links .store-badge {
+      height: 30px;
+      width: auto;
+      opacity: 0.8;
+      transition: opacity 0.3s ease;
+    }
+
+    .app-card-links .store-badge:hover {
+      opacity: 1;
+    }
+
+    .coming-soon-card {
+      border-color: rgba(100, 255, 218, 0.2);
       text-align: center;
-      color: green;
-      background: black;
-      white-space: nowrap;
-      font-family: "Source Code Pro", monospace;
-      font-size: clamp(10px, 2.2vw, 14px);
-      /* mobile friendly */
-      line-height: 1;
-      padding: 0 8px;
+      padding: 32px 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      animation: glow-pulse 3s ease-in-out infinite;
     }
 
-    /* Mobile-friendly styles for experience and education sections */
-    .experience-item,
-    .education-item {
-      margin: 15px 0;
-      border-radius: 24px;
+    .coming-soon-card img {
+      width: 72px;
+      height: 72px;
+      margin-bottom: 14px;
     }
 
-    /* Projects grid layout */
+    .coming-soon-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: var(--font-small);
+      color: var(--accent);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    .coming-soon-title {
+      font-size: var(--font-h2);
+      margin: 6px 0 4px;
+    }
+
+    @keyframes glow-pulse {
+
+      0%,
+      100% {
+        box-shadow: 0 0 20px rgba(100, 255, 218, 0.03);
+      }
+
+      50% {
+        box-shadow: 0 0 40px rgba(100, 255, 218, 0.1);
+      }
+    }
+
+    /* ============================================
+       5e. PROJECT CARDS
+       ============================================ */
     .projects-grid {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
       gap: 20px;
-      margin: 20px 0;
     }
 
-    /* Responsive grid - single column on smaller screens */
+    .project-card {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border-subtle);
+      border-radius: 16px;
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .project-card:hover {
+      border-color: var(--border-hover);
+      transform: translateY(-4px);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+    }
+
+    .project-card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 12px;
+    }
+
+    .project-number {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: var(--font-small);
+      color: var(--accent);
+      font-weight: 500;
+    }
+
+    .project-date {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: var(--font-small);
+      color: var(--text-tertiary);
+    }
+
+    .project-title {
+      font-size: var(--font-h2);
+      margin-bottom: 8px;
+      letter-spacing: -0.01em;
+    }
+
+    .project-desc {
+      color: var(--text-secondary);
+      font-size: var(--font-body);
+      line-height: 1.7;
+      margin-bottom: 16px;
+      flex-grow: 1;
+    }
+
+    .project-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 16px;
+    }
+
+    .tag {
+      display: inline-block;
+      padding: 4px 12px;
+      background: var(--accent-dim);
+      color: var(--accent);
+      border-radius: 100px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: var(--font-small);
+      font-weight: 500;
+    }
+
+    .project-links {
+      display: flex;
+      gap: 16px;
+    }
+
+    .project-links a {
+      font-size: 13px;
+      font-weight: 500;
+    }
+
+    /* ============================================
+       5f. TIMELINE (EXPERIENCE)
+       ============================================ */
+    .timeline {
+      position: relative;
+      padding-left: 32px;
+    }
+
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 7px;
+      top: 0;
+      bottom: 0;
+      width: 2px;
+      background: var(--border-subtle);
+    }
+
+    .timeline-item {
+      position: relative;
+      margin-bottom: 32px;
+    }
+
+    .timeline-item:last-child {
+      margin-bottom: 0;
+    }
+
+    .timeline-dot {
+      position: absolute;
+      left: -29px;
+      top: 28px;
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      background: var(--bg-primary);
+      border: 2px solid var(--accent);
+    }
+
+    .timeline-card {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border-subtle);
+      border-radius: 16px;
+      padding: 24px;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .timeline-card:hover {
+      border-color: var(--border-hover);
+    }
+
+    .timeline-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 16px;
+    }
+
+    .timeline-role {
+      font-size: var(--font-h2);
+      margin-bottom: 4px;
+    }
+
+    .timeline-company {
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: 2px;
+    }
+
+    .timeline-location {
+      color: var(--text-tertiary);
+      font-size: 14px;
+    }
+
+    .timeline-date {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: var(--font-small);
+      color: var(--accent);
+      white-space: nowrap;
+    }
+
+    .timeline-bullets {
+      list-style: none;
+      padding: 0;
+      margin-bottom: 16px;
+    }
+
+    .timeline-bullets li {
+      position: relative;
+      padding-left: 16px;
+      margin-bottom: 8px;
+      color: var(--text-secondary);
+      font-size: var(--font-body);
+      line-height: 1.7;
+    }
+
+    .timeline-bullets li::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 10px;
+      width: 4px;
+      height: 4px;
+      border-radius: 50%;
+      background: var(--text-tertiary);
+    }
+
+    .timeline-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    /* ============================================
+       5g. EDUCATION
+       ============================================ */
+    .education-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+    }
+
+    .edu-card {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border-subtle);
+      border-radius: 16px;
+      padding: 24px;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .edu-card:hover {
+      border-color: var(--border-hover);
+    }
+
+    .edu-date {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: var(--font-small);
+      color: var(--accent);
+      display: block;
+      margin-bottom: 12px;
+    }
+
+    .edu-degree {
+      font-size: var(--font-h2);
+      margin-bottom: 8px;
+      letter-spacing: -0.01em;
+    }
+
+    .edu-school {
+      font-weight: 600;
+      font-size: 15px;
+      margin-bottom: 2px;
+    }
+
+    .edu-location {
+      color: var(--text-tertiary);
+      font-size: 14px;
+      margin-bottom: 16px;
+    }
+
+    .edu-detail {
+      color: var(--text-secondary);
+      font-size: var(--font-body);
+      line-height: 1.7;
+    }
+
+    /* ============================================
+       5h. FOOTER
+       ============================================ */
+    .footer {
+      border-top: 1px solid var(--border-subtle);
+      padding: 40px 0;
+      position: relative;
+      z-index: 1;
+    }
+
+    .footer-inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    .footer-brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: var(--text-tertiary);
+      font-size: 13px;
+    }
+
+    .footer-brand img {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      opacity: 0.8;
+    }
+
+    .footer-brand a {
+      color: var(--text-secondary);
+      font-weight: 500;
+    }
+
+    .privacy-toggle {
+      background: none;
+      border: 1px solid var(--border-subtle);
+      color: var(--text-tertiary);
+      padding: 8px 16px;
+      border-radius: 100px;
+      font-size: 12px;
+      font-family: 'Inter', sans-serif;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .privacy-toggle:hover {
+      border-color: var(--border-hover);
+      color: var(--text-secondary);
+    }
+
+    .privacy-content {
+      margin-top: 40px;
+      padding: 32px;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border-subtle);
+      border-radius: 16px;
+      color: var(--text-secondary);
+      font-size: 14px;
+      line-height: 1.8;
+      text-align: left;
+    }
+
+    .privacy-content h2,
+    .privacy-content h3 {
+      color: var(--text-primary);
+      margin: 24px 0 12px;
+      font-size: 18px;
+    }
+
+    .privacy-content h2:first-child {
+      margin-top: 0;
+    }
+
+    .privacy-content p {
+      margin-bottom: 12px;
+    }
+
+    .privacy-content ul {
+      padding-left: 20px;
+      margin-bottom: 12px;
+    }
+
+    .privacy-content li {
+      margin-bottom: 6px;
+    }
+
+    .privacy-content a {
+      color: var(--accent);
+    }
+
+    .privacy-content strong {
+      color: var(--text-primary);
+    }
+
+    /* ============================================
+       6. ANIMATIONS
+       ============================================ */
+    .reveal {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Stagger delays for grid items */
+    .stagger-1 { transition-delay: 0ms; }
+    .stagger-2 { transition-delay: 80ms; }
+    .stagger-3 { transition-delay: 160ms; }
+    .stagger-4 { transition-delay: 240ms; }
+    .stagger-5 { transition-delay: 320ms; }
+    .stagger-6 { transition-delay: 400ms; }
+    .stagger-7 { transition-delay: 480ms; }
+    .stagger-8 { transition-delay: 560ms; }
+    .stagger-9 { transition-delay: 640ms; }
+    .stagger-10 { transition-delay: 720ms; }
+
+    /* ============================================
+       7. RESPONSIVE
+       ============================================ */
     @media (max-width: 1024px) {
       .projects-grid {
         grid-template-columns: 1fr;
-        gap: 15px;
+      }
+
+      .apps-grid {
+        grid-template-columns: 1fr;
       }
     }
 
     @media (max-width: 768px) {
-
-      .experience-item,
-      .education-item {
-        padding: 15px !important;
-        margin: 15px 0 !important;
+      .section {
+        padding: 56px 0;
       }
 
-      .experience-item h3,
-      .education-item h3 {
-        font-size: 18px !important;
+      .section-title {
+        margin-bottom: 32px;
       }
 
-      .experience-item p,
-      .education-item p {
-        font-size: 16px !important;
+      .nav-links {
+        gap: 20px;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
       }
 
-      .experience-item ul,
-      .education-item ul {
-        font-size: 14px !important;
-        padding-left: 15px !important;
+      .nav-links::-webkit-scrollbar {
+        display: none;
       }
 
-      .experience-item div[style*="display: flex"],
-      .education-item div[style*="display: flex"] {
-        flex-direction: column !important;
-        align-items: flex-start !important;
-        gap: 5px !important;
+      .hero {
+        min-height: auto;
+        padding-top: 120px;
+        padding-bottom: 60px;
       }
 
-      .experience-item span[style*="white-space: nowrap"],
-      .education-item span[style*="white-space: nowrap"] {
-        white-space: normal !important;
+      .hero-avatar img {
+        width: 120px;
+        height: 120px;
       }
 
-      .projects-grid {
+      .education-grid {
         grid-template-columns: 1fr;
-        gap: 15px;
+      }
+
+      .timeline {
+        padding-left: 0;
+      }
+
+      .timeline::before {
+        display: none;
+      }
+
+      .timeline-dot {
+        display: none;
       }
     }
 
     @media (max-width: 480px) {
       .container {
-        padding: 10px;
+        padding: 0 16px;
       }
 
-      h2 {
-        font-size: 24px;
-        margin: 20px 0;
+      .nav-inner {
+        height: 56px;
       }
 
-      .experience-item,
-      .education-item {
-        padding: 12px !important;
+      .nav-links {
+        gap: 16px;
       }
 
-      .experience-item div[style*="flex-wrap"],
-      .education-item div[style*="flex-wrap"] {
-        gap: 3px !important;
+      .nav-links a {
+        font-size: 12px;
       }
 
-      .experience-item span[style*="background: #333"],
-      .education-item span[style*="background: #333"] {
-        font-size: 11px !important;
-        padding: 3px 6px !important;
+      .hero-actions {
+        flex-direction: column;
+        align-items: center;
       }
 
-      .projects-grid {
-        gap: 10px;
+      .app-card-content {
+        padding: 16px;
+      }
+
+      .project-card {
+        padding: 20px;
+      }
+
+      .timeline-card {
+        padding: 20px;
+      }
+
+      .timeline-header {
+        flex-direction: column;
+      }
+
+      .edu-card {
+        padding: 20px;
       }
     }
   </style>
 </head>
 
 <body>
-  <div class="background-pattern" id="pattern"></div>
-  <div class="container">
-    <div class="container">
-      <div style="display: flex; align-items: center; justify-content: center;">
-        <img style="margin-left: 36px;" src="profile.jpg" alt="Profile Image" class="profile-img">
-        <div style="display: flex; flex-direction: column; margin-left: 20px; gap:9px">
-          <a href="https://in.pinterest.com/bandarubharath/" target="_blank" rel="noopener noreferrer"><img
-              src="pinterest.svg" alt="Pinterest" width="16" height="16"></a>
-          <a href="https://www.linkedin.com/in/bharathbandaru/" target="_blank" rel="noopener noreferrer"><img
-              src="linkedin.svg" alt="LinkedIn" width="16" height="16"></a>
-          <a href="https://github.com/bharath-bandaru" target="_blank" rel="noopener noreferrer"><img src="github.svg"
-              alt="GitHub" width="16" height="16"></a>
-          <a href="https://twitter.com/thisismebharath" target="_blank" rel="noopener noreferrer"><img src="twitter.svg"
-              alt="Twitter" width="16" height="16"></a>
-          <a href="https://www.instagram.com/bharath_bandaru_/" target="_blank" rel="noopener noreferrer"><img
-              src="instagram.svg" alt="Instagram" width="18" height="18"></a>
 
-        </div>
-      </div>
-      <p>Bharath Bandaru</p>
-      <div class="text-content">
-        <h2>👋 <strong>Hi there.</strong></h2>
-        <p class="about-me">
-          I am a <span class="highlight">Software Engineer</span> with expertise in cloud infrastructure, microservices architecture, and AI/ML systems. Currently working at Script Health, I specialize in building scalable distributed systems using JavaScript, AWS, and scalable cloud-native platforms and microservices architectures. I love coding and painting portraits. As a coding enthusiast, I take great pride in my <span class="highlight">keen eye for detail</span> and my unwavering commitment to creating innovations that shape our world for the better. Look at my recent projects!
-        </p>
-        <p style="font-size: 15px; margin-bottom:0; letter-spacing: 0;">Glad to meet you! <span style="font-size: 24px;">🍻</span></p>
-        <br>
-        
-        <p>Viewing on desktop? Check out my portfolio — built for big screens 👉 <a
-            href="https://portfolio-4a2e3.web.app/" target="_blank" rel="noopener noreferrer"
-            style="color: green; text-decoration: underline; font-size: 24px;">🔮</a> 👈</p>
-        <br>
-        <a href="resume.pdf" target="_blank" rel="noopener noreferrer"
-            style="display: inline-block; padding: 10px 24px; background: #F3F210; color: black; text-decoration: none; border-radius: 8px; font-size: 14px; font-family: 'SF Mono', SFMono-Regular, ui-monospace, Menlo, Monaco, Consolas, monospace; letter-spacing: 0.5px;"> Resume</a>
+  <!-- Navigation -->
+  <nav class="nav" id="nav">
+    <div class="nav-inner">
+      <a class="nav-logo" href="#about"><img src="images/logo.png" alt="Bharath Bandaru"></a>
+      <div class="nav-links">
+        <a href="#about">About</a>
+        <a href="#apps">Apps</a>
+        <a href="#projects">Projects</a>
+        <a href="#experience">Experience</a>
+        <a href="#education">Education</a>
       </div>
     </div>
-    <!-- <hr style="border: none; border-top: 2px solid green; text-align: center; margin: 20px 0;"> -->
-    <!-- REPLACED static span with responsive, generated separator -->
-    <div class="separator-row">
-      <span id="dynamic-separator" class="separator-text" aria-hidden="true"></span>
-    </div>
+  </nav>
 
-
-    <br>
-
-    <h1>Portfolio.</h1>
-
-    <div class="game-item" style="position: relative; margin-top: 20px; margin-bottom: 20px;">
-      <p class="bold-text" style="position: absolute; left: -107px; top: 30px; margin: 0;">...</p>
-      <div class="game-content" style="border: 1px dotted; padding: 20px;">
-        <p style="font-size: 21px;">Something big is coming... ✨</p>
-        <div style="text-align: center; color: #888;">
-          <img src="logo-roamates.png" alt="Roamates" style="width: 150px; height: 150px;">
-          <p style="font-size: 18px; margin-top: 24px;">🚀 Stay tuned!</p>
-        </div>
+  <!-- Hero -->
+  <section id="about" class="section hero">
+    <div class="hero-inner">
+      <div class="hero-avatar reveal">
+        <img src="images/profile.jpg" alt="Bharath Bandaru">
+      </div>
+      <h1 class="hero-name reveal">Bharath Bandaru</h1>
+      <p class="hero-title reveal">Senior Full-Stack Engineer</p>
+      <p class="hero-bio reveal">
+        I am a Senior Full-Stack Engineer with 9+ years building production systems at scale — across Fortune 500
+        companies (JP Morgan Chase, McKesson) and cross-platform apps with 17,000+ downloads. Expert in React, Node.js,
+        Flutter/Dart, AWS, Spring Boot, and Java. Combines strong product instinct (Figma to production) with deep
+        backend and cloud engineering. Proven track record of shipping products independently, mentoring teams, and
+        eliminating manual work through automation. I love building products and painting portraits. Currently expanding
+        into AI agents orchestration — integrating LLM-powered workflows into production systems.
+      </p>
+      <div class="hero-social reveal">
+        <a href="https://www.linkedin.com/in/bharathbandaru/" target="_blank" rel="noopener noreferrer"
+          title="LinkedIn"><img src="icons/linkedin.svg" alt="LinkedIn"></a>
+        <a href="https://github.com/bharath-bandaru" target="_blank" rel="noopener noreferrer" title="GitHub"><img
+            src="icons/github.svg" alt="GitHub"></a>
+        <a href="https://twitter.com/thisismebharath" target="_blank" rel="noopener noreferrer" title="Twitter"><img
+            src="icons/twitter.svg" alt="Twitter"></a>
+        <a href="https://www.instagram.com/bharath_bandaru_/" target="_blank" rel="noopener noreferrer"
+          title="Instagram"><img src="icons/instagram.svg" alt="Instagram"></a>
+        <a href="https://in.pinterest.com/bandarubharath/" target="_blank" rel="noopener noreferrer"
+          title="Pinterest"><img src="icons/pinterest.svg" alt="Pinterest"></a>
+      </div>
+      <div class="hero-actions reveal">
+        <a class="btn-primary" href="resume.pdf" target="_blank" rel="noopener noreferrer">Resume</a>
+        <a class="btn-secondary" href="https://portfolio-4a2e3.web.app/" target="_blank"
+          rel="noopener noreferrer">Desktop Portfolio</a>
       </div>
     </div>
+  </section>
 
+  <!-- Published Apps -->
+  <section id="apps" class="section">
+    <div class="container container-wide">
+      <h2 class="section-title reveal">Published Apps</h2>
+      <div class="apps-grid">
 
-    <br>
-    <h2> Here are the few apps that I published!</h2>
+        <!-- Roamates -->
+        <article class="app-card reveal stagger-1">
+          <div class="app-card-image">
+            <a href="https://play.google.com/store/apps/details?id=us.ephileo.roamates" target="_blank" rel="noopener noreferrer">
+              <img src="images/roamates/banner.png" alt="Roamates" loading="lazy">
+            </a>
+          </div>
+          <div class="app-card-content">
+            <div class="app-card-title-row">
+              <img src="images/roamates/logo.png" alt="" class="app-card-logo">
+              <div class="app-card-title-info">
+                <h3 class="app-card-title">Roamates</h3>
+                <span class="app-card-tagline">Your journey, together</span>
+              </div>
+            </div>
+            <p class="app-card-desc">Find your perfect travel companions.</p>
+            <div class="app-card-links">
+              <a href="https://play.google.com/store/apps/details?id=us.ephileo.roamates" target="_blank"
+                rel="noopener noreferrer"><img src="images/gplay.png" alt="Get it on Google Play" class="store-badge"></a>
+              <a href="https://apps.apple.com/us/app/roamates/id6757687270" target="_blank"
+                rel="noopener noreferrer"><img src="images/ios.png" alt="Download on the App Store" class="store-badge"></a>
+            </div>
+          </div>
+        </article>
 
-    <div class="game-item" style="position: relative; margin-top: 20px; margin-bottom: 20px;">
-      <p class="bold-text" style="position: absolute; left: -107px; top: 30px; margin: 0;">3.</p>
-      <div class="game-content" style="border: 1px dotted; padding: 20px;">
-        <p style="font-size: 21px;">ephileo - build products people love  <a href="https://ephileo.us" target="_blank" rel="noopener noreferrer" style="color: green; text-decoration: underline;">here</a> ✨</p>
-        <div class="image-container">
-          <a href="https://ephileo.us" target="_blank" rel="noopener noreferrer">
-            <img style="width: 100%; height: auto;" src="ephileo.png" alt="Ephileo" class="game-screenshot">
-          </a>
-        </div>
+        <!-- Chain Reaction -->
+        <article class="app-card reveal stagger-2">
+          <div class="app-card-image">
+            <a href="https://bharath-bandaru.github.io/chain-reaction-game/" target="_blank" rel="noopener noreferrer">
+              <img src="images/chain-reaction/banner.png" alt="Chain Reaction Game" loading="lazy">
+            </a>
+          </div>
+          <div class="app-card-content">
+            <div class="app-card-title-row">
+              <img src="images/chain-reaction/logo.png" alt="" class="app-card-logo">
+              <div class="app-card-title-info">
+                <h3 class="app-card-title">Chain Reaction</h3>
+                <span class="app-card-tagline">Explosive fun for everyone</span>
+              </div>
+            </div>
+            <p class="app-card-desc">Online multiplayer strategic game. Challenge your friends.</p>
+            <div class="app-card-links">
+              <a href="https://bharath-bandaru.github.io/chain-reaction-game/" target="_blank"
+                rel="noopener noreferrer">Play Online &rarr;</a>
+              <a href="https://play.google.com/store/apps/details?id=com.bhvp.chainreaction" target="_blank"
+                rel="noopener noreferrer"><img src="images/gplay.png" alt="Get it on Google Play" class="store-badge"></a>
+            </div>
+          </div>
+        </article>
+
+        <!-- Ephileo -->
+        <article class="app-card reveal stagger-3">
+          <div class="app-card-image">
+            <a href="https://ephileo.us" target="_blank" rel="noopener noreferrer">
+              <img src="images/ephileo/banner.png" alt="Ephileo" loading="lazy">
+            </a>
+          </div>
+          <div class="app-card-content">
+            <div class="app-card-title-row">
+              <span class="app-card-logo-text">E</span>
+              <div class="app-card-title-info">
+                <h3 class="app-card-title">Ephileo</h3>
+                <span class="app-card-tagline">Build products people love</span>
+              </div>
+            </div>
+            <p class="app-card-desc">A product studio helping you ship ideas faster.</p>
+            <div class="app-card-links">
+              <a href="https://ephileo.us" target="_blank" rel="noopener noreferrer">Visit Site &rarr;</a>
+            </div>
+          </div>
+        </article>
+
+        <!-- Escape Puzzle -->
+        <article class="app-card reveal stagger-4">
+          <div class="app-card-image">
+            <a href="https://bharath-bandaru.github.io/escape-web/" target="_blank" rel="noopener noreferrer">
+              <img src="images/escape/banner.png" alt="Escape Puzzle Game" loading="lazy">
+            </a>
+          </div>
+          <div class="app-card-content">
+            <div class="app-card-title-row">
+              <img src="images/escape/logo.png" alt="" class="app-card-logo">
+              <div class="app-card-title-info">
+                <h3 class="app-card-title">Escape Game</h3>
+                <span class="app-card-tagline">Can you escape in time?</span>
+              </div>
+            </div>
+            <p class="app-card-desc">Puzzle game inspired by the Museum of Illusions. Play across all platforms.</p>
+            <div class="app-card-links">
+              <a href="https://bharath-bandaru.github.io/escape-web/" target="_blank" rel="noopener noreferrer">Play
+                Online &rarr;</a>
+              <a href="https://play.google.com/store/apps/details?id=com.bhvp.escapeGame" target="_blank"
+                rel="noopener noreferrer"><img src="images/gplay.png" alt="Get it on Google Play" class="store-badge"></a>
+              <a href="https://apps.apple.com/us/app/escape-brain-teaser/id6743350755" target="_blank"
+                rel="noopener noreferrer"><img src="images/ios.png" alt="Download on the App Store" class="store-badge"></a>
+            </div>
+          </div>
+        </article>
+
       </div>
     </div>
+  </section>
 
-    <div class="game-item" style="position: relative; margin-top: 20px; margin-bottom: 20px;">
-      <p class="bold-text" style="position: absolute; left: -107px; top: 30px; margin: 0;">2.</p>
-      <div class="game-content" style="border: 1px dotted; padding: 20px;">
-        <p style="font-size: 21px; padding-bottom: 20px;">Play chain reaction <a href="https://bharath-bandaru.github.io/chain-reaction-game/"
-            target="_blank" style="color: green; text-decoration: underline;">here</a>. ✨</p>
-        <div class="image-container">
-          <a href="https://portfolio-4a2e3.web.app/" target="_blank" rel="noopener noreferrer">
-            <img src="avatar.png" alt="Avatar" class="avatar">
-          </a>
-          <a href="https://play.google.com/store/apps/details?id=com.bhvp.chainreaction">
-            <img src="gplay.png" alt="Get it on Google Play" class="gplay">
-          </a>
-          <a href="https://bharath-bandaru.github.io/chain-reaction-game/" target="_blank" rel="noopener noreferrer">
-            <img style="width: 100%; height: auto;" src="banner.png" alt="Chain Reaction Game" class="game-screenshot">
-          </a>
-        </div>
-        <div class="footer"></div>
-        <a href="https://play.google.com/store/apps/details?id=com.bhvp.chainreaction"
-          style="color: gray; text-decoration: underline;">
-          Get it on Google Play
-        </a>
-      </div>
-    </div>
-
-    <div class="game-item" style="position: relative; margin-top: 20px; margin-bottom: 20px;">
-      <p class="bold-text" style="position: absolute; left: -107px; top: 30px; margin: 0;">1.</p>
-      <div class="game-content" style="border: 1px dotted; padding: 20px;">
-        <p style="font-size: 21px; padding-bottom: 20px;">Escape Puzzle Game <a href="https://bharath-bandaru.github.io/escape-web/"
-            target="_blank" style="color: green; text-decoration: underline;">here</a>. ✨</p>
-        <div class="image-container">
-          <a href="https://portfolio-4a2e3.web.app/" target="_blank" rel="noopener noreferrer">
-            <img src="avatar.png" alt="Avatar" class="avatar">
-          </a>
-          <a href="https://play.google.com/store/apps/details?id=com.bhvp.escapeGame">
-            <img src="gplay.png" style="height: 42px; width: auto;" alt="Get it on Google Play" class="gplay">
-          </a>
-          <a href="https://apps.apple.com/us/app/escape-brain-teaser/id6743350755">
-            <img src="ios.png" alt="Download on the App Store" class="gplay"
-              style="top: -42px; right: 150px; height: 64px; z-index: -1; width: auto;">
-          </a>
-          <a href="https://bharath-bandaru.github.io/escape-web/" target="_blank" rel="noopener noreferrer">
-            <img style="width: 100%; height: auto;" src="escape.png" alt="Chain Reaction Game" class="game-screenshot">
-          </a>
-        </div>
-        <div class="footer"></div>
-        <a href="https://play.google.com/store/apps/details?id=com.bhvp.escapeGame"
-          style="color: gray; text-decoration: underline;">
-          Get it on Google Play
-        </a>
-        <br>
-        <a href="https://apps.apple.com/us/app/escape-brain-teaser/id6743350755"
-          style="color: gray; text-decoration: underline;">
-          Download on the App Store
-        </a>
-      </div>
-    </div>
-  </div>
-  </div>
-
-  <!-- Projects Section -->
-  <div class="separator-row">
-    <span id="dynamic-separator-2" class="separator-text" aria-hidden="true"></span>
-  </div>
-
-  <div id="projects-section" style="margin: 40px 0;">
-    <div class="container">
-      <h1>💻 Projects</h1>
-
+  <!-- Projects -->
+  <section id="projects" class="section">
+    <div class="container container-wide">
+      <h2 class="section-title reveal">Projects</h2>
       <div class="projects-grid">
-        <!-- Project 1: Chain Reaction Game -->
-        <div class="education-item" style="border: 1px dotted; padding: 20px; margin: 0; text-align: left;">
-          <div
-            style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 10px;">
-            <div>
-              <h3 style="color: green; margin: 0; font-size: 20px;"><span
-                  style="color: #888; font-size: 16px;">1.</span> Chain Reaction Game</h3>
-              <p style="margin: 5px 0; color: #ddd; font-size: 16px;">Online multiplayer game designed and developed
-                using React JS. Using react hooks and firebase real database, this is a single page game application I
-                developed for fun and learning React JS. Recently I added AI player to play with you, implemented using
-                Minimax algorithm.</p>
-            </div>
-            <span style="color: green; font-size: 14px; white-space: nowrap;">[2022-2023]</span>
-          </div>
-          <div style="display: flex; flex-wrap: wrap; gap: 8px; margin: 15px 0;">
-            <span
-              style="background: #333; padding: 4px 8px; border-radius: 4px; font-size: 12px; color: green;">REACT</span>
-            <span style="background: #333; padding: 4px 8px; border-radius: 4px; font-size: 12px; color: green;">DATA
-              STRUCTURES</span>
-            <span style="background: #333; padding: 4px 8px; border-radius: 4px; font-size: 12px;">HOOKS</span>
-            <span style="background: #333; padding: 4px 8px; border-radius: 4px; font-size: 12px;">Firebase</span>
-          </div>
-          <div style="margin: 10px 0;">
-            <p style="margin: 5px 0; color: #ddd; font-size: 14px;">
-              <strong>Demo:</strong> <a href="https://bharath-bandaru.github.io/chain-reaction-game/" target="_blank"
-                style="color: green;">Play the game here</a>
-            </p>
-            <p style="margin: 5px 0; color: #ddd; font-size: 14px;">
-              <strong>GitHub:</strong> <a href="https://github.com/bharath-bandaru/chain-reaction-game" target="_blank"
-                style="color: green;">Source code</a>
-            </p>
-          </div>
-        </div>
 
-        <!-- Project 2: Escape Game -->
-        <div class="education-item" style="border: 1px dotted; padding: 20px; margin: 0; text-align: left;">
-          <div
-            style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 10px;">
-            <div>
-              <h3 style="color: green; margin: 0; font-size: 20px;"><span
-                  style="color: #888; font-size: 16px;">2.</span> Escape Game</h3>
-              <p style="margin: 5px 0; color: #ddd; font-size: 16px;">When I visited the Museum of Illusions, I saw this
-                fascinating puzzle on display but noticed there wasn't any app version available online. Inspired by the
-                concept, I decided to create one myself using Flutter, turning it into a mobile game where players solve
-                the puzzle across all platforms.</p>
-            </div>
-            <span style="color: green; font-size: 14px; white-space: nowrap;">[2022]</span>
+        <article class="project-card reveal stagger-1">
+          <div class="project-card-header">
+            <span class="project-number">01</span>
+            <span class="project-date">2022 — 2023</span>
           </div>
-          <div style="display: flex; flex-wrap: wrap; gap: 8px; margin: 15px 0;">
-            <span
-              style="background: #333; padding: 4px 8px; border-radius: 4px; font-size: 12px; color: green;">FLUTTER</span>
-            <span style="background: #333; padding: 4px 8px; border-radius: 4px; font-size: 12px;">FIREBASE</span>
-            <span style="background: #333; padding: 4px 8px; border-radius: 4px; font-size: 12px;">FIGMA</span>
+          <h3 class="project-title">Chain Reaction Game</h3>
+          <p class="project-desc">Online multiplayer game designed and developed using React JS. Using react hooks and
+            firebase real database, this is a single page game application I developed for fun and learning React JS.
+            Recently I added AI player to play with you, implemented using Minimax algorithm.</p>
+          <div class="project-tags">
+            <span class="tag">React</span>
+            <span class="tag">Data Structures</span>
+            <span class="tag">Hooks</span>
+            <span class="tag">Firebase</span>
           </div>
-          <div style="margin: 10px 0;">
-            <p style="margin: 5px 0; color: #ddd; font-size: 14px;">
-              <strong>Demo:</strong> <a href="https://bharath-bandaru.github.io/escape-web/" target="_blank"
-                style="color: green;">Play the game here</a>
-            </p>
-            <p style="margin: 5px 0; color: #ddd; font-size: 14px;">
-              <strong>GitHub:</strong> <a href="https://github.com/bharath-bandaru/escape-web" target="_blank"
-                style="color: green;">Source code</a>
-            </p>
+          <div class="project-links">
+            <a href="https://bharath-bandaru.github.io/chain-reaction-game/" target="_blank">Demo</a>
+            <a href="https://github.com/bharath-bandaru/chain-reaction-game" target="_blank">GitHub</a>
           </div>
-        </div>
+        </article>
 
-        <!-- Project 3: Chat GPT Detector -->
-        <div class="education-item" style="border: 1px dotted; padding: 20px; margin: 0; text-align: left;">
-          <div
-            style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 10px;">
-            <div>
-              <h3 style="color: green; margin: 0; font-size: 20px;"><span
-                  style="color: #888; font-size: 16px;">3.</span> Chat GPT Detector</h3>
-              <p style="margin: 5px 0; color: #ddd; font-size: 16px;">Developed and hosted an application for our
-                university (Illinois Tech) to help professors and TAs grade student assignments by detecting
-                AI-generated content using advanced machine learning models.</p>
-            </div>
-            <span style="color: green; font-size: 14px; white-space: nowrap;">[2022]</span>
+        <article class="project-card reveal stagger-2">
+          <div class="project-card-header">
+            <span class="project-number">02</span>
+            <span class="project-date">2022</span>
           </div>
-          <div style="display: flex; flex-wrap: wrap; gap: 8px; margin: 15px 0;">
-            <span
-              style="background: #333; padding: 4px 8px; border-radius: 4px; font-size: 12px; color: green;">AWS</span>
-            <span
-              style="background: #333; padding: 4px 8px; border-radius: 4px; font-size: 12px; color: green;">BERT</span>
-            <span style="background: #333; padding: 4px 8px; border-radius: 4px; font-size: 12px;">Python</span>
-            <span style="background: #333; padding: 4px 8px; border-radius: 4px; font-size: 12px;">React</span>
-            <span style="background: #333; padding: 4px 8px; border-radius: 4px; font-size: 12px;">Docker</span>
+          <h3 class="project-title">Escape Game</h3>
+          <p class="project-desc">When I visited the Museum of Illusions, I saw this fascinating puzzle on display but
+            noticed there wasn't any app version available online. Inspired by the concept, I decided to create one
+            myself using Flutter, turning it into a mobile game where players solve the puzzle across all platforms.</p>
+          <div class="project-tags">
+            <span class="tag">Flutter</span>
+            <span class="tag">Firebase</span>
+            <span class="tag">Figma</span>
           </div>
-        </div>
+          <div class="project-links">
+            <a href="https://bharath-bandaru.github.io/escape-web/" target="_blank">Demo</a>
+            <a href="https://github.com/bharath-bandaru/escape-web" target="_blank">GitHub</a>
+          </div>
+        </article>
 
-        <!-- Project 4: Head Pose Detection -->
-        <div class="education-item" style="border: 1px dotted; padding: 20px; margin: 0; text-align: left;">
-          <div
-            style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 10px;">
-            <div>
-              <h3 style="color: green; margin: 0; font-size: 20px;"><span
-                  style="color: #888; font-size: 16px;">4.</span> Head Pose Detection</h3>
-              <p style="margin: 5px 0; color: #ddd; font-size: 16px;">Imagine interacting with your computer using eye
-                contact and hand gestures instead of mouse/trackpad. Using Machine Learning (CNN) and Computer Vision
-                architecture, my aim is to track eye/head movement for Human Computer Interaction.</p>
-            </div>
-            <span style="color: green; font-size: 14px; white-space: nowrap;">[2021]</span>
+        <article class="project-card reveal stagger-3">
+          <div class="project-card-header">
+            <span class="project-number">03</span>
+            <span class="project-date">2022</span>
           </div>
-          <div style="display: flex; flex-wrap: wrap; gap: 8px; margin: 15px 0;">
-            <span style="background: #333; padding: 4px 8px; border-radius: 4px; font-size: 12px;">OpenCV</span>
-            <span
-              style="background: #333; padding: 4px 8px; border-radius: 4px; font-size: 12px; color: green;">Keras</span>
-            <span style="background: #333; padding: 4px 8px; border-radius: 4px; font-size: 12px;">CNN</span>
-            <span style="background: #333; padding: 4px 8px; border-radius: 4px; font-size: 12px;">Computer
-              Vision</span>
+          <h3 class="project-title">Chat GPT Detector</h3>
+          <p class="project-desc">Developed and hosted an application for our university (Illinois Tech) to help
+            professors and TAs grade student assignments by detecting AI-generated content using advanced machine
+            learning models.</p>
+          <div class="project-tags">
+            <span class="tag">AWS</span>
+            <span class="tag">BERT</span>
+            <span class="tag">Python</span>
+            <span class="tag">React</span>
+            <span class="tag">Docker</span>
           </div>
-          <div style="margin: 10px 0;">
-            <p style="margin: 5px 0; color: #ddd; font-size: 14px;">
-              <strong>GitHub:</strong> <a href="https://github.com/bharath-bandaru/head-pose-detection" target="_blank"
-                style="color: green;">Source code</a>
-            </p>
-          </div>
-        </div>
+        </article>
 
-        <!-- Project 5: NoWhere -->
-        <div class="education-item" style="border: 1px dotted; padding: 20px; margin: 0; text-align: left;">
-          <div
-            style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 10px;">
-            <div>
-              <h3 style="color: green; margin: 0; font-size: 20px;"><span
-                  style="color: #888; font-size: 16px;">5.</span> NoWhere - Social Platform</h3>
-              <p style="margin: 5px 0; color: #ddd; font-size: 16px;">A social platform designed and developed to aid
-                people who have lost their paths in life by allowing them to confess their pain anonymously to the
-                public using text or audio within a community.</p>
-            </div>
-            <span style="color: green; font-size: 14px; white-space: nowrap;">[2020]</span>
+        <article class="project-card reveal stagger-4">
+          <div class="project-card-header">
+            <span class="project-number">04</span>
+            <span class="project-date">2021</span>
           </div>
-          <div style="display: flex; flex-wrap: wrap; gap: 8px; margin: 15px 0;">
-            <span style="background: #333; padding: 4px 8px; border-radius: 4px; font-size: 12px;">Angular</span>
-            <span
-              style="background: #333; padding: 4px 8px; border-radius: 4px; font-size: 12px; color: green;">Figma</span>
-            <span style="background: #333; padding: 4px 8px; border-radius: 4px; font-size: 12px;">Firebase</span>
+          <h3 class="project-title">Head Pose Detection</h3>
+          <p class="project-desc">Imagine interacting with your computer using eye contact and hand gestures instead of
+            mouse/trackpad. Using Machine Learning (CNN) and Computer Vision architecture, my aim is to track eye/head
+            movement for Human Computer Interaction.</p>
+          <div class="project-tags">
+            <span class="tag">OpenCV</span>
+            <span class="tag">Keras</span>
+            <span class="tag">CNN</span>
+            <span class="tag">Computer Vision</span>
           </div>
-          <div style="margin: 10px 0;">
-            <p style="margin: 5px 0; color: #ddd; font-size: 14px;">
-              <strong>Demo:</strong> <a href="https://nowhere-55.web.app/" target="_blank" style="color: green;">Live
-                application</a>
-            </p>
-            <p style="margin: 5px 0; color: #ddd; font-size: 14px;">
-              <strong>GitHub:</strong> <a href="https://github.com/bharath-bandaru/ng-nowhere" target="_blank"
-                style="color: green;">Source code</a>
-            </p>
+          <div class="project-links">
+            <a href="https://github.com/bharath-bandaru/head-pose-detection" target="_blank">GitHub</a>
           </div>
-        </div>
+        </article>
 
-        <!-- Project 6: Paper Clip -->
-        <div class="education-item" style="border: 1px dotted; padding: 20px; margin: 0; text-align: left;">
-          <div
-            style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 10px;">
-            <div>
-              <h3 style="color: green; margin: 0; font-size: 20px;"><span
-                  style="color: #888; font-size: 16px;">6.</span> Paper Clip - URL Metadata Extractor</h3>
-              <p style="margin: 5px 0; color: #ddd; font-size: 16px;">A backend REST API which extracts thumbnail link,
-                title, description, author and more from any URL. The main idea here is to build a bookmarks tool for
-                better web content organization.</p>
-            </div>
-            <span style="color: green; font-size: 14px; white-space: nowrap;">[2019]</span>
+        <article class="project-card reveal stagger-5">
+          <div class="project-card-header">
+            <span class="project-number">05</span>
+            <span class="project-date">2020</span>
           </div>
-          <div style="display: flex; flex-wrap: wrap; gap: 8px; margin: 15px 0;">
-            <span
-              style="background: #333; padding: 4px 8px; border-radius: 4px; font-size: 12px; color: green;">Node.js</span>
-            <span style="background: #333; padding: 4px 8px; border-radius: 4px; font-size: 12px;">REST API</span>
-            <span style="background: #333; padding: 4px 8px; border-radius: 4px; font-size: 12px;">Web Scraping</span>
+          <h3 class="project-title">NoWhere — Social Platform</h3>
+          <p class="project-desc">A social platform designed and developed to aid people who have lost their paths in
+            life by allowing them to confess their pain anonymously to the public using text or audio within a
+            community.</p>
+          <div class="project-tags">
+            <span class="tag">Angular</span>
+            <span class="tag">Figma</span>
+            <span class="tag">Firebase</span>
           </div>
-          <div style="margin: 10px 0;">
-            <p style="margin: 5px 0; color: #ddd; font-size: 14px;">
-              <strong>GitHub:</strong> <a href="https://github.com/bharath-bandaru/paperclip-node-js" target="_blank"
-                style="color: green;">Source code</a>
-            </p>
+          <div class="project-links">
+            <a href="https://nowhere-55.web.app/" target="_blank">Demo</a>
+            <a href="https://github.com/bharath-bandaru/ng-nowhere" target="_blank">GitHub</a>
           </div>
-        </div>
+        </article>
 
-        <!-- Project 7: Theory of Everything Blog -->
-        <div class="education-item" style="border: 1px dotted; padding: 20px; margin: 0; text-align: left;">
-          <div
-            style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 10px;">
-            <div>
-              <h3 style="color: green; margin: 0; font-size: 20px;"><span
-                  style="color: #888; font-size: 16px;">7.</span> Theory of Everything Blog</h3>
-              <p style="margin: 5px 0; color: #ddd; font-size: 16px;">Blog platform designed to share stories, articles,
-                and thoughts. Focused on creating an engaging user experience with modern design principles and smooth
-                animations.</p>
-            </div>
-            <span style="color: green; font-size: 14px; white-space: nowrap;">[2019]</span>
+        <article class="project-card reveal stagger-6">
+          <div class="project-card-header">
+            <span class="project-number">06</span>
+            <span class="project-date">2019</span>
           </div>
-          <div style="display: flex; flex-wrap: wrap; gap: 8px; margin: 15px 0;">
-            <span style="background: #333; padding: 4px 8px; border-radius: 4px; font-size: 12px; color: green;">Adobe
-              XD</span>
-            <span style="background: #333; padding: 4px 8px; border-radius: 4px; font-size: 12px;">Adobe AE</span>
-            <span style="background: #333; padding: 4px 8px; border-radius: 4px; font-size: 12px;">UI/UX Design</span>
+          <h3 class="project-title">Paper Clip — URL Metadata Extractor</h3>
+          <p class="project-desc">A backend REST API which extracts thumbnail link, title, description, author and more
+            from any URL. The main idea here is to build a bookmarks tool for better web content organization.</p>
+          <div class="project-tags">
+            <span class="tag">Node.js</span>
+            <span class="tag">REST API</span>
+            <span class="tag">Web Scraping</span>
           </div>
-          <div style="margin: 10px 0;">
-            <p style="margin: 5px 0; color: #ddd; font-size: 14px;">
-              <strong>Design:</strong> <a
-                href="https://dribbble.com/bharath_bandaru/collections/1345093-Theory-of-everything-Blog"
-                target="_blank" style="color: green;">View on Dribbble</a>
-            </p>
+          <div class="project-links">
+            <a href="https://github.com/bharath-bandaru/paperclip-node-js" target="_blank">GitHub</a>
           </div>
-        </div>
+        </article>
 
-        <!-- Project 8: UX-India Conference iOS App -->
-        <div class="education-item" style="border: 1px dotted; padding: 20px; margin: 0; text-align: left;">
-          <div
-            style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 10px;">
-            <div>
-              <h3 style="color: green; margin: 0; font-size: 20px;"><span
-                  style="color: #888; font-size: 16px;">8.</span> UX-India Conference iOS App</h3>
-              <p style="margin: 5px 0; color: #ddd; font-size: 16px;">iOS application for UX-India conference attendees
-                to access schedules, speaker information, and networking features. Built with native iOS technologies
-                and Firebase backend.</p>
-            </div>
-            <span style="color: green; font-size: 14px; white-space: nowrap;">[Oct 2016]</span>
+        <article class="project-card reveal stagger-7">
+          <div class="project-card-header">
+            <span class="project-number">07</span>
+            <span class="project-date">2019</span>
           </div>
-          <div style="display: flex; flex-wrap: wrap; gap: 8px; margin: 15px 0;">
-            <span
-              style="background: #333; padding: 4px 8px; border-radius: 4px; font-size: 12px; color: green;">Swift</span>
-            <span style="background: #333; padding: 4px 8px; border-radius: 4px; font-size: 12px;">Firebase</span>
-            <span style="background: #333; padding: 4px 8px; border-radius: 4px; font-size: 12px;">iOS
-              Development</span>
+          <h3 class="project-title">Theory of Everything Blog</h3>
+          <p class="project-desc">Blog platform designed to share stories, articles, and thoughts. Focused on creating
+            an engaging user experience with modern design principles and smooth animations.</p>
+          <div class="project-tags">
+            <span class="tag">Adobe XD</span>
+            <span class="tag">Adobe AE</span>
+            <span class="tag">UI/UX Design</span>
           </div>
-          <div style="margin: 10px 0;">
-            <p style="margin: 5px 0; color: #ddd; font-size: 14px;">
-              <strong>GitHub:</strong> <a href="https://github.com/bharath-bandaru/ux-india-2016-iOS" target="_blank"
-                style="color: green;">Source code</a>
-            </p>
+          <div class="project-links">
+            <a href="https://dribbble.com/bharath_bandaru/collections/1345093-Theory-of-everything-Blog"
+              target="_blank">Dribbble</a>
           </div>
-        </div>
+        </article>
 
-        <!-- Project 9: Fickle Android App -->
-        <div class="education-item" style="border: 1px dotted; padding: 20px; margin: 0; text-align: left;">
-          <div
-            style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 10px;">
-            <div>
-              <h3 style="color: green; margin: 0; font-size: 20px;"><span
-                  style="color: #888; font-size: 16px;">9.</span> Fickle Android App</h3>
-              <p style="margin: 5px 0; color: #ddd; font-size: 16px;">Bachelor's academic minor project. Fickle is an
-                app that lets customers know about offers and deals for products/businesses when walking through nearby
-                stores. Features bi-directional communication between client and server using Socket and DataStream.</p>
-            </div>
-            <span style="color: green; font-size: 14px; white-space: nowrap;">[May 2016]</span>
+        <article class="project-card reveal stagger-8">
+          <div class="project-card-header">
+            <span class="project-number">08</span>
+            <span class="project-date">Oct 2016</span>
           </div>
-          <div style="display: flex; flex-wrap: wrap; gap: 8px; margin: 15px 0;">
-            <span
-              style="background: #333; padding: 4px 8px; border-radius: 4px; font-size: 12px; color: green;">Android</span>
-            <span style="background: #333; padding: 4px 8px; border-radius: 4px; font-size: 12px;">Java</span>
-            <span style="background: #333; padding: 4px 8px; border-radius: 4px; font-size: 12px;">Computer
-              Networks</span>
-            <span style="background: #333; padding: 4px 8px; border-radius: 4px; font-size: 12px;">Socket
-              Programming</span>
+          <h3 class="project-title">UX-India Conference iOS App</h3>
+          <p class="project-desc">iOS application for UX-India conference attendees to access schedules, speaker
+            information, and networking features. Built with native iOS technologies and Firebase backend.</p>
+          <div class="project-tags">
+            <span class="tag">Swift</span>
+            <span class="tag">Firebase</span>
+            <span class="tag">iOS Development</span>
           </div>
-          <div style="margin: 10px 0;">
-            <p style="margin: 5px 0; color: #ddd; font-size: 14px;">
-              <strong>GitHub:</strong> <a href="https://github.com/bharath-bandaru/fickle-server" target="_blank"
-                style="color: green;">Server code</a> |
-              <a href="https://github.com/bharath-bandaru/fickle-client" target="_blank" style="color: green;">Client
-                code</a>
-            </p>
+          <div class="project-links">
+            <a href="https://github.com/bharath-bandaru/ux-india-2016-iOS" target="_blank">GitHub</a>
           </div>
-        </div>
+        </article>
 
-        <!-- Project 10: Anti-Ragging Android App -->
-        <div class="education-item" style="border: 1px dotted; padding: 20px; margin: 0; text-align: left;">
-          <div
-            style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 10px;">
-            <div>
-              <h3 style="color: green; margin: 0; font-size: 20px;"><span
-                  style="color: #888; font-size: 16px;">10.</span> Anti-Ragging Android Application</h3>
-              <p style="margin: 5px 0; color: #ddd; font-size: 16px;">My first project and the beginning of my software
-                journey. An Android app that allows students to send emergency notifications to anti-bullying squad with
-                location and student information on single tap from home screen widget.</p>
-            </div>
-            <span style="color: green; font-size: 14px; white-space: nowrap;">[Aug 2014]</span>
+        <article class="project-card reveal stagger-9">
+          <div class="project-card-header">
+            <span class="project-number">09</span>
+            <span class="project-date">May 2016</span>
           </div>
-          <div style="display: flex; flex-wrap: wrap; gap: 8px; margin: 15px 0;">
-            <span
-              style="background: #333; padding: 4px 8px; border-radius: 4px; font-size: 12px; color: green;">Java</span>
-            <span style="background: #333; padding: 4px 8px; border-radius: 4px; font-size: 12px;">Android</span>
-            <span style="background: #333; padding: 4px 8px; border-radius: 4px; font-size: 12px;">GPS</span>
-            <span style="background: #333; padding: 4px 8px; border-radius: 4px; font-size: 12px;">Emergency
-              Systems</span>
+          <h3 class="project-title">Fickle Android App</h3>
+          <p class="project-desc">Bachelor's academic minor project. Fickle is an app that lets customers know about
+            offers and deals for products/businesses when walking through nearby stores. Features bi-directional
+            communication between client and server using Socket and DataStream.</p>
+          <div class="project-tags">
+            <span class="tag">Android</span>
+            <span class="tag">Java</span>
+            <span class="tag">Computer Networks</span>
+            <span class="tag">Socket Programming</span>
           </div>
-        </div>
+          <div class="project-links">
+            <a href="https://github.com/bharath-bandaru/fickle-server" target="_blank">Server</a>
+            <a href="https://github.com/bharath-bandaru/fickle-client" target="_blank">Client</a>
+          </div>
+        </article>
+
+        <article class="project-card reveal stagger-10">
+          <div class="project-card-header">
+            <span class="project-number">10</span>
+            <span class="project-date">Aug 2014</span>
+          </div>
+          <h3 class="project-title">Anti-Ragging Android Application</h3>
+          <p class="project-desc">My first project and the beginning of my software journey. An Android app that allows
+            students to send emergency notifications to anti-bullying squad with location and student information on
+            single tap from home screen widget.</p>
+          <div class="project-tags">
+            <span class="tag">Java</span>
+            <span class="tag">Android</span>
+            <span class="tag">GPS</span>
+            <span class="tag">Emergency Systems</span>
+          </div>
+        </article>
+
       </div>
     </div>
-  </div>
+  </section>
 
-  <!-- Education Section -->
-  <div class="separator-row">
-    <span id="dynamic-separator-3" class="separator-text" aria-hidden="true"></span>
-  </div>
-
-  <div id="education-section" style="margin: 40px 0;">
+  <!-- Work Experience -->
+  <section id="experience" class="section">
     <div class="container">
-      <h2>🎓 Education</h2>
+      <h2 class="section-title reveal">Work Experience</h2>
+      <div class="timeline">
 
-      <div class="education-item" style="border: 1px dotted; padding: 20px; margin: 20px 0; text-align: left;">
-        <div
-          style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 10px;">
-          <div>
-            <h3 style="color: green; margin: 0; font-size: 20px;">Master of Science in Artificial Intelligence</h3>
-            <p style="margin: 5px 0; font-size: 18px; font-weight: bold;">Illinois Institute of Technology</p>
-            <p style="margin: 5px 0; color: #ccc; font-size: 16px;">Chicago, United States</p>
+        <div class="timeline-item reveal">
+          <div class="timeline-dot"></div>
+          <div class="timeline-card">
+            <div class="timeline-header">
+              <div>
+                <h3 class="timeline-role">Software Engineer II</h3>
+                <p class="timeline-company">Script Health</p>
+                <p class="timeline-location">Chicago, United States</p>
+              </div>
+              <span class="timeline-date">2022 — Present</span>
+            </div>
+            <ul class="timeline-bullets">
+              <li>Developing full-stack applications using React JS, Node JS, and AWS services</li>
+              <li>Managing CI/CD pipelines and cloud infrastructure (Lambda, EC2, RDS, S3)</li>
+              <li>Building scalable healthcare technology solutions</li>
+            </ul>
+            <div class="timeline-tags">
+              <span class="tag">React JS</span>
+              <span class="tag">Node JS</span>
+              <span class="tag">AWS</span>
+              <span class="tag">Docker</span>
+            </div>
           </div>
-          <span style="color: green; font-size: 14px; white-space: nowrap;">2021 - 2023</span>
         </div>
-        <div style="margin: 15px 0;">
-          <p style="margin: 5px 0; color: #ddd;">
-            <strong>Relevant Coursework:</strong> Computer Vision • Machine Learning • Natural Language Processing •
-            Data Preparation and Analysis • Advanced Algorithms • Database Systems
-          </p>
+
+        <div class="timeline-item reveal">
+          <div class="timeline-dot"></div>
+          <div class="timeline-card">
+            <div class="timeline-header">
+              <div>
+                <h3 class="timeline-role">Associate Software Engineer</h3>
+                <p class="timeline-company">JPMorgan Chase & Co.</p>
+                <p class="timeline-location">Mumbai, India</p>
+              </div>
+              <span class="timeline-date">2017 — 2021</span>
+            </div>
+            <ul class="timeline-bullets">
+              <li>Developed enterprise applications using Spring Boot and microservices architecture</li>
+              <li>Built responsive web applications with Angular and integrated with Oracle databases</li>
+              <li>Implemented automated testing and deployment pipelines using Jenkins</li>
+            </ul>
+            <div class="timeline-tags">
+              <span class="tag">Java</span>
+              <span class="tag">Spring Boot</span>
+              <span class="tag">Angular</span>
+              <span class="tag">Oracle</span>
+            </div>
+          </div>
         </div>
+
+        <div class="timeline-item reveal">
+          <div class="timeline-dot"></div>
+          <div class="timeline-card">
+            <div class="timeline-header">
+              <div>
+                <h3 class="timeline-role">Software Development Intern</h3>
+                <p class="timeline-company">JPMorgan Chase & Co.</p>
+                <p class="timeline-location">Mumbai, India</p>
+              </div>
+              <span class="timeline-date">Mid-2016</span>
+            </div>
+            <ul class="timeline-bullets">
+              <li>Worked on Python, Angular & Java projects during internship</li>
+              <li>Gained experience with Spring framework and Apache iBatis</li>
+              <li>Collaborated using Bitbucket API for version control</li>
+            </ul>
+            <div class="timeline-tags">
+              <span class="tag">Python</span>
+              <span class="tag">Java</span>
+              <span class="tag">Angular</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="timeline-item reveal">
+          <div class="timeline-dot"></div>
+          <div class="timeline-card">
+            <div class="timeline-header">
+              <div>
+                <h3 class="timeline-role">Freelance Developer & Designer</h3>
+                <p class="timeline-company">Various Clients</p>
+                <p class="timeline-location">Remote</p>
+              </div>
+              <span class="timeline-date">2016 — 2017</span>
+            </div>
+            <ul class="timeline-bullets">
+              <li>Built websites and mobile applications for iOS and Android platforms</li>
+              <li>Designed brand logos, posters, videos & product designs</li>
+              <li>Worked with university events and various startups</li>
+            </ul>
+            <div class="timeline-tags">
+              <span class="tag">iOS</span>
+              <span class="tag">Android</span>
+              <span class="tag">Web Design</span>
+              <span class="tag">UI/UX</span>
+            </div>
+          </div>
+        </div>
+
       </div>
+    </div>
+  </section>
 
-      <div class="education-item" style="border: 1px dotted; padding: 20px; margin: 20px 0; text-align: left;">
-        <div
-          style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 10px;">
-          <div>
-            <h3 style="color: green; margin: 0; font-size: 20px;">Bachelor of Technology in Computer Science</h3>
-            <p style="margin: 5px 0; font-size: 18px; font-weight: bold;">Jawaharlal Nehru Technological University</p>
-            <p style="margin: 5px 0; color: #ccc; font-size: 16px;">Hyderabad, India</p>
-          </div>
-          <span style="color: green; font-size: 14px; white-space: nowrap;">2013 - 2017</span>
-        </div>
-        <div style="margin: 15px 0;">
-          <p style="margin: 5px 0; color: #ddd;">
-            <strong>GPA:</strong> 3.6/4.0
+  <!-- Education -->
+  <section id="education" class="section">
+    <div class="container container-wide">
+      <h2 class="section-title reveal">Education</h2>
+      <div class="education-grid">
+
+        <article class="edu-card reveal">
+          <span class="edu-date">2021 — 2023</span>
+          <h3 class="edu-degree">Master of Science in Artificial Intelligence</h3>
+          <p class="edu-school">Illinois Institute of Technology</p>
+          <p class="edu-location">Chicago, United States</p>
+          <p class="edu-detail">
+            <strong>Relevant Coursework:</strong> Computer Vision, Machine Learning, Natural Language Processing,
+            Data Preparation and Analysis, Advanced Algorithms, Database Systems
           </p>
-          <p style="margin: 5px 0; color: #ddd;">
+        </article>
+
+        <article class="edu-card reveal">
+          <span class="edu-date">2013 — 2017</span>
+          <h3 class="edu-degree">Bachelor of Technology in Computer Science</h3>
+          <p class="edu-school">Jawaharlal Nehru Technological University</p>
+          <p class="edu-location">Hyderabad, India</p>
+          <p class="edu-detail"><strong>GPA:</strong> 3.6/4.0</p>
+          <p class="edu-detail">
             <strong>Key Projects:</strong> Anti-Ragging Android Application, Fickle Location-based App,
             UX-India Conference iOS App
           </p>
-        </div>
+        </article>
+
       </div>
     </div>
-  </div>
+  </section>
 
-  <!-- Work Experience Section -->
-  <div class="separator-row">
-    <span id="dynamic-separator-4" class="separator-text" aria-hidden="true"></span>
-  </div>
-
-  <div id="experience-section" style="margin: 40px 0;">
+  <!-- Footer -->
+  <footer class="footer">
     <div class="container">
-      <h2>💼 Work Experience</h2>
-
-      <div class="experience-item" style="border: 1px dotted; padding: 20px; margin: 20px 0; text-align: left;">
-        <div
-          style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 10px;">
-          <div>
-            <h3 style="color: green; margin: 0; font-size: 20px;">Software Engineer II</h3>
-            <p style="margin: 5px 0; font-size: 18px; font-weight: bold;">Script Health</p>
-            <p style="margin: 5px 0; color: #ccc; font-size: 16px;">Chicago, United States</p>
-          </div>
-          <span style="color: green; font-size: 14px; white-space: nowrap;">2022 - Present</span>
+      <div class="footer-inner">
+        <div class="footer-brand">
+          <img src="images/logo.png" alt="Logo">
+          <span>Designed and Developed by
+            <a href="https://portfolio-4a2e3.web.app/" target="_blank" rel="noopener noreferrer">Bharath Bandaru</a>
+          </span>
         </div>
-        <ul style="margin: 15px 0; padding-left: 20px; color: #ddd;">
-          <li>Developing full-stack applications using React JS, Node JS, and AWS services</li>
-          <li>Managing CI/CD pipelines and cloud infrastructure (Lambda, EC2, RDS, S3)</li>
-          <li>Building scalable healthcare technology solutions</li>
-        </ul>
-        <div style="display: flex; flex-wrap: wrap; gap: 8px; margin-top: 15px;">
-          <span style="background: #333; padding: 4px 8px; border-radius: 4px; font-size: 12px;">React JS</span>
-          <span style="background: #333; padding: 4px 8px; border-radius: 4px; font-size: 12px;">Node JS</span>
-          <span style="background: #333; padding: 4px 8px; border-radius: 4px; font-size: 12px;">AWS</span>
-          <span style="background: #333; padding: 4px 8px; border-radius: 4px; font-size: 12px;">Docker</span>
-        </div>
+        <button class="privacy-toggle" onclick="togglePrivacyPolicy()">Privacy Policy & Terms</button>
       </div>
 
-      <div class="experience-item" style="border: 1px dotted; padding: 20px; margin: 20px 0; text-align: left;">
-        <div
-          style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 10px;">
-          <div>
-            <h3 style="color: green; margin: 0; font-size: 20px;">Associate Software Engineer</h3>
-            <p style="margin: 5px 0; font-size: 18px; font-weight: bold;">JPMorgan Chase & Co.</p>
-            <p style="margin: 5px 0; color: #ccc; font-size: 16px;">Mumbai, India</p>
-          </div>
-          <span style="color: green; font-size: 14px; white-space: nowrap;">2017 - 2021</span>
-        </div>
-        <ul style="margin: 15px 0; padding-left: 20px; color: #ddd;">
-          <li>Developed enterprise applications using Spring Boot and microservices architecture</li>
-          <li>Built responsive web applications with Angular and integrated with Oracle databases</li>
-          <li>Implemented automated testing and deployment pipelines using Jenkins</li>
-        </ul>
-        <div style="display: flex; flex-wrap: wrap; gap: 8px; margin-top: 15px;">
-          <span style="background: #333; padding: 4px 8px; border-radius: 4px; font-size: 12px;">Java</span>
-          <span style="background: #333; padding: 4px 8px; border-radius: 4px; font-size: 12px;">Spring Boot</span>
-          <span style="background: #333; padding: 4px 8px; border-radius: 4px; font-size: 12px;">Angular</span>
-          <span style="background: #333; padding: 4px 8px; border-radius: 4px; font-size: 12px;">Oracle</span>
-        </div>
-      </div>
+      <div id="privacy-policy-section" class="privacy-content" style="display: none;">
+        <h2>Games Policy & Terms</h2>
 
-      <div class="experience-item" style="border: 1px dotted; padding: 20px; margin: 20px 0; text-align: left;">
-        <div
-          style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 10px;">
-          <div>
-            <h3 style="color: green; margin: 0; font-size: 20px;">Software Development Intern</h3>
-            <p style="margin: 5px 0; font-size: 18px; font-weight: bold;">JPMorgan Chase & Co.</p>
-            <p style="margin: 5px 0; color: #ccc; font-size: 16px;">Mumbai, India</p>
-          </div>
-          <span style="color: green; font-size: 14px; white-space: nowrap;">Mid-2016</span>
-        </div>
-        <ul style="margin: 15px 0; padding-left: 20px; color: #ddd;">
-          <li>Worked on Python, Angular & Java projects during internship</li>
-          <li>Gained experience with Spring framework and Apache iBatis</li>
-          <li>Collaborated using Bitbucket API for version control</li>
-        </ul>
-        <div style="display: flex; flex-wrap: wrap; gap: 8px; margin-top: 15px;">
-          <span style="background: #333; padding: 4px 8px; border-radius: 4px; font-size: 12px;">Python</span>
-          <span style="background: #333; padding: 4px 8px; border-radius: 4px; font-size: 12px;">Java</span>
-          <span style="background: #333; padding: 4px 8px; border-radius: 4px; font-size: 12px;">Angular</span>
-        </div>
-      </div>
-
-      <div class="experience-item" style="border: 1px dotted; padding: 20px; margin: 20px 0; text-align: left;">
-        <div
-          style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 10px;">
-          <div>
-            <h3 style="color: green; margin: 0; font-size: 20px;">Freelance Developer & Designer</h3>
-            <p style="margin: 5px 0; font-size: 18px; font-weight: bold;">Various Clients</p>
-            <p style="margin: 5px 0; color: #ccc; font-size: 16px;">Remote</p>
-          </div>
-          <span style="color: green; font-size: 14px; white-space: nowrap;">2016 - 2017</span>
-        </div>
-        <ul style="margin: 15px 0; padding-left: 20px; color: #ddd;">
-          <li>Built websites and mobile applications for iOS and Android platforms</li>
-          <li>Designed brand logos, posters, videos & product designs</li>
-          <li>Worked with university events and various startups</li>
-        </ul>
-        <div style="display: flex; flex-wrap: wrap; gap: 8px; margin-top: 15px;">
-          <span style="background: #333; padding: 4px 8px; border-radius: 4px; font-size: 12px;">iOS</span>
-          <span style="background: #333; padding: 4px 8px; border-radius: 4px; font-size: 12px;">Android</span>
-          <span style="background: #333; padding: 4px 8px; border-radius: 4px; font-size: 12px;">Web Design</span>
-          <span style="background: #333; padding: 4px 8px; border-radius: 4px; font-size: 12px;">UI/UX</span>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="abme" style="display: flex; align-items: center; justify-content: center;">
-    <span style="color: green; margin-bottom: 3px;">Designed and Developed by&nbsp;</span>
-    <img src="logo.png" alt="logo" width="20px" style="opacity: 1; border-radius: 50%; padding: 0 5px;">
-    <a href="https://portfolio-4a2e3.web.app/" target="_blank" rel="noopener noreferrer"
-      style="color: green; margin-left: 5px; margin-bottom: 3px;">
-      Bharath Bandaru
-    </a>
-  </div>
-  <button class="toggle-button" onclick="togglePrivacyPolicy()">Hide Privacy Policy</button>
-  <div id="privacy-policy-section"
-    style="display: flex; align-items: center; justify-content: center; margin-top: 20px; background: #191919; color: #a7a7a7; overflow: hidden; ">
-    <main id="content" class="main-content" role="main" style="text-align: left; width: 70%; ">
-      <h2 id="chain-reaction---online-multiplayer-game" style="text-align: center;">Games Policy & Terms</h2>
-
-      <div>
-        <h3 style="text-align: center;" id="privacy-policy">Privacy Policy</h3>
+        <h3>Privacy Policy</h3>
         <p>Bharath Bandaru built these games as Free apps. These Services are provided by Bharath Bandaru at no cost and
           are intended for use as is.</p>
         <p>This page informs visitors about my policies regarding the collection, use, and disclosure of Personal
@@ -899,22 +1554,21 @@
           usage. Below are links to the privacy policies of some common third-party service providers that may be used
           in my games:</p>
         <ul>
-          <li><a href="https://www.google.com/policies/privacy/" style="color: green;">Google Play Services</a></li>
-          <li><a href="https://firebase.google.com/policies/analytics" style="color: green;">Google Analytics for
-              Firebase</a></li>
-          <li><a href="https://firebase.google.com/support/privacy/" style="color: green;">Firebase Crashlytics</a></li>
+          <li><a href="https://www.google.com/policies/privacy/">Google Play Services</a></li>
+          <li><a href="https://firebase.google.com/policies/analytics">Google Analytics for Firebase</a></li>
+          <li><a href="https://firebase.google.com/support/privacy/">Firebase Crashlytics</a></li>
         </ul>
         <p><strong>Log Data</strong></p>
         <p>I want to inform you that whenever you use my Service, in a case of an error in the app I collect data and
           information (through third-party products) on your phone called Log Data. This Log Data may include
-          information such as your device Internet Protocol (“IP”) address, device name, operating system version, the
+          information such as your device Internet Protocol ("IP") address, device name, operating system version, the
           configuration of the app when utilizing my Service, the time and date of your use of the Service, and other
           statistics.</p>
         <p><strong>Cookies</strong></p>
         <p>Cookies are files with a small amount of data that are commonly used as anonymous unique identifiers. These
-          are sent to your browser from the websites that you visit and are stored on your device’s internal memory.</p>
-        <p>This Service does not use these “cookies” explicitly. However, the app may use third-party code and libraries
-          that use “cookies” to collect information and improve their services. You have the option to either accept or
+          are sent to your browser from the websites that you visit and are stored on your device's internal memory.</p>
+        <p>This Service does not use these "cookies" explicitly. However, the app may use third-party code and libraries
+          that use "cookies" to collect information and improve their services. You have the option to either accept or
           refuse these cookies and know when a cookie is being sent to your device. If you choose to refuse our cookies,
           you may not be able to use some portions of this Service.</p>
         <p><strong>Service Providers</strong></p>
@@ -937,7 +1591,7 @@
           that site. Note that these external sites are not operated by me. Therefore, I strongly advise you to review
           the Privacy Policy of these websites. I have no control over and assume no responsibility for the content,
           privacy policies, or practices of any third-party sites or services.</p>
-        <p><strong>Children’s Privacy</strong></p>
+        <p><strong>Children's Privacy</strong></p>
         <p>These Services do not address anyone under the age of 13. I do not knowingly collect personally identifiable
           information from children under 13 years of age. In the case I discover that a child under 13 has provided me
           with personal information, I immediately delete this from our servers. If you are a parent or guardian and you
@@ -950,90 +1604,60 @@
         <p><strong>Contact Us</strong></p>
         <p>If you have any questions or suggestions about my Privacy Policy, do not hesitate to contact me at
           bandarubharath@live.com.</p>
+
+        <h3>Terms & Conditions</h3>
       </div>
+    </div>
+  </footer>
 
-      <h3 id="terms--conditions">Terms &amp; Conditions</h3>
-      <!-- Terms & Conditions content here -->
-      <footer class="site-footer" style="padding-bottom: 130px;">
-        <span class="site-footer-credits">This page was generated by <a href="https://pages.github.com"
-            style="color: green;">GitHub Pages</a>.</span>
-      </footer>
-    </main>
-  </div>
   <script>
-    function renderXOXO(rows, columns) {
-      let pattern = "";
-
-      for (let r = 0; r < rows; r++) {
-        for (let c = 0; c < columns; c++) {
-          pattern += (c % 2 === 0) ? "x" : "o";
+    // Scroll Reveal
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
         }
-        pattern += "\n"; // new line after each row
-      }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
 
-      document.getElementById("pattern").textContent = pattern;
-    }
+    document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
 
-    renderXOXO(50, 200);
+    // Nav background on scroll
+    const nav = document.getElementById('nav');
+    window.addEventListener('scroll', () => {
+      nav.classList.toggle('nav-scrolled', window.scrollY > 50);
+    }, { passive: true });
+
+    // Active nav link
+    const sections = document.querySelectorAll('section[id]');
+    const navLinks = document.querySelectorAll('.nav-links a');
+
+    const sectionObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          navLinks.forEach(link => {
+            link.classList.toggle('active', link.getAttribute('href') === '#' + entry.target.id);
+          });
+        }
+      });
+    }, { threshold: 0.2, rootMargin: '-80px 0px -50% 0px' });
+
+    sections.forEach(section => sectionObserver.observe(section));
+
+    // Privacy Policy toggle
     function togglePrivacyPolicy() {
-      const privacyPolicySection = document.getElementById('privacy-policy-section');
-      const toggleButton = document.querySelector('.toggle-button');
-      if (privacyPolicySection.style.display === 'none') {
-        privacyPolicySection.style.display = 'flex';
-        toggleButton.textContent = 'Hide Privacy Policy';
+      const section = document.getElementById('privacy-policy-section');
+      const btn = document.querySelector('.privacy-toggle');
+      if (section.style.display === 'none') {
+        section.style.display = 'block';
+        btn.textContent = 'Hide Privacy Policy';
       } else {
-        privacyPolicySection.style.display = 'none';
-        toggleButton.textContent = 'Show Privacy Policy';
+        section.style.display = 'none';
+        btn.textContent = 'Privacy Policy & Terms';
       }
     }
-
-    // Generate a centered pattern that fills 50% of the screen width
-    (function setupDynamicSeparator() {
-      const BASE = "xoxoxo";
-
-      function measureCharWidth(target) {
-        const probe = document.createElement('span');
-        probe.style.visibility = 'hidden';
-        probe.style.position = 'absolute';
-        probe.style.whiteSpace = 'nowrap';
-        probe.style.font = getComputedStyle(target).font;
-        probe.textContent = 'A'.repeat(100);
-        document.body.appendChild(probe);
-        const width = probe.getBoundingClientRect().width / 100;
-        document.body.removeChild(probe);
-        return Math.max(width, 6); // fallback guard
-      }
-
-      function renderDynamicSeparator() {
-        // Handle multiple separators
-        const separators = ['dynamic-separator', 'dynamic-separator-2', 'dynamic-separator-3', 'dynamic-separator-4'];
-
-        separators.forEach(id => {
-          const el = document.getElementById(id);
-          if (!el) return;
-
-          // Ensure layout is up-to-date
-          const containerWidth = el.clientWidth || el.getBoundingClientRect().width;
-          if (!containerWidth) return;
-
-          const charW = measureCharWidth(el);
-          const capacity = Math.max(1, Math.floor(containerWidth / charW));
-
-          // Build a long repeating string, then take a centered slice
-          const longStr = BASE.repeat(Math.ceil((capacity * 3) / BASE.length) + 1);
-          const start = Math.max(0, Math.floor((longStr.length - capacity) / 2));
-          el.textContent = longStr.slice(start, start + capacity);
-        });
-      }
-
-      window.addEventListener('resize', renderDynamicSeparator);
-      document.addEventListener('DOMContentLoaded', renderDynamicSeparator);
-      // In case script is at the end and DOM is ready
-      if (document.readyState === 'complete' || document.readyState === 'interactive') {
-        renderDynamicSeparator();
-      }
-    })();
   </script>
+
 </body>
 
 </html>
