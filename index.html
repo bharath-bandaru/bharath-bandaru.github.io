@@ -15,6 +15,58 @@
     content="Chain Reaction, Online Multiplayer Game, Strategic Game, Bharath Bandaru, Google Play Games, Chain reaction Game, chainreaction, chainreactiongame, bestchainreaction game, best chain reaction game, best design award goes to this chian reaction">
   <meta name="author" content="Bharath Bandaru">
   <style>
+    :root {
+      --bg-main: #FFF8E7;
+      --bg-body: #1a1a1a;
+      --text-primary: #161616;
+      --text-secondary: #555;
+      --text-copyright: #353535;
+      --text-contact: #161616;
+      --border-profile: #597039a8;
+      --btn-bg: #161616;
+      --btn-text: #faeedc;
+      --btn-hover: #282828;
+      --toggle-bg: #597039;
+      --toggle-hover: #5a6639;
+      --dropdown-bg: #333;
+      --dropdown-hover: #555;
+      --social-filter: brightness(0);
+      --link-color: green;
+      --footer-bg: #1a1a1a;
+      --footer-text: #fff;
+      --footer-label: #aaa;
+      --footer-email: #fff;
+      --footer-social-bg: #5a6639;
+      --footer-social-hover: #788c5d;
+      --footer-social-filter: brightness(0) invert(1);
+    }
+
+    [data-theme="dark"] {
+      --bg-main: #1a1a1a;
+      --bg-body: #FFF8E7;
+      --text-primary: #FFF8E7;
+      --text-secondary: #aaa;
+      --text-copyright: #888;
+      --text-contact: #FFF8E7;
+      --border-profile: #788c5da8;
+      --btn-bg: #FFF8E7;
+      --btn-text: #161616;
+      --btn-hover: #e8dcc8;
+      --toggle-bg: #597039;
+      --toggle-hover: #697748;
+      --dropdown-bg: #2a2a2a;
+      --dropdown-hover: #444;
+      --social-filter: brightness(0) invert(1);
+      --link-color: #788c5d;
+      --footer-bg: #FFF8E7;
+      --footer-text: #161616;
+      --footer-label: #555;
+      --footer-email: #161616;
+      --footer-social-bg: #697748;
+      --footer-social-hover: #597139;
+      --footer-social-filter: brightness(0) invert(1);
+    }
+
     * {
       cursor: none;
     }
@@ -29,8 +81,8 @@
     }
 
     body {
-      background-color: #1a1a1a;
-      color: #161616;
+      background-color: var(--bg-body);
+      color: var(--text-primary);
       text-align: center;
       font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", "Helvetica Neue", Helvetica, Arial, sans-serif;
       font-weight: 300;
@@ -81,11 +133,45 @@
     }
 
     .main-content {
-      background-color: #FFF8E7;
+      background-color: var(--bg-main);
       position: relative;
       z-index: 1;
       margin-bottom: 420px;
       height: 100vh;
+    }
+
+    .copyright {
+      margin-top: 0;
+      font-size: 13px;
+      color: var(--text-copyright);
+    }
+
+    .copyright a {
+      color: var(--text-copyright);
+      text-decoration: none;
+    }
+
+    .theme-toggle {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      z-index: 9998;
+      background: none;
+      border: 1.5px dashed var(--text-primary);
+      border-radius: 50%;
+      width: 36px;
+      height: 36px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 16px;
+      transition: border-color 0.3s, transform 0.2s;
+    }
+
+    .theme-toggle:hover {
+      transform: scale(1.1);
+      border-color: #597139;
     }
 
     .contact-link {
@@ -96,7 +182,7 @@
       font-family: 'SF Mono', SFMono-Regular, ui-monospace, Menlo, Monaco, Consolas, monospace;
       letter-spacing: 3px;
       text-transform: uppercase;
-      color: #161616;
+      color: var(--text-contact);
       text-decoration: none;
       cursor: pointer;
     }
@@ -136,8 +222,12 @@
       -webkit-text-stroke-color: #bfbfbf;
     }
 
+    .social-icons-profile {
+      filter: var(--social-filter);
+    }
+
     .profile-img {
-      border: 1.5px dashed #597039a8;
+      border: 1.5px dashed var(--border-profile);
       width: 200px;
       height: 200px;
       border-radius: 50%;
@@ -151,7 +241,7 @@
     .about-me {
       font-size: 14px;
       line-height: 1.7;
-      color: #555;
+      color: var(--text-secondary);
       max-width: 680px;
       margin: 14px auto 0;
       letter-spacing: 0.2px;
@@ -251,7 +341,7 @@
       top: 64px;
       left: 50%;
       transform: translateX(-50%);
-      background: #333;
+      background: var(--dropdown-bg);
       border-radius: 8px;
       padding: 6px 0;
       white-space: nowrap;
@@ -269,14 +359,14 @@
     }
 
     .app-links a:hover {
-      background: #555;
+      background: var(--dropdown-hover);
     }
 
     .action-btn {
       display: inline-block;
       padding: 10px 24px;
-      background: #161616;
-      color: #faeedc;
+      background: var(--btn-bg);
+      color: var(--btn-text);
       text-decoration: none;
       border-radius: 8px;
       font-size: 14px;
@@ -287,7 +377,7 @@
     }
 
     .action-btn:hover {
-      background: #282828;
+      background: var(--btn-hover);
       transform: translateY(-1px);
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
     }
@@ -295,7 +385,7 @@
     .toggle-button {
       margin-top: 20px;
       padding: 10px 20px;
-      background-color: #697748;
+      background-color: var(--toggle-bg);
       color: white;
       border: none;
       cursor: pointer;
@@ -305,7 +395,7 @@
     }
 
     .toggle-button:hover {
-      background-color: #5a6639;
+      background-color: var(--toggle-hover);
       transform: translateY(-1px);
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
     }
@@ -410,10 +500,10 @@
     }
 
     .contact-footer {
-      background-color: #1a1a1a;
-      color: #fff;
+      background-color: var(--footer-bg);
+      color: var(--footer-text);
       text-align: center;
-      padding: 100px 20px 50px;
+      padding: 100px 20px 45px;
       position: fixed;
       bottom: 0;
       left: 0;
@@ -439,7 +529,7 @@
       font-size: 13px;
       letter-spacing: 3px;
       text-transform: uppercase;
-      color: #aaa;
+      color: var(--footer-label);
       margin-top: 35px;
     }
 
@@ -450,7 +540,7 @@
       letter-spacing: 2px;
       text-transform: lowercase;
       margin-top: 10px;
-      color: #fff;
+      color: var(--footer-email);
       text-decoration: none;
     }
 
@@ -469,7 +559,7 @@
       width: 44px;
       height: 44px;
       border-radius: 50%;
-      background-color: #5a6639;
+      background-color: var(--footer-social-bg);
       display: flex;
       align-items: center;
       justify-content: center;
@@ -477,26 +567,27 @@
     }
 
     .contact-footer .footer-socials a:hover {
-      background-color: #788c5d;
+      background-color: var(--footer-social-hover);
     }
 
     .contact-footer .footer-socials img {
       width: 18px;
       height: 18px;
-      filter: brightness(0) invert(1);
+      filter: var(--footer-social-filter);
     }
   </style>
 </head>
 
 <body>
 <div class="custom-cursor" id="cursor"></div>
+<button class="theme-toggle" id="themeToggle" onclick="toggleTheme()">☀️</button>
 
   <div class="main-content">
   <div class="container">
     <div class="container">
       <div style="display: flex; align-items: center; justify-content: center; padding-top: 20px;">
         <img style="margin-left: 36px;" src="images/profile.jpg" alt="Profile Image" class="profile-img">
-        <div style="display: flex; flex-direction: column; margin-left: 20px; gap:9px; filter: brightness(0);">
+        <div class="social-icons-profile" style="display: flex; flex-direction: column; margin-left: 20px; gap:9px;">
           <a href="https://in.pinterest.com/bandarubharath/" target="_blank" rel="noopener noreferrer"><img
               src="icons/pinterest.svg" alt="Pinterest" width="16" height="16"></a>
           <a href="https://github.com/bharath-bandaru" target="_blank" rel="noopener noreferrer"><img src="icons/github.svg"
@@ -519,7 +610,7 @@
         
         <p style="font-size: 15px;" >Viewing on desktop? Check out my portfolio — built for big screens 👉 <a
             href="https://portfolio-4a2e3.web.app/" target="_blank" rel="noopener noreferrer"
-            style="color: green; text-decoration: underline; font-size: 24px;">🔮</a> 👈</p>
+            style="color: var(--link-color); text-decoration: underline; font-size: 24px;">🔮</a> 👈</p>
         <br>
          <div style="display: flex; justify-content: center; gap: 12px; flex-wrap: wrap;">
           <a href="docs/resume.pdf" target="_blank" rel="noopener noreferrer" class="action-btn"> Resume</a>
@@ -553,10 +644,10 @@
     </div>
   </div>
 
-  <p style="margin-top: 0px; font-size: 13px; color: #353535;"> &copy; Bharath Bandaru, <a href="https://ephileo.us" target="_blank" rel="noopener noreferrer" style="color: #353535; text-decoration: none;">ephileo.us</a></p>
+  <p class="copyright"> &copy; Bharath Bandaru, <a href="https://ephileo.us" target="_blank" rel="noopener noreferrer">ephileo.us</a></p>
   <div style="position: relative; display: inline-block;">
     <button class="toggle-button" onclick="togglePrivacyPolicy()">Privacy Policy</button>
-    <div class="app-links" id="privacy-links" style="top: 100%; bottom: auto; margin-top: 10px;">
+    <div class="app-links" id="privacy-links" style="top: auto; bottom: 100%; margin-top: 5px;">
       <a href="https://ephileo.us/projects/escape-game/privacy" target="_blank" rel="noopener noreferrer">Escape</a>
       <a href="https://ephileo.us/projects/chain-reaction/privacy" target="_blank" rel="noopener noreferrer">Chain Reaction</a>
     </div>
@@ -576,6 +667,27 @@
     </div>
   </div>
   <script>
+
+    // Theme toggle
+    const themeToggle = document.getElementById('themeToggle');
+    const savedTheme = localStorage.getItem('theme') || 'light';
+    if (savedTheme === 'dark') {
+      document.documentElement.setAttribute('data-theme', 'dark');
+      themeToggle.textContent = '🌙';
+    }
+
+    function toggleTheme() {
+      const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+      if (isDark) {
+        document.documentElement.removeAttribute('data-theme');
+        themeToggle.textContent = '☀️';
+        localStorage.setItem('theme', 'light');
+      } else {
+        document.documentElement.setAttribute('data-theme', 'dark');
+        themeToggle.textContent = '🌙';
+        localStorage.setItem('theme', 'dark');
+      }
+    }
 
     const cursor = document.getElementById('cursor');
     document.addEventListener('mousemove', (e) => {
