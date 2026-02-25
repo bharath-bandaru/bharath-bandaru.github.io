@@ -9,6 +9,8 @@
   <link rel="icon" href="images/logo.png" type="image/png">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" id="themeColor" content="#FFF8E7">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
   <title>Bharath Bandaru - GitHub Portfolio</title>
   <meta name="description"
     content="Play Chain Reaction, an exciting online multiplayer game. Challenge your friends and enjoy the strategic gameplay. Available on Google Play.">
@@ -59,7 +61,7 @@
       --dropdown-hover: #444;
       --social-filter: brightness(0) invert(1);
       --link-color: #788c5d;
-      --footer-bg: #FFF8E7;
+      --footer-bg: #fff8e7;
       --footer-text: #161616;
       --footer-label: #555;
       --footer-email: #161616;
@@ -78,13 +80,17 @@
       }
     }
 
+    html {
+      background-color: var(--bg-main);
+    }
+
     ::selection {
       background-color: #597039a8;
       color: white;
     }
 
     body {
-      background-color: var(--bg-body);
+      background-color: var(--bg-main);
       color: var(--text-primary);
       text-align: center;
       font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", "Helvetica Neue", Helvetica, Arial, sans-serif;
@@ -155,12 +161,12 @@
     }
 
     .theme-toggle {
-      position: fixed;
+      position: absolute;
       top: 20px;
       right: 20px;
       z-index: 9998;
       background: none;
-      border: 1.5px dashed var(--text-primary);
+      border: 1.5px dashed var(--border-profile);
       border-radius: 50%;
       width: 36px;
       height: 36px;
@@ -444,6 +450,11 @@
 
     @media (max-width: 768px) {
 
+      .contact-link,
+      .theme-toggle {
+        display: none;
+      }
+
       .experience-item,
       .education-item {
         padding: 15px !important;
@@ -518,6 +529,7 @@
       bottom: 0;
       left: 0;
       width: 100%;
+      box-sizing: border-box;
       z-index: 0;
     }
 
@@ -544,9 +556,8 @@
     }
 
     .contact-footer .contact-email {
-      font-family: "Annie Use Your Telescope", cursive;
-      font-size: 20px;
-      font-weight: 700;
+      font-size: 15px;
+      font-weight: 400;
       letter-spacing: 2px;
       text-transform: lowercase;
       margin-top: 10px;
