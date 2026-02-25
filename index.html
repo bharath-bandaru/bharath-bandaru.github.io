@@ -8,6 +8,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Annie+Use+Your+Telescope&display=swap" rel="stylesheet">
   <link rel="icon" href="images/logo.png" type="image/png">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" id="themeColor" content="#FFF8E7">
   <title>Bharath Bandaru - GitHub Portfolio</title>
   <meta name="description"
     content="Play Chain Reaction, an exciting online multiplayer game. Challenge your friends and enjoy the strategic gameplay. Available on Google Play.">
@@ -67,12 +68,14 @@
       --footer-social-filter: brightness(0) invert(1);
     }
 
-    * {
-      cursor: none;
-    }
+    @media (pointer: fine) {
+      * {
+        cursor: none;
+      }
 
-    a, button, a * {
-      cursor: pointer;
+      a, button, a * {
+        cursor: pointer;
+      }
     }
 
     ::selection {
@@ -201,6 +204,12 @@
       z-index: 9999;
       transform: translate(-50%, -50%);
       transition: width 0.15s, height 0.15s, background-color 0.15s;
+    }
+
+    @media (pointer: coarse) {
+      .custom-cursor {
+        display: none;
+      }
     }
 
     .custom-cursor.hovering {
@@ -671,10 +680,12 @@
 
     // Theme toggle
     const themeToggle = document.getElementById('themeToggle');
+    const themeColor = document.getElementById('themeColor');
     const savedTheme = localStorage.getItem('theme') || 'light';
     if (savedTheme === 'dark') {
       document.documentElement.setAttribute('data-theme', 'dark');
       themeToggle.textContent = '🌙';
+      themeColor.content = '#1a1a1a';
     }
 
     function toggleTheme() {
@@ -682,10 +693,12 @@
       if (isDark) {
         document.documentElement.removeAttribute('data-theme');
         themeToggle.textContent = '☀️';
+        themeColor.content = '#FFF8E7';
         localStorage.setItem('theme', 'light');
       } else {
         document.documentElement.setAttribute('data-theme', 'dark');
         themeToggle.textContent = '🌙';
+        themeColor.content = '#1a1a1a';
         localStorage.setItem('theme', 'dark');
       }
     }
