@@ -149,6 +149,18 @@
       min-height: 100vh;
     }
 
+    #dot-canvas {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    .main-content > *:not(#dot-canvas) {
+      position: relative;
+      z-index: 1;
+    }
+
     .copyright {
       margin-top: 0;
       font-size: 13px;
@@ -184,9 +196,10 @@
     }
 
     .contact-link {
-      position: absolute;
+      position: fixed;
       bottom: 30px;
       left: 30px;
+      z-index: 9998;
       font-size: 12px;
       font-family: 'SF Mono', SFMono-Regular, ui-monospace, Menlo, Monaco, Consolas, monospace;
       letter-spacing: 3px;
@@ -255,9 +268,10 @@
 
     .about-me {
       font-size: 14px;
-      line-height: 1.7;
+      line-height: 25px;
       color: var(--text-secondary);
       max-width: 680px;
+      padding-top: 1px;
       margin: 14px auto 0;
       letter-spacing: 0.2px;
       font-family: "SF Mono", SFMono-Regular, ui-monospace, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
@@ -609,6 +623,7 @@
 <button class="theme-toggle" id="themeToggle" onclick="toggleTheme()">☀️</button>
 
   <div class="main-content">
+  <canvas id="dot-canvas"></canvas>
   <div class="container">
     <div class="container">
       <div style="display: flex; align-items: center; justify-content: center; padding-top: 20px;">
@@ -627,12 +642,12 @@
       <div class="text-content">
         <h2>👋 <strong>Hi there.</strong></h2>
         <p class="about-me">
-          I am a <span class="highlight">Senior Full-Stack Engineer</span> with 9+ years building production systems at scale — across Fortune 500 companies (JP Morgan Chase, McKesson) and cross-platform apps with 17,000+ downloads. Expert in Java, Spring Boot, Node.js, React, Flutter/Dart, AWS. Combines strong product instinct (Figma to production) with deep backend and cloud engineering. Proven track record of shipping products independently, mentoring teams, and eliminating manual work through automation. I <span class="highlight">love building products</span> and painting portraits. Currently expanding into AI agents orchestration — integrating LLM-powered workflows into production systems.
+          I am a <span class="highlight">Senior Full-Stack Engineer</span> with 9+ years building production systems at scale — across Fortune 500 companies (JP Morgan Chase, McKesson) and cross-platform apps with 17,000+ downloads. Expert in Java, Spring Boot, Node.js, React, Flutter/Dart, AWS. Combines strong product instinct (Figma to production) with deep backend and cloud engineering. Proven track record of shipping products, mentoring teams, and eliminating manual work through automation. I <span class="highlight">love building products</span> and painting portraits. Currently expanding into AI agents orchestration — integrating LLM-powered workflows into production systems.
         </p>
-        <p style="font-size: 15px; margin-bottom:0; letter-spacing: 0;">Glad to meet you! <span style="font-size: 24px;">🍻</span></p>
+        <p style="font-size: 15px; margin-bottom:0; letter-spacing: 0; padding-top: 3px;">Glad to meet you! <span style="font-size: 24px;">🍻</span></p>
         <br>
         
-        <p style="font-size: 15px;" >Viewing on desktop? Check out my portfolio — built for big screens 👉 <a
+        <p style="font-size: 15px; margin: -1px 1px 12px 1px;" >Viewing on desktop? Check out my portfolio — built for big screens 👉 <a
             href="https://portfolio-4a2e3.web.app/" target="_blank" rel="noopener noreferrer"
             style="color: var(--link-color); text-decoration: underline; font-size: 24px;">🔮</a> 👈</p>
         <br>
@@ -640,7 +655,7 @@
           <a href="docs/resume.pdf" target="_blank" rel="noopener noreferrer" class="action-btn"> Resume</a>
           <a href="https://portfolio-4a2e3.web.app/" target="_blank" rel="noopener noreferrer" class="action-btn"> Desktop Portfolio</a>
         </div>
-        <div id="app-dock" style="display: flex; justify-content: center; gap: 20px; margin-top: 30px; align-items: flex-end;">
+        <div id="app-dock" style="display: flex; justify-content: center; gap: 20px; margin-top: 45px; align-items: flex-end;">
           <div class="app-icon-wrapper" onclick="toggleAppLinks('roamates')">
             <img src="images/logo-roamates.png" alt="Roamates" style="width: 56px; height: 56px; border-radius: 14px; cursor: pointer;">
             <div class="app-links" id="roamates-links">
@@ -676,9 +691,9 @@
       <a href="https://ephileo.us/projects/chain-reaction/privacy" target="_blank" rel="noopener noreferrer">Chain Reaction</a>
     </div>
   </div>
-  <a class="contact-link" onclick="window.scrollTo({top: document.body.scrollHeight, behavior: 'smooth'})">Contact</a>
   </div><!-- close main-content -->
 
+  <a class="contact-link" id="contactLink" onclick="toggleContact()">Contact</a>
   <div class="contact-footer">
     <h2>Let's Work<span>Together</span></h2>
     <p class="connect-label">Connect with me</p>
@@ -690,6 +705,7 @@
       <a href="https://www.instagram.com/bharath_bandaru_/" target="_blank" rel="noopener noreferrer"><img src="icons/instagram.svg" alt="Instagram"></a>
     </div>
   </div>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.min.js"></script>
   <script>
 
     // Theme toggle
@@ -797,6 +813,259 @@
       const links = document.getElementById('privacy-links');
       links.style.display = links.style.display === 'block' ? 'none' : 'block';
     }
+
+    // Magnetic snap scroll for contact footer
+    (function() {
+      let snapping = false;
+      let raf = null;
+      let velocity = 0;
+      let current = 0;
+      let samples = [];
+
+      function cancel() {
+        cancelAnimationFrame(raf);
+        snapping = false;
+        velocity = 0;
+        window.removeEventListener('wheel', cancel);
+        window.removeEventListener('touchstart', cancel);
+      }
+
+      function springTo(target) {
+        snapping = true;
+        current = window.scrollY;
+        velocity = 0;
+        window.addEventListener('wheel', cancel, { passive: true, once: true });
+        window.addEventListener('touchstart', cancel, { passive: true, once: true });
+
+        function step() {
+          var force = (target - current) * 0.12;
+          velocity = (velocity + force) * 0.55;
+          current += velocity;
+
+          if (Math.abs(target - current) < 0.5 && Math.abs(velocity) < 0.5) {
+            window.scrollTo(0, target);
+            cancel();
+            return;
+          }
+          window.scrollTo(0, Math.round(current));
+          raf = requestAnimationFrame(step);
+        }
+        raf = requestAnimationFrame(step);
+      }
+
+      function trySnap() {
+        if (snapping) return;
+        var maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+        var footerZone = 420;
+        var snapStart = maxScroll - footerZone;
+        var y = window.scrollY;
+
+        if (y <= snapStart || y >= maxScroll) { samples = []; return; }
+
+        var progress = (y - snapStart) / footerZone;
+        var dir = samples.length >= 2 ? samples[samples.length - 1] - samples[0] : 0;
+
+        var threshold = 0.3;
+        if (dir > 3)       threshold = 0.08;
+        else if (dir < -3) threshold = 0.7;
+
+        var target = progress > threshold ? maxScroll : snapStart;
+        samples = [];
+        springTo(target);
+      }
+
+      window.addEventListener('scroll', function() {
+        if (snapping) return;
+        samples.push(window.scrollY);
+        if (samples.length > 6) samples.shift();
+      }, { passive: true });
+
+      if ('onscrollend' in window) {
+        window.addEventListener('scrollend', trySnap);
+      } else {
+        var timer = null;
+        window.addEventListener('scroll', function() {
+          if (snapping) return;
+          clearTimeout(timer);
+          timer = setTimeout(trySnap, 35);
+        }, { passive: true });
+      }
+    })();
+
+    // Toggle contact link label and behavior
+    const contactLink = document.getElementById('contactLink');
+    function isAtFooter() {
+      const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+      return window.scrollY >= maxScroll - 2;
+    }
+
+    function hexToRgb(hex) {
+      hex = hex.replace('#', '');
+      if (hex.length === 3) hex = hex[0]+hex[0]+hex[1]+hex[1]+hex[2]+hex[2];
+      return [parseInt(hex.slice(0,2),16), parseInt(hex.slice(2,4),16), parseInt(hex.slice(4,6),16)];
+    }
+
+    function lerpColor(a, b, t) {
+      var ar = hexToRgb(a), br = hexToRgb(b);
+      return 'rgb(' + Math.round(ar[0]+(br[0]-ar[0])*t) + ','
+                    + Math.round(ar[1]+(br[1]-ar[1])*t) + ','
+                    + Math.round(ar[2]+(br[2]-ar[2])*t) + ')';
+    }
+
+    function updateContactLabel() {
+      var atFooter = isAtFooter();
+      contactLink.textContent = atFooter ? 'Close' : 'Contact';
+
+      // Dynamic color: interpolate based on what's behind the link
+      var mc = document.querySelector('.main-content');
+      var mcBottom = mc.getBoundingClientRect().bottom;
+      var linkRect = contactLink.getBoundingClientRect();
+      var linkCenter = linkRect.top + linkRect.height / 2;
+      var zone = 20;
+      var t = Math.max(0, Math.min(1, (linkCenter + zone - mcBottom) / (2 * zone)));
+
+      var style = getComputedStyle(document.documentElement);
+      var mainColor = style.getPropertyValue('--text-contact').trim();
+      var footerColor = style.getPropertyValue('--footer-text').trim();
+      contactLink.style.color = lerpColor(mainColor, footerColor, t);
+    }
+
+    function toggleContact() {
+      if (isAtFooter()) {
+        const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+        window.scrollTo({ top: maxScroll - 420, behavior: 'smooth' });
+      } else {
+        window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+      }
+    }
+
+    window.addEventListener('scroll', updateContactLabel, { passive: true });
+    updateContactLabel();
+
+    // Three.js dot grid — flag wave + mouse repel
+    (function () {
+      const mainContent = document.querySelector('.main-content');
+      const canvas = document.getElementById('dot-canvas');
+      const spacing = 25;
+      const repelRadius = 1500;
+      const repelStrength = 25;
+
+      const scene = new THREE.Scene();
+      const renderer = new THREE.WebGLRenderer({ canvas, alpha: true });
+      renderer.setPixelRatio(window.devicePixelRatio);
+
+      let camera, geometry, material, points;
+      let positions, originals, totalDots;
+      let mouseX = -9999, mouseY = -9999;
+
+      function getDotColor() {
+        return getComputedStyle(document.documentElement)
+          .getPropertyValue('--text-primary').trim();
+      }
+
+      function build() {
+        const w = mainContent.offsetWidth;
+        const h = mainContent.offsetHeight;
+        const cols = Math.ceil(w / spacing) + 1;
+        const rows = Math.ceil(h / spacing) + 1;
+        totalDots = cols * rows;
+
+        camera = new THREE.OrthographicCamera(0, w, 0, -h, -1, 1);
+
+        positions = new Float32Array(totalDots * 3);
+        originals = new Float32Array(totalDots * 3);
+
+        for (let c = 0; c < cols; c++) {
+          for (let r = 0; r < rows; r++) {
+            const i = (c * rows + r) * 3;
+            positions[i]     = c * spacing;
+            positions[i + 1] = -(r * spacing);
+            positions[i + 2] = 0;
+            originals[i]     = positions[i];
+            originals[i + 1] = positions[i + 1];
+            originals[i + 2] = 0;
+          }
+        }
+
+        if (points) { scene.remove(points); geometry.dispose(); material.dispose(); }
+
+        geometry = new THREE.BufferGeometry();
+        geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+
+        material = new THREE.PointsMaterial({
+          color: new THREE.Color(getDotColor()),
+          size: 1.75,
+          sizeAttenuation: false,
+          transparent: true,
+          opacity: 0.2,
+        });
+
+        points = new THREE.Points(geometry, material);
+        scene.add(points);
+        renderer.setSize(w, h);
+      }
+
+      // Mouse tracking
+      mainContent.addEventListener('mousemove', function (e) {
+        const rect = canvas.getBoundingClientRect();
+        mouseX = e.clientX - rect.left;
+        mouseY = e.clientY - rect.top;
+      });
+      mainContent.addEventListener('mouseleave', function () {
+        mouseX = -9999;
+        mouseY = -9999;
+      });
+
+      // Animation loop
+      function animate() {
+        requestAnimationFrame(animate);
+        const t = performance.now() * 0.002;
+
+        for (let i = 0; i < totalDots; i++) {
+          const idx = i * 3;
+          const ox = originals[idx];
+          const oy = originals[idx + 1];
+          const absY = -oy;
+
+          // Flag wave — multiple sine layers for organic cloth feel
+          const wx = Math.sin(ox * 0.02 + t * 0.8) * 2.5
+                   + Math.sin(absY * 0.015 + t * 0.6) * 1.5
+                   + Math.sin(ox * 0.03 + absY * 0.02 + t * 1.2) * 1.0;
+          const wy = Math.cos(ox * 0.025 + t * 0.7) * 2.0
+                   + Math.sin(absY * 0.02 + t * 0.5) * 1.5;
+
+          let nx = ox + wx;
+          let ny = oy + wy;
+
+          // Mouse repel
+          const dx = nx - mouseX;
+          const dy = ny - (-mouseY);
+          const dist = Math.sqrt(dx * dx + dy * dy);
+          if (dist < repelRadius && dist > 0) {
+            const f = Math.pow(1 - dist / repelRadius, 2) * repelStrength;
+            nx += (dx / dist) * f;
+            ny += (dy / dist) * f;
+          }
+
+          positions[idx]     = nx;
+          positions[idx + 1] = ny;
+        }
+
+        geometry.attributes.position.needsUpdate = true;
+        renderer.render(scene, camera);
+      }
+
+      // Resize
+      new ResizeObserver(function () { build(); }).observe(mainContent);
+
+      // Theme color sync
+      new MutationObserver(function () {
+        if (material) material.color.set(getDotColor());
+      }).observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
+
+      build();
+      animate();
+    })();
 
   </script>
 </body>
