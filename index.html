@@ -20,12 +20,12 @@
   <style>
     :root {
       --bg-main: #f8ecd9;
-      --bg-body: #1a1a1a;
+      --bg-body: #161616;
       --text-primary: #161616;
       --text-secondary: #555;
       --text-copyright: #353535;
       --text-contact: #161616;
-      --border-profile: #597039a8;
+      --border-profile: #597039d9;
       --btn-bg: #161616;
       --btn-text: #faeedc;
       --btn-hover: #282828;
@@ -35,7 +35,7 @@
       --dropdown-hover: #555;
       --social-filter: brightness(0);
       --link-color: green;
-      --footer-bg: #1a1a1a;
+      --footer-bg: #161616;
       --footer-text: #fff;
       --footer-label: #aaa;
       --footer-email: #fff;
@@ -45,7 +45,7 @@
     }
 
     [data-theme="dark"] {
-      --bg-main: #1a1a1a;
+      --bg-main: #161616;
       --bg-body: #f8ecd9;
       --text-primary: #f8ecd9;
       --text-secondary: #aaa;
@@ -85,7 +85,7 @@
     }
 
     ::selection {
-      background-color: #597039a8;
+      background-color: #597039d9;
       color: white;
     }
 
@@ -699,7 +699,7 @@
     if (savedTheme === 'dark') {
       document.documentElement.setAttribute('data-theme', 'dark');
       themeToggle.textContent = '🌙';
-      themeColor.content = '#1a1a1a';
+      themeColor.content = '#161616';
     }
 
     function toggleTheme() {
@@ -712,7 +712,7 @@
       } else {
         document.documentElement.setAttribute('data-theme', 'dark');
         themeToggle.textContent = '🌙';
-        themeColor.content = '#1a1a1a';
+        themeColor.content = '#161616';
         localStorage.setItem('theme', 'dark');
       }
     }
