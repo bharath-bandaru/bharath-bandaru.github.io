@@ -539,6 +539,23 @@
 
     }
 
+    .wave-emoji {
+      display: inline-block;
+      animation: wave 2.5s ease-in-out infinite;
+      transform-origin: 70% 70%;
+    }
+
+    @keyframes wave {
+      0%   { transform: rotate(0deg); }
+      10%  { transform: rotate(14deg); }
+      20%  { transform: rotate(-8deg); }
+      30%  { transform: rotate(14deg); }
+      40%  { transform: rotate(-4deg); }
+      50%  { transform: rotate(10deg); }
+      60%  { transform: rotate(0deg); }
+      100% { transform: rotate(0deg); }
+    }
+
     .contact-footer {
       background-color: var(--footer-bg);
       color: var(--footer-text);
@@ -640,7 +657,7 @@
       </div>
       <p><strong>Bharath Bandaru</strong></p>
       <div class="text-content">
-        <h2>👋 <strong>Hi there.</strong></h2>
+        <h2><span class="wave-emoji">👋</span> <strong>Hi there.</strong></h2>
         <p class="about-me">
           I am a <span class="highlight">Senior Full-Stack Engineer</span> with 9+ years building production systems at scale — across Fortune 500 companies (JP Morgan Chase, McKesson) and cross-platform apps with 17,000+ downloads. Expert in Java, Spring Boot, Node.js, React, Flutter/Dart, AWS. Combines strong product instinct (Figma to production) with deep backend and cloud engineering. Proven track record of shipping products, mentoring teams, and eliminating manual work through automation. I <span class="highlight">love building products</span> and painting portraits. Currently expanding into AI agents orchestration — integrating LLM-powered workflows into production systems.
         </p>
