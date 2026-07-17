@@ -542,7 +542,18 @@
     (function () {
       var scrollTimer = null;
       var isSnapping = false;
+      var isTouching = false;
+      var rafId = null;
       var spacerHeight = 420;
+      // Momentum (inertial) scrolling on touch keeps firing scroll events after
+      // the finger lifts; wait a touch longer there so native scroll settles
+      // before we take over, otherwise the two fight and flicker.
+      var settleDelay = 'ontouchstart' in window ? 160 : 80;
+
+      function abortSnap() {
+        if (rafId !== null) { cancelAnimationFrame(rafId); rafId = null; }
+        isSnapping = false;
+      }
 
       function springSnap(target) {
         isSnapping = true;
@@ -563,18 +574,38 @@
           var t = Math.min(1, elapsed / duration);
           window.scrollTo(0, start + distance * ease(t));
           if (t < 1) {
-            requestAnimationFrame(step);
+            rafId = requestAnimationFrame(step);
           } else {
+            rafId = null;
             isSnapping = false;
           }
         }
-        requestAnimationFrame(step);
+        rafId = requestAnimationFrame(step);
       }
+
+      // If the user grabs the page again, immediately hand control back to
+      // native scrolling — a running scrollTo animation during a touch is
+      // exactly what causes the jitter.
+      window.addEventListener('touchstart', function () {
+        isTouching = true;
+        clearTimeout(scrollTimer);
+        abortSnap();
+      }, { passive: true });
+
+      window.addEventListener('touchend', function () {
+        isTouching = false;
+      }, { passive: true });
+      window.addEventListener('touchcancel', function () {
+        isTouching = false;
+      }, { passive: true });
 
       window.addEventListener('scroll', function () {
         if (isSnapping) return;
         clearTimeout(scrollTimer);
         scrollTimer = setTimeout(function () {
+          // Never snap while a finger is still down.
+          if (isTouching) return;
+
           var maxScroll = document.documentElement.scrollHeight - window.innerHeight;
           var footerStart = maxScroll - spacerHeight;
           var scrollY = window.scrollY;
@@ -583,7 +614,7 @@
 
           var progress = (scrollY - footerStart) / spacerHeight;
           springSnap(progress > 0.35 ? maxScroll : footerStart);
-        }, 80);
+        }, settleDelay);
       }, { passive: true });
     })();
 
