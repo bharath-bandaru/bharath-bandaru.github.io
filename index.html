@@ -133,6 +133,13 @@
       position: relative;
       z-index: 1;
       min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      /* keeps tall content from overflowing off the top of the viewport */
+      justify-content: safe center;
+      padding: 40px 0;
+      box-sizing: border-box;
       transition: background-color 0.4s ease;
     }
 
@@ -367,8 +374,8 @@
     </div>
   </div>
 
-  <p class="copyright"> &copy; Bharath Bandaru, <a href="https://ephileo.us" target="_blank" rel="noopener noreferrer">ephileo.us</a></p>
-  <div style="position: relative; display: inline-block;">
+  <p class="copyright reveal" style="animation-delay: 0.74s;"> &copy; Bharath Bandaru, <a href="https://ephileo.us" target="_blank" rel="noopener noreferrer">ephileo.us</a></p>
+  <div class="reveal" style="position: relative; display: inline-block; animation-delay: 0.82s;">
     <button class="toggle-button" onclick="togglePrivacyPolicy()">Privacy Policy</button>
     <div class="app-links" id="privacy-links" style="margin-bottom: 5px;">
       <a href="https://ephileo.us/projects/escape-game/privacy" target="_blank" rel="noopener noreferrer">Escape</a>
