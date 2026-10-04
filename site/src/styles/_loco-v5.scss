@@ -87,14 +87,17 @@ body {
     padding-top: 18px;
 }
 
-// Hover reveal on the resume link shows the resume page (800×1035 preview),
+// Hover reveal on the resume link shows the resume page (800×1155 preview),
 // smaller than the default reveal and centred on the cursor (the original
-// effect offsets its image up-left).
+// effect offsets its image up-left). Keep the box at the image's aspect ratio.
 .menu__item[data-reveal='resume'] .hover-reveal {
     width: 240px;
-    height: 310px;
+    height: 346px;
     left: 0;
     top: 0;
+}
+.menu__item[data-reveal='resume'] .hover-reveal__inner {
+    border-radius: 10px; // the inner wrapper clips the image (overflow: hidden)
 }
 
 // Full-screen overlays and viewport-anchored UI were in normal flow / absolute
