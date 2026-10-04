@@ -87,6 +87,15 @@ body {
     padding-top: 18px;
 }
 
+// Hover reveal on the ephileo.us link shows the app icon (600×600 preview),
+// centred on the cursor.
+.menu__item[data-reveal='ephileo'] .hover-reveal {
+    width: 260px;
+    height: 260px;
+    left: 0;
+    top: 0;
+}
+
 // Hover reveal on the resume link shows the resume page (800×1035 preview),
 // smaller than the default reveal and centred on the cursor (the original
 // effect offsets its image up-left).
@@ -173,4 +182,24 @@ body {
 }
 .ps-timeline-sec-2 .t-container ol.ps-timeline::after {
     right: -200px; // original geometry shifted by the 140px extension
+}
+
+// Requested tweak: in the portfolio cards' link blocks, put the spacing after
+// each link rather than between a title and its link. The links sat inline in a
+// line box sized by the card's 24px font (gap above, none below); as blocks they
+// hug their title and carry the gap themselves.
+#portfolio .border-dashed p.f-18 + a.a-tag,
+#portfolio .border-dashed p.f-18 + .menu {
+    display: block;
+    line-height: 1.3;
+    padding-bottom: 10px; // padding: the links' `.m-0` sets margin: 0 !important
+}
+#portfolio .border-dashed p.f-18 + .menu {
+    font-size: 15px; // match the link so the wrapper's line box adds no gap above it
+}
+#portfolio .border-dashed p.f-18 + .menu .a-tag {
+    display: inline-block;
+}
+#portfolio .border-dashed a.a-tag + br {
+    display: none;
 }
