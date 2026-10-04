@@ -1,34 +1,38 @@
-// Ribbon scene after About. The About panel is pinned (sticky) for the width
-// of the scene, drifting at a quarter of the scroll (data-parallax-pin), while
-// crossing white bands of condensed black type slide over
-// it, modelled on the Locomotive Scroll demo's "direction blocks": the wrapper
-// (.tape-item) holds the rotation, the inner span carries the parallax
-// translate, so each band slides along its own axis at its own speed.
+// Ribbon scene after About. About scrolls normally; the ribbon layer (fixed
+// to the viewport) fades in once the photo reaches the left edge and out over
+// the start of Portfolio. Crossing white bands of condensed black type, modelled on the
+// Locomotive Scroll demo's "direction blocks": the wrapper (.tape-item) holds
+// the rotation, the inner span carries the parallax translate, so each band
+// slides along its own axis at its own speed.
 .about-scene {
     width: 240vw; // 100vw About + 140vw of ribbons
     height: 100vh;
 }
 
+// z-index: 0 makes the panel its own stacking context, so nothing inside it
+// (the parallax items, the hover-reveal) can paint over the ribbon layer.
+// tape.js slows the panel (translateX) once it is mostly gone.
 .about-pin {
-    position: sticky;
-    left: 0;
+    position: relative;
+    z-index: 0;
     width: 100vw;
     height: 100vh;
     will-change: transform;
 }
 
-// The ribbon layer is pinned like the About panel (sticky, pulled up over it
-// with a negative margin); only the text slides along each band via parallax.
+// The ribbon layer is fixed to the viewport (it outlasts the About scene: it
+// fades out over the start of Portfolio); only the text slides along each
+// band via parallax. It sits in the About section's stacking context, so it
+// paints above About and below the sections that follow.
 .tape {
-    position: sticky;
-    left: 0;
+    position: fixed;
     top: 0;
+    left: 0;
     width: 100vw;
     height: 100vh;
-    margin-top: -100vh;
     z-index: 1;
     pointer-events: none;
-    opacity: 0; // tape.js fades the layer in/out at the scene edges
+    opacity: 0; // tape.js fades the layer in/out
     will-change: opacity;
 }
 

@@ -3,9 +3,10 @@ import { clamp } from './utils.js';
 
 const SEPARATOR = '  •  ';
 const REPEAT = 3;
+const SLOW_RATE = 0.5; // About's lag per px of scroll once it is mostly gone
 
-// Ribbon scene (About pinned under crossing bands; the band layer is pinned
-// too, only the text slides). Each band's line is written once in the markup
+// Ribbon scene (pinned band layer behind the normally scrolling About; only
+// the text slides along the bands). Each band's line is written once in the markup
 // and repeated here three times, bullet-separated. The layer fades in after
 // some scrolling on About and out once About releases, so nothing trails
 // into Portfolio.
@@ -13,20 +14,27 @@ export function initTape() {
   const tape = document.getElementById('tape');
   if (!tape) return;
   const scene = tape.parentElement;
+  const panel = scene.querySelector('.about-pin');
+  const portfolioTitle = document.querySelector('#portfolio .v5-sticky h1');
+  const photo = scene.querySelector('.dp img');
   const spans = [...tape.querySelectorAll('.tape-item > span')];
   const lines = spans.map((span) => span.textContent.trim());
 
   // Scroll range in which the layer is visible: from landing on About to the
   // end of the fade-out after About releases.
+  // Scroll positions that drive the layer.
   const range = () => {
     const W = window.innerWidth;
-    const start = scene.getBoundingClientRect().left + window.scrollX;
-    const end = start + scene.offsetWidth - W;
-    // Fade-in waits `delay` of scrolling past the landing, so the About screen
-    // reads clean first, then ramps over `ramp`. Fade-out starts `hold` after
-    // About releases and ends when Portfolio's leading edge reaches the centre
-    // of the screen (it enters at the release, so that is W/2 later).
-    return { W, start, end, ramp: W * 0.3, delay: W * 0.7, hold: W * 0.1, outEnd: W * 0.46 };
+    const start = scene.getBoundingClientRect().left + window.scrollX; // About lands
+    const end = start + scene.offsetWidth - W; // scene ends, Portfolio enters
+    // Fade-out runs from `hold` after the scene ends until the "Portfolio."
+    // title is centred on screen (measured before it starts sticking).
+    const title = portfolioTitle ? portfolioTitle.getBoundingClientRect() : null;
+    const outTo = title ? title.left + window.scrollX + title.width / 2 - W / 2 : end + W / 2;
+    // Fade-in ramps over `ramp` once the About photo reaches the left edge.
+    // Once About is `slowFrom` gone it moves at half speed (SLOW_RATE) so it
+    // lingers behind the ribbons, still leaving before the scene ends.
+    return { W, start, end, ramp: W * 0.3, hold: W * 0.1, outTo, slowFrom: W * 0.7 };
   };
 
   const fill = () => {
@@ -36,9 +44,14 @@ export function initTape() {
   };
 
   const update = (scroll) => {
-    const { start, end, ramp, delay, hold, outEnd } = range();
-    const fadeIn = clamp((scroll - start - delay) / ramp, 0, 1);
-    const fadeOut = clamp(1 - (scroll - end - hold) / (outEnd - hold), 0, 1);
+    const { W, start, end, ramp, hold, outTo, slowFrom } = range();
+    if (panel) {
+      const lag = Math.max(0, Math.min(scroll, end + W) - start - slowFrom) * SLOW_RATE;
+      panel.style.transform = lag ? `translate3d(${lag}px, 0, 0)` : '';
+    }
+    const photoLeft = photo ? photo.getBoundingClientRect().left : 0;
+    const fadeIn = clamp(-photoLeft / ramp, 0, 1);
+    const fadeOut = clamp((outTo - scroll) / (outTo - end - hold), 0, 1);
     tape.style.opacity = Math.min(fadeIn, fadeOut);
   };
 
