@@ -2,9 +2,13 @@ import { gsap } from 'gsap';
 import { map, lerp, clamp, getMousePos } from './utils.js';
 import { onScroll } from './scroll.js';
 import revealImg from '../assets/images/reveal.jpg';
+import resumeImg from '../assets/images/resume-preview.webp';
+
+// Image per `.menu__item`, chosen by its data-reveal attribute.
+const IMAGES = { default: revealImg, resume: resumeImg };
 
 // Reference menuItem.js (Codrops hover image reveal) collapsed into one class
-// with a single statically imported image. The broken click handler from
+// with statically imported images. The broken click handler from
 // menuController.js (undefined contentItems) is dropped.
 
 let mousepos = { x: 0, y: 0 };
@@ -31,7 +35,8 @@ class HoverReveal {
     this.DOM.revealInner.className = 'hover-reveal__inner';
     this.DOM.revealImage = document.createElement('div');
     this.DOM.revealImage.className = 'hover-reveal__img';
-    this.DOM.revealImage.style.backgroundImage = `url(${revealImg})`;
+    const image = IMAGES[this.DOM.el.dataset.reveal] ?? IMAGES.default;
+    this.DOM.revealImage.style.backgroundImage = `url(${image})`;
     this.DOM.revealInner.appendChild(this.DOM.revealImage);
     this.DOM.reveal.appendChild(this.DOM.revealInner);
     this.DOM.el.appendChild(this.DOM.reveal);

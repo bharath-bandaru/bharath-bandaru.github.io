@@ -83,7 +83,14 @@ body {
     position: absolute;
     top: 100%;
     left: 0;
+    right: 0; // same width as the text block → same parallax offset → aligned
     padding-top: 18px;
+}
+
+// Hover reveal on the resume link shows the resume page (800×1035 preview).
+.menu__item[data-reveal='resume'] .hover-reveal {
+    width: 310px;
+    height: 400px;
 }
 
 // Full-screen overlays and viewport-anchored UI were in normal flow / absolute
