@@ -1,0 +1,58 @@
+// Ported verbatim from my-portfolio/src/css/grid.scss. Do not restyle or reformat:
+// the desktop layout must stay pixel-identical to the original site.
+
+* {
+    box-sizing: border-box;
+}
+
+
+/* ---- grid ---- */
+
+.grid {
+    // animation-name: move;
+    // animation-timing-function: linear;
+    // animation-duration: 4s;
+    // animation-iteration-count: infinite;
+    // animation-direction: right;
+    // -webkit-animation-name: move;
+    // -webkit-animation-duration: 4s;
+    // -webkit-animation-iteration-count: infinite;
+    // -webkit-animation-direction: right;
+    // -webkit-animation-timing-function: linear;
+}
+
+
+/* clear fix */
+
+.grid:after {
+    content: '';
+    display: block;
+    clear: both;
+}
+
+
+/* ---- .grid-item ---- */
+
+.grid-sizer,
+.grid-item {
+    width: 400px;
+}
+
+.grid-item {
+    float: left;
+    margin-bottom: 10px;
+}
+
+.grid-item img {
+    display: block;
+    max-width: 100%;
+}
+
+@-webkit-keyframes move {
+    0% {
+        margin-left: -400px;
+    }
+    100% {
+        margin-left: 800px;
+    }
+}

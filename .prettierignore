@@ -1,0 +1,17 @@
+# generated
+assets/
+index.html
+# the original single-page site, kept as-is
+m/
+# SCSS ported verbatim from the reference (see banners)
+site/src/styles/_styles.scss
+site/src/styles/_timeline.scss
+site/src/styles/_hover.scss
+site/src/styles/_button.scss
+site/src/styles/_cursor.scss
+site/src/styles/_fonts.scss
+site/src/styles/_grid.scss
+package-lock.json
+# Android App Links files, kept byte-identical
+.well-known/
+chain-reaction-game/

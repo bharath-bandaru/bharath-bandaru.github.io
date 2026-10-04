@@ -1,0 +1,24 @@
+// Ported verbatim from my-portfolio/src/css/cursor.scss. Do not restyle or reformat:
+// the desktop layout must stay pixel-identical to the original site.
+
+.cursor-n {
+    display: none;
+    z-index: 99999999999999;
+}
+
+@media (any-pointer: fine) {
+    .cursor-n {
+        z-index: 99999999999999;
+        position: fixed;
+        top: 0;
+        left: 0;
+        display: block;
+        pointer-events: none;
+    }
+    .cursor-n__inner {
+        z-index: 99999999999999;
+        fill: #4CAF50;
+        stroke: #4CAF50;
+        stroke-width: 1px;
+    }
+}

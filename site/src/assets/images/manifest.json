@@ -1,0 +1,218 @@
+{
+  "splash.webp": {
+    "width": 950,
+    "height": 600
+  },
+  "dp.webp": {
+    "width": 500,
+    "height": 500
+  },
+  "projects/roamates.webp": {
+    "width": 700,
+    "height": 700
+  },
+  "projects/chain.webp": {
+    "width": 876,
+    "height": 1000
+  },
+  "projects/escape.webp": {
+    "width": 1000,
+    "height": 488
+  },
+  "projects/chatgpt.webp": {
+    "width": 738,
+    "height": 998
+  },
+  "projects/project-6.webp": {
+    "width": 747,
+    "height": 171
+  },
+  "projects/screenshot.webp": {
+    "width": 598,
+    "height": 255
+  },
+  "projects/fickle.webp": {
+    "width": 584,
+    "height": 268
+  },
+  "experience/one-kitchen.webp": {
+    "width": 354,
+    "height": 186
+  },
+  "experience/logo-dark-bg.webp": {
+    "width": 207,
+    "height": 240
+  },
+  "projects/anim.gif": {
+    "width": 800,
+    "height": 600
+  },
+  "reveal.jpg": {
+    "width": 1060,
+    "height": 1500
+  },
+  "artworks/1.webp": {
+    "width": 564,
+    "height": 564
+  },
+  "artworks/2.webp": {
+    "width": 564,
+    "height": 752
+  },
+  "artworks/3.webp": {
+    "width": 564,
+    "height": 564
+  },
+  "artworks/4.webp": {
+    "width": 563,
+    "height": 676
+  },
+  "artworks/5.webp": {
+    "width": 564,
+    "height": 752
+  },
+  "artworks/6.webp": {
+    "width": 564,
+    "height": 752
+  },
+  "artworks/7.webp": {
+    "width": 564,
+    "height": 564
+  },
+  "artworks/8.webp": {
+    "width": 541,
+    "height": 647
+  },
+  "artworks/9.webp": {
+    "width": 564,
+    "height": 564
+  },
+  "artworks/10.webp": {
+    "width": 564,
+    "height": 677
+  },
+  "artworks/11.webp": {
+    "width": 564,
+    "height": 705
+  },
+  "artworks/12.webp": {
+    "width": 564,
+    "height": 752
+  },
+  "artworks/13.webp": {
+    "width": 564,
+    "height": 752
+  },
+  "artworks/14.webp": {
+    "width": 450,
+    "height": 364
+  },
+  "artworks/16.webp": {
+    "width": 564,
+    "height": 671
+  },
+  "artworks/19.webp": {
+    "width": 564,
+    "height": 564
+  },
+  "artworks/20.webp": {
+    "width": 564,
+    "height": 564
+  },
+  "artworks/22.webp": {
+    "width": 619,
+    "height": 1200
+  },
+  "artworks/23.webp": {
+    "width": 750,
+    "height": 750
+  },
+  "artworks/24.webp": {
+    "width": 554,
+    "height": 1200
+  },
+  "artworks/25.webp": {
+    "width": 750,
+    "height": 750
+  },
+  "artworks/26.webp": {
+    "width": 750,
+    "height": 524
+  },
+  "artworks/28.webp": {
+    "width": 750,
+    "height": 909
+  },
+  "artworks/29.webp": {
+    "width": 750,
+    "height": 750
+  },
+  "artworks/30.webp": {
+    "width": 750,
+    "height": 750
+  },
+  "artworks/31.webp": {
+    "width": 750,
+    "height": 750
+  },
+  "artworks/32.webp": {
+    "width": 800,
+    "height": 1046
+  },
+  "artworks/33.webp": {
+    "width": 750,
+    "height": 750
+  },
+  "artworks/34.webp": {
+    "width": 800,
+    "height": 1002
+  },
+  "artworks/35.webp": {
+    "width": 750,
+    "height": 750
+  },
+  "artworks/36.webp": {
+    "width": 750,
+    "height": 750
+  },
+  "artworks/37.webp": {
+    "width": 750,
+    "height": 750
+  },
+  "artworks/38.webp": {
+    "width": 750,
+    "height": 750
+  },
+  "artworks/40.webp": {
+    "width": 750,
+    "height": 750
+  },
+  "artworks/41.webp": {
+    "width": 750,
+    "height": 750
+  },
+  "artworks/43.webp": {
+    "width": 750,
+    "height": 750
+  },
+  "artworks/44.webp": {
+    "width": 750,
+    "height": 750
+  },
+  "artworks/45.webp": {
+    "width": 750,
+    "height": 750
+  },
+  "artworks/48.webp": {
+    "width": 750,
+    "height": 424
+  },
+  "artworks/49.webp": {
+    "width": 750,
+    "height": 750
+  },
+  "artworks/50.webp": {
+    "width": 749,
+    "height": 562
+  }
+}

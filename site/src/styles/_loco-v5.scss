@@ -1,0 +1,165 @@
+// Locomotive Scroll v5 (Lenis) adjustments. The reference ran Locomotive v4,
+// which transformed [data-scroll-container] inside an overflow:hidden page.
+// v5 scrolls the real document horizontally, so these rules replace the v4
+// mechanics while keeping every visual position the same.
+
+// The document is the scroller: horizontal only, native scrollbar hidden
+// (the reference drew its own thin bar, recreated by scrollbar.js).
+html.has-scroll-smooth {
+    overflow-x: auto;
+    overflow-y: hidden;
+    overscroll-behavior: none;
+    scrollbar-width: none;
+    &::-webkit-scrollbar {
+        display: none;
+    }
+}
+
+html.lenis,
+html.lenis body {
+    height: 100%;
+}
+
+// The reference's `.has-scroll-smooth body { overflow: hidden }` would make
+// <body> a scroll container and break position: sticky (it would anchor to
+// body instead of the viewport). Nothing overflows body (width: max-content).
+.has-scroll-smooth body,
+body {
+    width: max-content;
+    min-width: 100vw;
+    overflow: visible;
+    overscroll-behavior: none;
+}
+
+#main-body,
+[data-scroll-container] {
+    width: max-content;
+}
+
+// v4's scroll limit was the container width; transformed (parallax) children
+// did not extend it. `clip` keeps document.scrollWidth equal to the strip width
+// without creating a scroll container (so position: sticky still works).
+[data-scroll-container] {
+    overflow: clip;
+}
+
+// v4 `data-scroll-sticky` → CSS sticky. The wrapper is a zero-size positioned
+// box; the heading inside keeps its original `position:absolute; top:…`.
+.v5-sticky {
+    position: sticky;
+    left: 0;
+    width: max-content;
+    height: 0;
+    // flow-root keeps the heading's default margins inside the wrapper; otherwise
+    // they collapse through the zero-height box and push the section content down.
+    display: flow-root;
+}
+
+// The heading is laid out inside the wrapper (so the sticky box has the
+// heading's size, stopping at the section edge like v4) and keeps its inline
+// `top` as a relative offset.
+.v5-sticky > h1 {
+    position: relative !important;
+    margin-right: 0 !important;
+}
+
+.v5-sticky-block {
+    position: sticky;
+    left: 0;
+}
+
+// Artwork <img>s carry width/height attributes (stable layout before decode).
+// The reference sized them by height only, so keep width derived from the ratio.
+.art-work-inner {
+    width: auto;
+}
+
+// The resume link is the one addition to the About copy. It is taken out of
+// flow so the vertically centred text block keeps the reference position.
+.hello .d-block {
+    position: relative;
+}
+.resume-line {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    padding-top: 18px;
+}
+
+// Full-screen overlays and viewport-anchored UI were in normal flow / absolute
+// in the reference (fine under v4's transformed container). Under native
+// document scroll they must be fixed.
+#start-name,
+#terminal {
+    position: fixed;
+    top: 0;
+    left: 0;
+}
+
+.contact-top,
+.contact-bottom,
+.position-b-r {
+    position: fixed;
+}
+
+// Recreated v4 scrollbar (markup injected by scrollbar.js).
+.c-scrollbar {
+    position: fixed;
+    left: 0;
+}
+
+.c-scrollbar_thumb {
+    height: 100%;
+}
+
+// index.js:88-91 hid the experience logos on short viewports.
+@media (max-height: 765px) {
+    .min-high {
+        display: none !important;
+    }
+}
+
+// v4 transformed every [data-scroll-section]; that made each section the
+// containing block for its absolutely positioned children (#courses, the
+// experience timeline block). position: relative restores that.
+// z-index: 0 also recreates the stacking context each transformed section had
+// in v4 (the experience L-connector relies on a negative z-index inside it).
+[data-scroll-section] {
+    position: relative;
+    z-index: 0;
+}
+
+@media (pointer: coarse) {
+    .menu__item {
+        cursor: auto;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .wave,
+    .cur-blink,
+    .ephileo-core,
+    .ephileo-ring,
+    .ephileo-orbit {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+    }
+}
+
+// Requested tweak: the last experience block is wider than in the original, so
+// the timeline ended underneath it. Continue the solid line 140px (::before) so
+// it clears the block like the original did, and keep the original short dashed
+// stub (::after) at the new end.
+.ps-timeline-sec-2 .t-container ol.ps-timeline::before {
+    content: '';
+    position: absolute;
+    left: auto; // the original ::before sits at left: 20px
+    width: 140px;
+    border-top: 3px solid #bfbfbf;
+    right: -160px; // margin: 20px → starts flush with the line end
+    top: -20px;
+    margin: 20px;
+}
+.ps-timeline-sec-2 .t-container ol.ps-timeline::after {
+    right: -200px; // original geometry shifted by the 140px extension
+}
