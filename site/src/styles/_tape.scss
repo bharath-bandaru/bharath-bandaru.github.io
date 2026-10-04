@@ -1,0 +1,81 @@
+// Ribbon scene after About. The About panel is pinned (sticky) for the width
+// of the scene, drifting at a quarter of the scroll (data-parallax-pin), while
+// crossing white bands of condensed black type slide over
+// it, modelled on the Locomotive Scroll demo's "direction blocks": the wrapper
+// (.tape-item) holds the rotation, the inner span carries the parallax
+// translate, so each band slides along its own axis at its own speed.
+.about-scene {
+    width: 240vw; // 100vw About + 140vw of ribbons
+    height: 100vh;
+}
+
+.about-pin {
+    position: sticky;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    will-change: transform;
+}
+
+// The ribbon layer is pinned like the About panel (sticky, pulled up over it
+// with a negative margin); only the text slides along each band via parallax.
+.tape {
+    position: sticky;
+    left: 0;
+    top: 0;
+    width: 100vw;
+    height: 100vh;
+    margin-top: -100vh;
+    z-index: 1;
+    pointer-events: none;
+    opacity: 0; // tape.js fades the layer in/out at the scene edges
+    will-change: opacity;
+}
+
+// Bands are centred on the viewport; `top` is a band's centre line there.
+.tape-item {
+    position: absolute;
+    left: 50%;
+    white-space: nowrap;
+    line-height: 1;
+    transform-origin: 50% 50%;
+
+    > span {
+        display: block;
+        padding: 8px 32px 0;
+        background: #fff;
+        color: #000;
+        font-family: 'Bebas Neue', 'Avenir', sans-serif;
+        font-size: 12vw; // ≈180px-tall bands at 1440
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        will-change: transform;
+    }
+
+    // Composition (DOM order back → front: five, two, three, one, four):
+    // four tall bands spaced so neighbours overlap where their tilts meet,
+    // plus a steeper filler behind them covering the middle-left. `top` is
+    // each band's centre line.
+    &.-three {
+        top: 10%;
+        transform: translate(-50%, -50%) rotate(-7deg);
+    }
+    &.-one {
+        top: 34%;
+        transform: translate(-50%, -50%) rotate(8deg);
+    }
+    &.-four {
+        top: 58%;
+        transform: translate(-50%, -50%) rotate(-9deg);
+    }
+    &.-five {
+        // bottom band, nearly level
+        top: 86%;
+        transform: translate(-50%, -50%) rotate(2deg);
+    }
+    &.-two {
+        left: calc(50% - 120px);
+        top: 46%;
+        transform: translate(-50%, -50%) rotate(-18deg);
+    }
+}

@@ -171,42 +171,58 @@
                     </div>
                 </div>
 
-                <div data-scroll-section id="sec-1">
-                    <div class=" panel d-flex" data-scroll-id="section-1">
-                        <div class=" full-screen d-flex">
-                            <div class="dp" style="width: 50%;">
-                                <div style="text-align: center; margin-right: 80px;">
-                                    <img data-parallax="1" src="./src/assets/images/dp.webp" width="310px"
-                                        height="310px" alt="">
-                                    <p data-parallax="1" class="word-wrap-css"
-                                        style="opacity: 0.75; width: 410px; text-align: center;">This is not me, but an
-                                        amateur in the past decade.</p>
+                <!-- About is pinned (sticky) for the width of the ribbon scene, drifting
+                     at a quarter of the scroll. The ribbon layer is pinned too (Locomotive-
+                     demo style direction blocks): only the text slides along each band. Each
+                     band is rotated by its wrapper; the inner span carries the parallax so
+                     the text slides along the band, all keyed off the scene (#sec-1) so
+                     they move together while it is in view. -->
+                <div data-scroll-section id="sec-1" class="about-scene">
+                    <div class="about-pin" data-parallax-pin="0.25">
+                        <div class=" panel d-flex" data-scroll-id="section-1">
+                            <div class=" full-screen d-flex">
+                                <div class="dp" style="width: 50%;">
+                                    <div style="text-align: center; margin-right: 80px;">
+                                        <img data-parallax="1" src="./src/assets/images/dp.webp" width="310px"
+                                            height="310px" alt="">
+                                        <p data-parallax="1" class="word-wrap-css"
+                                            style="opacity: 0.75; width: 410px; text-align: center;">This is not me, but an
+                                            amateur in the past decade.</p>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="hello white-color" style="width: 50%;">
-                                <div class="d-block">
-                                    <h1 class="m-0 f-48" data-parallax="1.3">
-                                        <span class="wave">👋 </span> Hi there.
-                                    </h1>
-                                    <span>
-                                        <p class=" pp f-46"></p>
-                                        <span></span>
-                                        <p data-parallax="1" class="word-wrap-css m-0 hello-text f-46 intro-text-1"> I am a<span class="menu"><span class="menu__item"><span class="menu__item-inner-wrap"> <s><a class="special-a"> International Student</a></s> </span></span></span>working as <span>Senior Principal Software Engineer</span> at <span>Script Health</span>, Chicago, United States
-                                        </p>
-                                        <div data-parallax="1" class="m-0" style="display: flex; align-items: center;">
-                                            <div class="f-26"> Glad to meet you!&nbsp;</div>
-                                            <div style="font-size: 36px;">🍻 </div>
-                                        </div>
-                                        <p data-parallax="1" class="m-0 f-18 resume-line">
-                                            <span class="menu"><span class="menu__item" data-reveal="resume"><span class="menu__item-inner-wrap"><a class="a-tag resume-link" href="/docs/resume.pdf" target="_blank" rel="noopener">Resume ↗</a></span></span></span>
-                                        </p>
-                                    </span>
+                                <div class="hello white-color" style="width: 50%;">
+                                    <div class="d-block">
+                                        <h1 class="m-0 f-48" data-parallax="1.3">
+                                            <span class="wave">👋 </span> Hi there.
+                                        </h1>
+                                        <span>
+                                            <p class=" pp f-46"></p>
+                                            <span></span>
+                                            <p data-parallax="1" class="word-wrap-css m-0 hello-text f-46 intro-text-1"> I am a<span class="menu"><span class="menu__item"><span class="menu__item-inner-wrap"> <s><a class="special-a"> International Student</a></s> </span></span></span>working as <span>Senior Principal Software Engineer</span> at <span>Script Health</span>, Chicago, United States
+                                            </p>
+                                            <div data-parallax="1" class="m-0" style="display: flex; align-items: center;">
+                                                <div class="f-26"> Glad to meet you!&nbsp;</div>
+                                                <div style="font-size: 36px;">🍻 </div>
+                                            </div>
+                                            <p data-parallax="1" class="m-0 f-18 resume-line">
+                                                <span class="menu"><span class="menu__item" data-reveal="resume"><span class="menu__item-inner-wrap"><a class="a-tag resume-link" href="/docs/resume.pdf" target="_blank" rel="noopener">Resume ↗</a></span></span></span>
+                                            </p>
+                                        </span>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
+                    <div class="tape" id="tape" aria-label="A few things about me">
+                        <div class="tape-item -five"><span data-parallax="4" data-parallax-target="#sec-1">Build products people love</span></div>
+                        <div class="tape-item -two"><span data-parallax="2" data-parallax-target="#sec-1">Castles made of code</span></div>
+                        <div class="tape-item -three"><span data-parallax="3" data-parallax-target="#sec-1">Curious by default</span></div>
+                        <div class="tape-item -one"><span data-parallax="6" data-parallax-target="#sec-1">Designer at heart, engineer by trade</span></div>
+                        <div class="tape-item -four"><span data-parallax="5" data-parallax-target="#sec-1">Building a better tomorrow</span></div>
+
+                    </div>
                 </div>
-                
+
                 <section data-scroll-section id="portfolio">
                     <div style="width: 6900px; height: 100vh;" data-scroll-id="section-2">
                         <div class="v5-sticky" style="z-index: 1001;"><h1 style=" position: absolute; z-index: 1001;
