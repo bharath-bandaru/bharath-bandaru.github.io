@@ -13,7 +13,8 @@ bypass).
 | ---------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `index.html`, `assets/`                                                                  | **Generated** by `npm run build`. Do not edit by hand.                                                                                                                                                                                                                                                                                 |
 | `m/index.html`                                                                           | The original single-page site, served to phones. Self-contained.                                                                                                                                                                                                                                                                       |
-| `analytics.js`                                                                           | Firebase Analytics (GA4) loader shared by `/` and `/m/`, served as-is (not bundled). See [Analytics](#analytics).                                                                                                                                                                                                                       |
+| `analytics.js`                                                                           | Visit tracking shared by `/` and `/m/`, served as-is (not bundled): Firebase Analytics (GA4) plus a Realtime Database write. See [Analytics](#analytics).                                                                                                                                                                             |
+| `database.rules.json`, `firebase.json`, `.firebaserc`                                    | Realtime Database security rules and the Firebase CLI config to deploy them (`firebase deploy --only database`).                                                                                                                                                                                                                      |
 | `fonts/`, `images/`, `icons/`, `docs/resume.pdf`, `.well-known/`, `chain-reaction-game/` | Static files served as-is at the same URLs.                                                                                                                                                                                                                                                                                            |
 | `site/index.html`                                                                        | The page source. Markup is ported verbatim from the original portfolio (`my-portfolio`), content updated.                                                                                                                                                                                                                              |
 | `site/src/main.js`                                                                       | Entry point: boot order and wiring.                                                                                                                                                                                                                                                                                                    |
@@ -77,6 +78,34 @@ load sends one `portfolio_view` event with:
 reports by them, register them once under GA4 Admin → Custom definitions
 (`variant`, `pointer` as user-scoped dimensions; the event parameters above as
 event-scoped ones). `window.track(name, params)` is exposed for extra events.
+
+### Realtime Database (the quick view)
+
+The same script also writes to the project's Realtime Database
+(`portfolio-4a2e3-default-rtdb`), which gives counts without digging through
+GA4 reports. Open the
+[Data tab](https://console.firebase.google.com/project/portfolio-4a2e3/database/portfolio-4a2e3-default-rtdb/data/~2Fstats)
+in the Firebase console:
+
+```
+stats/
+  total                      every page load
+  variant/desktop, mobile    page loads per variant
+  daily/YYYY-MM-DD/variant   the same, per UTC day
+  timezone/America_Chicago   page loads per browser time zone (a rough "where")
+views/<push id>              one row per page load: ts, day, variant, redirectedFrom,
+                             bypass, timezone, language, viewport, screen, dpr, pointer,
+                             touch, orientation, standalone, referrer, userAgent
+```
+
+Each page load is one atomic multi-path update (the row plus every counter).
+The rules in `database.rules.json` allow the public site to do only that:
+create a `views` row that matches the schema with a server timestamp, and
+increment a counter by exactly one. Nothing is readable from the web; the
+console reads as the project owner. Deploy rule changes with
+`firebase deploy --only database`. Anyone can still inflate counters by
+calling the write themselves; for a portfolio that is acceptable, and the
+`views` rows make such noise easy to spot.
 
 Nothing is sent from `localhost` or LAN addresses. Append `?analytics_debug`
 to the URL (or set `localStorage.analyticsDebug = '1'`) to send anyway with

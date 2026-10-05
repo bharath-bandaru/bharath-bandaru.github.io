@@ -1,0 +1,57 @@
+{
+  "rules": {
+    ".read": false,
+    ".write": false,
+
+    "stats": {
+      "total": {
+        ".write": "newData.isNumber() && ((!data.exists() && newData.val() == 1) || newData.val() == data.val() + 1)"
+      },
+      "variant": {
+        "$variant": {
+          ".write": "$variant.matches(/^(desktop|mobile)$/) && newData.isNumber() && ((!data.exists() && newData.val() == 1) || newData.val() == data.val() + 1)"
+        }
+      },
+      "daily": {
+        "$day": {
+          "$variant": {
+            ".write": "$day.matches(/^[0-9]{4}-[0-9]{2}-[0-9]{2}$/) && $variant.matches(/^(desktop|mobile)$/) && newData.isNumber() && ((!data.exists() && newData.val() == 1) || newData.val() == data.val() + 1)"
+          }
+        }
+      },
+      "timezone": {
+        "$tz": {
+          ".write": "$tz.length <= 64 && newData.isNumber() && ((!data.exists() && newData.val() == 1) || newData.val() == data.val() + 1)"
+        }
+      }
+    },
+
+    "views": {
+      "$id": {
+        ".write": "!data.exists() && newData.exists()",
+        ".validate": "newData.hasChildren(['ts', 'variant']) && newData.child('ts').isNumber() && newData.child('ts').val() >= now - 60000 && newData.child('ts').val() <= now + 60000",
+        "ts": { ".validate": "newData.isNumber()" },
+        "variant": {
+          ".validate": "newData.isString() && newData.val().matches(/^(desktop|mobile)$/)"
+        },
+        "day": {
+          ".validate": "newData.isString() && newData.val().matches(/^[0-9]{4}-[0-9]{2}-[0-9]{2}$/)"
+        },
+        "timezone": { ".validate": "newData.isString() && newData.val().length <= 64" },
+        "language": { ".validate": "newData.isString() && newData.val().length <= 16" },
+        "viewport": { ".validate": "newData.isString() && newData.val().length <= 16" },
+        "screen": { ".validate": "newData.isString() && newData.val().length <= 16" },
+        "dpr": { ".validate": "newData.isNumber()" },
+        "pointer": { ".validate": "newData.isString() && newData.val().length <= 8" },
+        "touch": { ".validate": "newData.isBoolean()" },
+        "orientation": { ".validate": "newData.isString() && newData.val().length <= 10" },
+        "standalone": { ".validate": "newData.isBoolean()" },
+        "redirectedFrom": { ".validate": "newData.isString() && newData.val().length <= 8" },
+        "bypass": { ".validate": "newData.isString() && newData.val().length <= 8" },
+        "referrer": { ".validate": "newData.isString() && newData.val().length <= 256" },
+        "userAgent": { ".validate": "newData.isString() && newData.val().length <= 512" },
+        "$other": { ".validate": false }
+      }
+    }
+  }
+}

@@ -1,12 +1,19 @@
-// Firebase Analytics (Google Analytics 4) for both page variants: the desktop
-// strip at / and the phone page at /m/. Loaded as a plain deferred script by
-// site/index.html and m/index.html and served as-is from the repository root.
+// Visit tracking for both page variants: the desktop strip at / and the phone
+// page at /m/. Loaded as a plain deferred script by site/index.html and
+// m/index.html and served as-is from the repository root. Two sinks:
 //
-// GA4 records location (country, region, city), device category, OS, browser,
-// screen resolution, language and referrer on its own. On top of that, one
-// `portfolio_view` event per page load says which variant actually rendered
-// (the redirect in each page's <head> decides that, not the device) plus the
-// viewport, pointer type, orientation and whether the visitor was redirected.
+// 1. Firebase Analytics (Google Analytics 4). GA4 records location (country,
+//    region, city), device category, OS, browser, screen resolution, language
+//    and referrer on its own. On top of that, one `portfolio_view` event per
+//    page load says which variant actually rendered (the redirect in each
+//    page's <head> decides that, not the device) plus the viewport, pointer
+//    type, orientation and whether the visitor was redirected.
+//
+// 2. Firebase Realtime Database, for a glanceable view without digging through
+//    GA4 reports: ready-made counters under /stats (total, per variant, per
+//    day and variant, per time zone) and one row per visit under /views.
+//    Security rules (database.rules.json) only allow creating a view row and
+//    incrementing a counter by exactly one; nothing is readable from the web.
 //
 // Not sent from localhost / LAN addresses. Add `?analytics_debug` to the URL
 // (or set localStorage.analyticsDebug = '1') to send anyway with GA4 debug
@@ -20,6 +27,7 @@
     messagingSenderId: '242046888491',
     appId: '1:242046888491:web:7b9d9553d427522b8e986e',
     measurementId: 'G-Q9VCW0715T',
+    databaseURL: 'https://portfolio-4a2e3-default-rtdb.firebaseio.com',
   };
   var SDK = 'https://www.gstatic.com/firebasejs/12.19.0/';
 
@@ -78,13 +86,67 @@
     connection: conn.effectiveType || 'unknown',
   };
 
-  Promise.all([import(SDK + 'firebase-app.js'), import(SDK + 'firebase-analytics.js')])
+  var timezone = 'unknown';
+  try {
+    timezone = Intl.DateTimeFormat().resolvedOptions().timeZone || 'unknown';
+  } catch {
+    /* no Intl */
+  }
+
+  // One atomic multi-path write: the visit row plus every counter it belongs to.
+  function recordView(db, dbApi) {
+    var day = new Date().toISOString().slice(0, 10);
+    var key = dbApi.push(dbApi.ref(db, 'views')).key;
+    var row = {
+      ts: dbApi.serverTimestamp(),
+      day: day,
+      variant: variant,
+      redirectedFrom: redirectedFrom || 'none',
+      bypass: bypass,
+      timezone: timezone.slice(0, 64),
+      language: (navigator.language || 'unknown').slice(0, 16),
+      viewport: params.viewport,
+      screen: params.screen_size,
+      dpr: params.dpr,
+      pointer: pointer,
+      touch: touch,
+      orientation: params.orientation,
+      standalone: params.standalone === 'yes',
+      referrer: (document.referrer || '').slice(0, 256),
+      userAgent: (navigator.userAgent || '').slice(0, 512),
+    };
+    var updates = {};
+    updates['views/' + key] = row;
+    updates['stats/total'] = dbApi.increment(1);
+    updates['stats/variant/' + variant] = dbApi.increment(1);
+    updates['stats/daily/' + day + '/' + variant] = dbApi.increment(1);
+    // Database keys cannot contain "/" (America/Chicago -> America_Chicago).
+    updates['stats/timezone/' + timezone.replace(/[.#$/[\]]/g, '_').slice(0, 64)] =
+      dbApi.increment(1);
+    return dbApi.update(dbApi.ref(db), updates);
+  }
+
+  Promise.all([
+    import(SDK + 'firebase-app.js'),
+    import(SDK + 'firebase-analytics.js'),
+    import(SDK + 'firebase-database.js'),
+  ])
     .then(function (mods) {
       var app = mods[0];
       var an = mods[1];
+      var dbApi = mods[2];
+      var fb = app.initializeApp(firebaseConfig);
+
+      recordView(dbApi.getDatabase(fb), dbApi)
+        .then(function () {
+          if (debug) console.info('[analytics] view recorded in the Realtime Database');
+        })
+        .catch(function (err) {
+          if (debug) console.warn('[analytics] database write failed', err);
+        });
+
       return an.isSupported().then(function (ok) {
         if (!ok) return;
-        var fb = app.initializeApp(firebaseConfig);
         // Debug mode at the gtag config level marks every hit (page_view included),
         // so the session shows up as a device in Firebase > Analytics > DebugView.
         var analytics = debug
