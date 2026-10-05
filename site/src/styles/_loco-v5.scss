@@ -204,6 +204,19 @@ body {
 .ps-timeline-sec-2 .t-container ol.ps-timeline::after {
     display: none;
 }
+// Requested tweak: a 50px dashed lead-in to the left of the first (2026) dot,
+// within the 100px the line is inset from its container (the original
+// ol::before is an empty marker; positioned against the .t-container like the
+// original).
+.ps-timeline-sec-2 .t-container ol.ps-timeline::before {
+    content: '';
+    position: absolute;
+    left: 50px;
+    top: 0;
+    width: 50px;
+    border-top: 3px dashed #bfbfbf;
+    font-size: 0;
+}
 // Education: the rail lives in the .t-container, beside the <ol> (Education
 // itself has no fade). Its top is the upper line
 // (t-container top); its height reaches the bottom of the lower Experience
@@ -211,7 +224,11 @@ body {
 // sits 6px above the viewport centre).
 .ps-timeline-sec-1 .t-container .edu-rail {
     position: absolute;
-    left: -1.5px; // half the 3px border: centred on the section edge
+    // Flush with the section edge: anything left of it sits under Experience's
+    // opaque backdrop (which paints above Education) and is hidden — a
+    // centred rail lost 2 of its 3px that way. The Experience line ends
+    // exactly at this edge, so the two still meet.
+    left: 0;
     top: 0;
     width: 3px;
     height: calc(50vh - 170px);

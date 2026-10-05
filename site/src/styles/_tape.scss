@@ -1,10 +1,10 @@
 // Ribbon scene over the end of the artworks. The ribbon layer (fixed to the
-// viewport) fades in once the artworks' trailing ". . ." is centred, while the
-// artworks crawl behind it, and fades out as the closing "Thanks again!" screen
-// slides in. Crossing white bands of condensed black type, modelled on the
-// Locomotive Scroll demo's "direction blocks": the wrapper (.tape-item) holds
-// the rotation, the inner span carries the parallax translate, so each band
-// slides along its own axis at its own speed.
+// viewport) fades in once the artworks' trailing ". . ." comes into view, while
+// the artworks crawl behind it, and fades out as the closing "Thanks again!"
+// screen slides in. Crossing white bands of condensed black type, modelled on
+// the Locomotive Scroll demo's "direction blocks": the wrapper (.tape-item)
+// holds the rotation, the inner span carries the scroll-driven translate
+// (tape.js), so each band slides along its own axis at its own speed.
 .tape-scene {
     width: 140vw; // scroll distance the ribbons play over
     height: 100vh;
@@ -128,8 +128,8 @@ a.outro__hire {
     will-change: transform;
 }
 
-// The ribbon layer is fixed to the viewport; only the text slides along each
-// band via parallax. It sits in its section's stacking context, so it paints
+// The ribbon layer is fixed to the viewport; only the bands slide along their
+// own axes (tape.js). It sits in its section's stacking context, so it paints
 // above the artworks behind it.
 .tape {
     position: fixed;

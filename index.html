@@ -42,8 +42,8 @@
         #terminal { z-index: 99; }
         .display-none { display: none !important; }
     </style>
-  <script type="module" crossorigin src="/assets/index-CU8tJtPp.js"></script>
-  <link rel="stylesheet" crossorigin href="/assets/index-9V3e_WcC.css">
+  <script type="module" crossorigin src="/assets/index--BR0CgVT.js"></script>
+  <link rel="stylesheet" crossorigin href="/assets/index-DhK69Ap_.css">
 </head>
 
 <body class="loading">
@@ -141,7 +141,7 @@
                 <div
                     style="text-align: right; text-align: right; bottom: 12px; text-transform: uppercase; letter-spacing: 0.18em; font-size: 9px; opacity: 0.5; position: absolute; padding-right: 5px; border-right: 3.5px solid #4CAF50;">
                     <p class="m-0">Designed in <span style="font-weight: 600;">FIGMA</span></p>
-                    <p class="m-0">Developed with <span style="font-weight: 600;">vite, animejs, locomotive scroll</span></p>
+                    <p class="m-0"><a href="https://www.figma.com/design/NspXTR5k5KNq8gSFmjQKNg/Portfolio?node-id=0-1" target="_blank" rel="noopener" style="font-weight: 600; color: inherit;">View the Figma file ↗</a></p>
                 </div>
             </div>
             <div style="text-align: center;">
@@ -212,7 +212,7 @@
                                         <span></span>
                                         <p data-parallax="1" class="word-wrap-css m-0 hello-text f-46 intro-text-1"> I am <span class="menu"><span class="menu__item"><span class="menu__item-inner-wrap"> <s><a class="special-a"> an International Student</a></s> </span></span></span>working as <span>Senior Principal Software Engineer</span> at <span>Script Health</span>, Chicago, United States
                                         </p>
-                                        <div data-parallax="1" class="m-0" style="display: flex; align-items: center; padding-top: 10px;">
+                                        <div data-parallax="1" class="m-0" style="display: flex; align-items: center; padding-top: 5px;">
                                             <div class="f-26"> Glad to meet you!&nbsp;</div>
                                             <div style="font-size: 36px;">🍻 </div>
                                         </div>
@@ -938,7 +938,7 @@
                             <p class="m-0"
                                 style="font-weight: 600; font-size: 20px; text-transform: uppercase; margin: 0px !important; opacity: 0.75;" data-parallax="5"> &lt;<span class="color-green">courses</span>&gt; </p>
                             <p class="m-0"
-                                style="font-weight: 500px; font-family: Bebas Neue; font-size: 30px; letter-spacing: 0.15em; width: 100vw; opacity: 0.5;" data-parallax="5">Computer Vision • Artificial Intelligence • Natural Language Processing • Data Preparation and Analysis<br>Machine Learning • Algorithms • Advanced Data Structures • Object-Oriented Analysis & Design • Databases</p>
+                                style="font-weight: 500px; font-family: Bebas Neue; font-size: 30px; letter-spacing: 0.15em; width: 100vw; opacity: 0.5;" data-parallax="5">Computer Vision • Artificial Intelligence • Natural Language Processing • Data Preparation and Analysis • Machine Learning<br>Algorithms • Advanced Data Structures • Object-Oriented Analysis & Design • Databases & Many more</p>
                         </div>
                     </div>
                 </section>
@@ -1115,15 +1115,15 @@
                      crossing bands that closes the strip. Once the artworks' trailing ". . ." reaches
                      the centre the artworks drop to a crawl behind the bands (tape.js) and the
                      ribbons fade in for the rest of the scroll. Each band is rotated by its wrapper; the inner
-                     span carries the parallax so the text slides along the band, all keyed off
-                     this section so they move together while it is in view. -->
+                     span is slid along the band by tape.js (data-tape-speed, tenths of the scroll
+                     distance, alternating direction) from the moment the ribbons appear. -->
                 <section data-scroll-section id="tape-scene" class="tape-scene" aria-label="A few things about me">
                     <div class="tape" id="tape">
-                        <div class="tape-item -five"><span data-parallax="4" data-parallax-target="#tape-scene">Build products people love</span></div>
-                        <div class="tape-item -two"><span data-parallax="2" data-parallax-target="#tape-scene">Castles made of code</span></div>
-                        <div class="tape-item -three"><span data-parallax="3" data-parallax-target="#tape-scene">Curious by default</span></div>
-                        <div class="tape-item -one"><span data-parallax="6" data-parallax-target="#tape-scene">Designer at heart, engineer by trade</span></div>
-                        <div class="tape-item -four"><span data-parallax="5" data-parallax-target="#tape-scene">Building a better tomorrow</span></div>
+                        <div class="tape-item -five"><span data-tape-speed="4">Build products people love</span></div>
+                        <div class="tape-item -two"><span data-tape-speed="2">Castles made of code</span></div>
+                        <div class="tape-item -three"><span data-tape-speed="3">Curious by default</span></div>
+                        <div class="tape-item -one"><span data-tape-speed="6">Designer at heart, engineer by trade</span></div>
+                        <div class="tape-item -four"><span data-tape-speed="5">Building a better tomorrow</span></div>
                     </div>
                 </section>
                 <!-- Outro: the ribbons fade out as this screen slides in; the button opens LinkedIn in a new tab. -->

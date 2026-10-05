@@ -7,8 +7,8 @@ const FADE_LERP = 0.08; // per-frame easing of the layer's opacity toward its sc
 const SLOW_RATE = 0.8; // the artworks' lag per px of scroll while the ribbons build (≈ 20% speed)
 
 // Ribbon scene closing the strip, over the end of the artworks: a fixed layer
-// of crossing bands; only the text slides along them (parallax keyed off the
-// scene section). Each band's line is written once in the markup and repeated
+// of crossing bands; only the text slides along them (scroll-driven here, see
+// `speeds`). Each band's line is written once in the markup and repeated
 // here three times, bullet-separated. Once the artworks' trailing ". . ."
 // (marked data-tape-anchor) has come into view on the right the ribbons fade
 // in and the artworks drop to a crawl behind them (so there is no empty
@@ -29,6 +29,11 @@ export function initTape() {
   const anchor = document.querySelector('[data-tape-anchor]');
   const spans = [...tape.querySelectorAll('.tape-item > span')];
   const lines = spans.map((span) => span.textContent.trim());
+  // Band text speeds (tenths of the scroll distance since the ribbons began),
+  // alternating direction so neighbouring bands cross. Driven here rather than
+  // by parallax.js so the bands move from the moment they fade in — the scene
+  // section itself is still off to the right at that point.
+  const speeds = spans.map((span, i) => ((parseFloat(span.dataset.tapeSpeed) || 3) / 10) * (i % 2 ? 1 : -1));
 
   let lag = 0; // current translateX of the section crawling behind the ribbons
 
@@ -78,6 +83,10 @@ export function initTape() {
     // fading out (scroll ≥ outFrom) the lag stops growing, so the artworks
     // move at full scroll speed again while the ribbons disappear.
     lag = clamp(past, 0, Math.max(0, outFrom - from)) * SLOW_RATE;
+    const travel = Math.max(0, scroll - from);
+    spans.forEach((span, i) => {
+      span.style.transform = `translate3d(${travel * speeds[i]}px, 0, 0)`;
+    });
     if (panel) panel.style.transform = lag ? `translate3d(${lag}px, 0, 0)` : '';
     // The section fades out with the ribbons, so its tail is gone by the time
     // the next section fills the screen.
