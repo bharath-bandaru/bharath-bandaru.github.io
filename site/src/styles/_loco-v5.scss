@@ -277,6 +277,36 @@ body {
     right: -60px;
 }
 
+// Requested tweak: company logo chip above each Experience card box — the
+// brand mark as supplied, on its brand background (Scripted wordmark on
+// #ffc559; the stacked J.P. Morgan emblem on white), square corners.
+.exp-logo {
+    display: block;
+    box-sizing: content-box;
+    width: auto;
+    height: 28px;
+    padding: 6px 12px;
+    margin: 0 0 14px;
+    &.exp-logo--scripted {
+        background: #ffc559;
+    }
+    &.exp-logo--jpm {
+        height: 52px; // stacked emblem needs the room for its wordmark
+        padding: 6px 10px;
+        background: #fff;
+    }
+    // Education: the Illinois Tech mark is its own red square (no chip);
+    // the VNR VJIET mark is red on white.
+    &.exp-logo--iit {
+        height: 40px;
+        padding: 0;
+    }
+    &.exp-logo--vnr {
+        height: 30px;
+        padding: 6px 14px; // room around the mark inside the 42px chip
+        background: #fff;
+    }
+}
 // Requested tweak: the Script Health card lists the earlier roles there under
 // the current one (hidden on short viewports via .min-high, like the logos).
 .role-history {
