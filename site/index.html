@@ -171,14 +171,14 @@
                     </div>
                 </div>
 
-                <!-- About scrolls normally; the ribbon layer (fixed to the viewport) fades
-                     in once the photo reaches the left edge and out over the start of
+                <!-- The ribbon layer (fixed to the viewport) fades in shortly after landing
+                     on About, which then crawls behind it, and fades out over the start of
                      Portfolio (Locomotive-demo style direction blocks). Each band is rotated by
                      its wrapper; the inner span carries the parallax so the text slides
                      along the band, all keyed off the scene (#sec-1) so they move together
                      while it is in view. -->
                 <div data-scroll-section id="sec-1" class="about-scene">
-                    <div class="about-pin">
+                    <div class="about-pin" data-parallax-scope>
                         <div class=" panel d-flex" data-scroll-id="section-1">
                             <div class=" full-screen d-flex">
                                 <div class="dp" style="width: 50%;">

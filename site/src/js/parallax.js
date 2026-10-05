@@ -7,6 +7,9 @@ import { onScroll, getLenis } from './scroll.js';
 // Elements carry the original v4 values in `data-parallax`. An optional
 // `data-parallax-target` (v4 `data-scroll-target`) measures another element
 // instead, so e.g. the tape bands all move while their section is in view.
+// Elements inside a `data-parallax-scope` ancestor keep their last transform
+// while that ancestor carries `data-parallax-hold` (used while About holds
+// centred behind the ribbons).
 
 export function initParallax(selector = '[data-parallax]') {
   let items = [];
@@ -31,6 +34,7 @@ export function initParallax(selector = '[data-parallax]') {
       const right = left + target.offsetWidth;
       return {
         el,
+        scope: el.closest('[data-parallax-scope]'),
         speed: parseFloat(el.dataset.parallax) / 10,
         left,
         right,
@@ -45,6 +49,7 @@ export function initParallax(selector = '[data-parallax]') {
     for (const it of items) {
       const inView = scrollRight >= it.left && scroll < it.right;
       if (!inView && !all) continue;
+      if (it.scope && it.scope.hasAttribute('data-parallax-hold')) continue;
       const d = (scroll + W / 2 - it.middle) * -it.speed;
       it.el.style.transform = `matrix3d(1,0,0.00,0,0.00,1,0.00,0,0,0,1,0,${d},0,0,1)`;
     }
