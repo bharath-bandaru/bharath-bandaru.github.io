@@ -7,7 +7,16 @@ import path from 'node:path';
 // (index.html + assets/) to the repository root, next to the static folders
 // that are committed directly (fonts, images, icons, docs, .well-known, ...).
 
-const ROOT_STATIC = ['fonts', 'images', 'icons', 'docs', '.well-known', 'chain-reaction-game', 'm'];
+const ROOT_STATIC = [
+  'fonts',
+  'images',
+  'icons',
+  'docs',
+  '.well-known',
+  'chain-reaction-game',
+  'm',
+  'analytics.js',
+];
 const MIME = {
   '.woff2': 'font/woff2',
   '.woff': 'font/woff',
@@ -17,6 +26,7 @@ const MIME = {
   '.pdf': 'application/pdf',
   '.json': 'application/json',
   '.html': 'text/html; charset=utf-8',
+  '.js': 'text/javascript; charset=utf-8',
 };
 
 // Dev-server only: serve the root static folders at their real URLs.

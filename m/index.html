@@ -15,6 +15,7 @@
        redirect on / that sends ≤ 900px screens here. -->
   <script>
     if (window.matchMedia('(min-width: 901px)').matches && !/mobile/.test(location.search)) {
+      try { sessionStorage.setItem('redirectedFrom', '/m/'); } catch (e) { /* storage blocked */ }
       location.replace('/' + location.hash);
     }
   </script>
@@ -327,6 +328,8 @@
     .contact-footer .footer-socials a:hover { background-color: var(--footer-social-hover); transform: translateY(-3px); }
     .contact-footer .footer-socials img { width: 18px; height: 18px; filter: var(--footer-social-filter); }
   </style>
+  <!-- Firebase Analytics (GA4), shared with the desktop page at /. -->
+  <script src="/analytics.js" defer></script>
 </head>
 
 <body>

@@ -14,6 +14,7 @@
          Placed after the viewport meta on purpose: before it, phones report a 980px layout viewport. -->
     <script>
         if (window.matchMedia('(max-width: 900px)').matches && !/desktop/.test(location.search)) {
+            try { sessionStorage.setItem('redirectedFrom', '/'); } catch (e) { /* storage blocked */ }
             location.replace('/m/' + location.hash);
         }
     </script>
@@ -46,6 +47,8 @@
         #terminal { z-index: 99; }
         .display-none { display: none !important; }
     </style>
+    <!-- Firebase Analytics (GA4), shared with /m/. Served from the repo root, not bundled. -->
+    <script src="/analytics.js" defer ></script>
   <script type="module" crossorigin src="/assets/index-Rqc_jSd-.js"></script>
   <link rel="stylesheet" crossorigin href="/assets/index-CsHzlpDg.css">
 </head>

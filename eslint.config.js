@@ -16,6 +16,11 @@ export default [
     rules: { 'no-unused-vars': ['error', { argsIgnorePattern: '^_' }] },
   },
   {
+    // Shared Firebase Analytics loader at the repo root: a classic script, not a module.
+    files: ['analytics.js'],
+    languageOptions: { ecmaVersion: 2023, sourceType: 'script', globals: globals.browser },
+  },
+  {
     files: ['scripts/**/*.mjs'],
     languageOptions: { ecmaVersion: 2023, sourceType: 'module', globals: globals.node },
   },

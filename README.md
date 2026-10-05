@@ -13,6 +13,7 @@ bypass).
 | ---------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `index.html`, `assets/`                                                                  | **Generated** by `npm run build`. Do not edit by hand.                                                                                                                                                                                                                                                                                 |
 | `m/index.html`                                                                           | The original single-page site, served to phones. Self-contained.                                                                                                                                                                                                                                                                       |
+| `analytics.js`                                                                           | Firebase Analytics (GA4) loader shared by `/` and `/m/`, served as-is (not bundled). See [Analytics](#analytics).                                                                                                                                                                                                                       |
 | `fonts/`, `images/`, `icons/`, `docs/resume.pdf`, `.well-known/`, `chain-reaction-game/` | Static files served as-is at the same URLs.                                                                                                                                                                                                                                                                                            |
 | `site/index.html`                                                                        | The page source. Markup is ported verbatim from the original portfolio (`my-portfolio`), content updated.                                                                                                                                                                                                                              |
 | `site/src/main.js`                                                                       | Entry point: boot order and wiring.                                                                                                                                                                                                                                                                                                    |
@@ -48,6 +49,38 @@ Press **Enter** (or tap, on touch screens) to skip the intro.
   Education (2021 → 2013) → artworks → ribbon scene → outro ("Thanks again!" + a Hire me
   link to LinkedIn). The dashed rail that joins
   the two timelines lives on Education's first (2021) dot (`_loco-v5.scss`).
+
+## Analytics
+
+Both pages load `/analytics.js`, which initialises Firebase Analytics (Google
+Analytics 4) from the CDN build of the SDK. Firebase project `portfolio-4a2e3`,
+web app "bharath-bandaru.github.io", GA4 stream `G-Q9VCW0715T`. Reports live in
+the [Firebase console](https://console.firebase.google.com/project/portfolio-4a2e3/analytics)
+and in Google Analytics.
+
+GA4 records location (country, region, city), device category, OS, browser,
+screen resolution, language and referrer by itself. On top of that every page
+load sends one `portfolio_view` event with:
+
+| Parameter                        | Values                                                                 |
+| -------------------------------- | ---------------------------------------------------------------------- |
+| `variant`                        | `desktop` (the strip at `/`) or `mobile` (the page at `/m/`)           |
+| `redirected_from`                | `/`, `/m/` or `none`: whether the head redirect sent the visitor here  |
+| `bypass`                         | `desktop`, `mobile` or `none`: the `?desktop` / `?mobile` overrides    |
+| `viewport`, `screen_size`, `dpr` | e.g. `390x844`, `1170x2532`, `3`                                       |
+| `pointer`, `touch`               | `fine` / `coarse` / `none`, `yes` / `no`                               |
+| `orientation`, `standalone`      | `portrait` / `landscape`; `yes` when opened from the home screen       |
+| `color_scheme`, `reduced_motion` | OS preferences                                                         |
+| `connection`                     | `4g`, `3g`, ... (Chromium only, otherwise `unknown`)                   |
+
+`variant` and `pointer` are also set as user properties. To slice the standard
+reports by them, register them once under GA4 Admin → Custom definitions
+(`variant`, `pointer` as user-scoped dimensions; the event parameters above as
+event-scoped ones). `window.track(name, params)` is exposed for extra events.
+
+Nothing is sent from `localhost` or LAN addresses. Append `?analytics_debug`
+to the URL (or set `localStorage.analyticsDebug = '1'`) to send anyway with
+debug mode on; the events then appear live in Firebase → Analytics → DebugView.
 
 ## Publishing
 
