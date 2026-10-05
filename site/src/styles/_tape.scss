@@ -1,22 +1,135 @@
-// Ribbon scene over the end of Work Experience. The ribbon layer (fixed to
-// the viewport) fades in once the last experience card is centred, while the
-// experience crawls behind it, and out as the artworks header arrives. Crossing white bands of condensed black
-// type, modelled on the Locomotive Scroll demo's "direction blocks": the
-// wrapper (.tape-item) holds the rotation, the inner span carries the parallax
-// translate, so each band slides along its own axis at its own speed.
+// Ribbon scene over the end of the artworks. The ribbon layer (fixed to the
+// viewport) fades in once the artworks' trailing ". . ." is centred, while the
+// artworks crawl behind it, and fades out as the closing "Thanks again!" screen
+// slides in. Crossing white bands of condensed black type, modelled on the
+// Locomotive Scroll demo's "direction blocks": the wrapper (.tape-item) holds
+// the rotation, the inner span carries the parallax translate, so each band
+// slides along its own axis at its own speed.
 .tape-scene {
     width: 140vw; // scroll distance the ribbons play over
     height: 100vh;
+    z-index: 1; // above the outro that follows, so the ribbons fade out over it
 }
 
-// tape.js makes the experience section crawl (translateX) behind the ribbons.
-#experience {
+// Closing screen after the ribbons: "Thanks again!" with a Hire me button
+// (the original .button-f look: green stroke and text on black; buttonCtrl.js
+// makes it magnetic and toggles .button-f--hover for the inverted look, as the
+// original Reload button did). The id outranks the strip's
+// [data-scroll-section] display rule.
+// The section is 160vw wide; its content is pinned (sticky) for the extra
+// 60vw, and fades.js uses that scroll range to raise the banner from the
+// bottom once the screen has filled the viewport. Keep the 0.6 in sync.
+#outro {
+    width: 160vw;
+    height: 100vh;
+    background: #000; // covers whatever is left of the crawled artworks behind it
+    display: inline-block;
+    // no overflow: hidden here — it would make the section the sticky
+    // content's scroll container and stop it pinning; the strip's own
+    // overflow: clip already hides the banner while it is below the screen.
+}
+.outro__inner {
+    position: sticky;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 28px;
+    text-align: center;
+}
+// Banner artwork (hands spelling the name) under the 🙌, rounded. fades.js
+// raises it from below the screen over the closing screen's pinned stretch.
+.outro__banner {
+    display: block;
+    width: min(900px, 70vw);
+    height: auto;
+    border-radius: 16px;
+    opacity: 0.75; // resting opacity; fades.js scales its rise up to this
+    will-change: transform, opacity;
+}
+.outro__title {
+    margin: 0;
+    font-size: 46px;
+    font-weight: 600;
+}
+.outro__cheer {
+    margin: 8px 0 0;
+    font-size: 44px;
+    line-height: 1;
+}
+a.outro__hire {
+    min-width: 180px;
+    height: 56px;
+    padding: 0 32px;
+    margin: 0;
+    font-size: 22px;
+    text-decoration: none; // it is a link (LinkedIn, new tab)
+    // The global `a:hover { color: #4CAF50 }` outranks .button-f--hover on a
+    // link, which left green text on the green hover fill; restate the
+    // inverted colours at higher specificity.
+    &:hover {
+        text-decoration: none;
+    }
+    &.button-f--hover,
+    &.button-f--hover:hover {
+        color: var(--button-text-hover);
+        background: var(--button-bg-hover);
+        border-color: var(--button-stroke-hover);
+    }
+    transition:
+        background-color 0.2s ease,
+        color 0.2s ease,
+        border-color 0.2s ease;
+    // Icon and label share one row, aligned on the text baseline (the empty
+    // icon box's baseline is its bottom edge, so "in" sits on the baseline
+    // like the letters). Avenir's glyphs sit a touch high in the em box, so
+    // the row gets a 2px optical bias like .resume-link.
+    .button-f__text-inner {
+        display: inline-flex;
+        align-items: baseline;
+        gap: 12px;
+        width: auto;
+        height: auto; // content-high (button.scss sets 100%, which with baseline alignment pins the row to the top); .button-f__text centres it
+        padding-top: 2px;
+        line-height: 1;
+    }
+    // LinkedIn mark before the label, drawn in the current text colour (green,
+    // dark on hover) by masking with the same icon the social links use.
+    .outro__hire-icon {
+        display: inline-block;
+        flex: none;
+        width: 20px;
+        height: 20px;
+        background: currentColor;
+        mask: url('../assets/images/ui/link.svg') center / contain no-repeat;
+        -webkit-mask: url('../assets/images/ui/link.svg') center / contain no-repeat;
+    }
+    // Keyboard focus and coarse pointers (no magnetic controller) still get
+    // the inverted look.
+    &:focus-visible {
+        outline: none;
+        color: var(--button-text-hover);
+        background: var(--button-bg-hover);
+    }
+    @media (pointer: coarse) {
+        &:active {
+            color: var(--button-text-hover);
+            background: var(--button-bg-hover);
+        }
+    }
+}
+
+// tape.js makes the artworks section crawl (translateX) behind the ribbons.
+#artworks {
     will-change: transform;
 }
 
 // The ribbon layer is fixed to the viewport; only the text slides along each
 // band via parallax. It sits in its section's stacking context, so it paints
-// above Work Experience and below the artworks that follow.
+// above the artworks behind it.
 .tape {
     position: fixed;
     top: 0;

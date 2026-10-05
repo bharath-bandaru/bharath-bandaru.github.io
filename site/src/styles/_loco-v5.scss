@@ -74,60 +74,11 @@ body {
     width: auto;
 }
 
-// The resume link is the one addition to the About copy. It is taken out of
-// flow so the vertically centred text block keeps the reference position.
-.hello .d-block {
-    position: relative;
-}
-.resume-line {
-    position: absolute;
-    top: 100%;
-    left: 0;
-    right: 0; // same width as the text block → same parallax offset → aligned
-    padding-top: 18px;
-}
-
-// Resume link hover: square green block with a black border and dark text.
-// Negative margins cancel padding + border so the text keeps its position;
-// the hover-reveal preview still shows behind it.
-.resume-link {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    line-height: 1;
-    padding: 8px 12px 5px; // Avenir caps sit a touch high in the em box; bias keeps them optically centred
-    margin: -10px -14px -7px;
-    border: 2px solid transparent;
-    border-radius: 0;
-    transition:
-        background-color 0.2s ease,
-        border-color 0.2s ease,
-        color 0.2s ease;
-    &:hover {
-        background: #4caf50;
-        border-color: #000;
-        color: #000;
-        text-decoration: none;
-        text-transform: uppercase;
-        letter-spacing: 0.04em;
-    }
-}
-
 // Hover reveal on the ephileo.us link shows the app icon (600×600 preview),
 // centred on the cursor.
 .menu__item[data-reveal='ephileo'] .hover-reveal {
     width: 260px;
     height: 260px;
-    left: 0;
-    top: 0;
-}
-
-// Hover reveal on the resume link shows the resume page (800×1035 preview),
-// smaller than the default reveal and centred on the cursor (the original
-// effect offsets its image up-left).
-.menu__item[data-reveal='resume'] .hover-reveal {
-    width: 240px;
-    height: 310px;
     left: 0;
     top: 0;
 }
@@ -169,7 +120,8 @@ body {
 // containing block for its absolutely positioned children (#courses, the
 // experience timeline block). position: relative restores that.
 // z-index: 0 also recreates the stacking context each transformed section had
-// in v4 (the experience L-connector relies on a negative z-index inside it).
+// in v4 (the dashed rail joining the two timelines relies on a negative
+// z-index inside it).
 [data-scroll-section] {
     position: relative;
     z-index: 0;
@@ -192,22 +144,89 @@ body {
     }
 }
 
-// Requested tweak: the last experience block is wider than in the original, so
-// the timeline ended underneath it. Continue the solid line 200px (::before) so
-// it clears the block like the original did, and keep the original short dashed
-// stub (::after) at the new end.
-.ps-timeline-sec-2 .t-container ol.ps-timeline::before {
-    content: '';
-    position: absolute;
-    left: auto; // the original ::before sits at left: 20px
-    width: 200px;
-    border-top: 3px solid #bfbfbf;
-    right: -160px; // margin: 20px → starts flush with the line end
-    top: -20px;
-    margin: 20px;
+// Requested tweak: the strip reads newest-first — Work Experience (2026 → 2016)
+// comes right after the Portfolio, then Education (2021 → 2013). The original
+// L-connector (Education's line running into a dashed rail that dropped onto
+// the Experience line) is mirrored: the lower Experience line runs in from the
+// left and stops at a dashed rail on Education's left edge, 100px before its
+// upper line starts; the rail runs only between the two lines (from the upper
+// line down to the lower one), and a dashed stub joins it to the upper line
+// (the header's 50px padding keeps "Education." clear of the rail).
+//
+// Experience: the timeline container is widened so the reversed cards fit (the
+// section is exactly as wide as the line, so the line ends at the rail), and
+// the original dashed end stub is dropped. The section paints above Education
+// (Education drops to z-index -1 so the fixed UI, which has no z-index of its
+// own, stays above Experience; Experience is opaque black) so Education's
+// courses line (parallax speed 5, i.e. 1.5× the page) reads from just after
+// the rail while Education is centred and then slides away behind the
+// Experience strip — the way it slid behind the Experience start in the
+// original. The Education block therefore no longer carries its parallax:
+// both timelines are static, so the line end and the rail stay aligned.
+// The strip is its own stacking context so Education's z-index: -1 orders it
+// below Experience but still above the page background (which the body paints
+// in normal flow, i.e. over any negative layer of the root context). The fixed
+// UI that has no z-index of its own (progress bar, custom scrollbar) is lifted
+// above the strip, since Experience now has an opaque background.
+#main-container {
+    position: relative;
+    z-index: 0;
+}
+.position-b-r,
+.c-scrollbar {
+    z-index: 999;
+}
+#experience {
+    background: #000;
+    margin-left: 300px; // breathing room after the last Portfolio card
+}
+// The artworks header ("Thanks for stopping by") is centred in a 100vw block,
+// so its text starts ~460px into the section; pull the section back so it
+// follows the end of the Education line without a long empty stretch.
+#artworks {
+    margin-left: -300px;
+}
+#fixed-elements-three {
+    z-index: -1;
+}
+.ps-timeline-sec-2 .t-container {
+    width: 2860px; // leaves ~80px between the last (2016) card and the rail
 }
 .ps-timeline-sec-2 .t-container ol.ps-timeline::after {
-    right: -260px; // original geometry shifted by the 200px extension
+    display: none;
+}
+// Education: the rail lives in the .t-container, beside the <ol> (Education
+// itself has no fade). Its top is the upper line
+// (t-container top); its height reaches the bottom of the lower Experience
+// line (whose top sits 179px above the viewport bottom while the upper line
+// sits 6px above the viewport centre).
+.ps-timeline-sec-1 .t-container .edu-rail {
+    position: absolute;
+    left: -1.5px; // half the 3px border: centred on the section edge
+    top: 0;
+    width: 3px;
+    height: calc(50vh - 170px);
+    border-left: 3px dashed #bfbfbf;
+    z-index: -2;
+}
+// The original ol::before is an empty marker; it becomes the dashed stub from
+// the rail to the line start (the ol's 100px margin-left). The original
+// ol::after extended the solid line 1366px to the right (into the old
+// Experience start); it becomes the short dashed trailing stub Experience used
+// to have. Both are positioned against the .t-container, like the originals.
+.ps-timeline-sec-1 .t-container ol::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100px;
+    border-top: 3px dashed #bfbfbf;
+    font-size: 0;
+}
+.ps-timeline-sec-1 .t-container ol::after {
+    width: 200px;
+    border-top: 3px dashed #bfbfbf;
+    right: -60px;
 }
 
 // Requested tweak: the Script Health card lists the earlier roles there under

@@ -195,6 +195,14 @@ export function runPreloader({ onEnter }) {
           opacity: [0, 1],
           easing: 'easeOutExpo',
           duration: 50,
+        })
+        .add({
+          targets: '.resume-social',
+          translateY: [30, 0],
+          translateZ: 0,
+          opacity: [0, 1],
+          easing: 'easeOutExpo',
+          duration: 50,
         });
     }
   }

@@ -26,6 +26,8 @@ import { runPreloader } from './js/preloader.js';
 import { initContact } from './js/contact.js';
 import { initCursor } from './js/cursor.js';
 import { initHoverReveal } from './js/hoverReveal.js';
+import { initMagneticButton } from './js/buttonCtrl.js';
+import { initResumePanel } from './js/resumePanel.js';
 
 history.scrollRestoration = 'manual';
 window.scrollTo(0, 0);
@@ -38,6 +40,14 @@ initScroll();
 initKeyboardScroll();
 initProgress();
 const contact = initContact();
+// Resume icon (top right): hover peeks the sheet, click slides it open.
+initResumePanel({
+  trigger: document.querySelector('.resume-social'),
+  panel: document.getElementById('resume-panel'),
+  onOpen: () => {
+    if (contact.isOpen()) contact.close();
+  },
+});
 const runFades = initFades();
 const parallax = initParallax();
 initTape();
@@ -45,8 +55,14 @@ initCarousels();
 initScrollbar();
 
 if (pointerFx()) {
-  initCursor();
+  const cursor = initCursor();
   initHoverReveal();
+  // "Hire me" behaves like the original site's Reload button: magnetic, with
+  // the inverted hover look and the sliding label; the cursor grows with it.
+  initMagneticButton(document.getElementById('hireMe'), {
+    onEnter: () => cursor && cursor.enter(),
+    onLeave: () => cursor && cursor.leave(),
+  });
 }
 
 document.getElementById('name-header').addEventListener('click', () => {

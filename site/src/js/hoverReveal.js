@@ -2,11 +2,10 @@ import { gsap } from 'gsap';
 import { map, lerp, clamp, getMousePos } from './utils.js';
 import { onScroll } from './scroll.js';
 import revealImg from '../assets/images/reveal.jpg';
-import resumeImg from '../assets/images/resume-preview.webp';
 import ephileoImg from '../assets/images/ephileo-preview.webp';
 
 // Image per `.menu__item`, chosen by its data-reveal attribute.
-const IMAGES = { default: revealImg, resume: resumeImg, ephileo: ephileoImg };
+const IMAGES = { default: revealImg, ephileo: ephileoImg };
 
 // Reference menuItem.js (Codrops hover image reveal) collapsed into one class
 // with statically imported images. The broken click handler from

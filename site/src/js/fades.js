@@ -49,9 +49,13 @@ export function initFades() {
   const sec1 = document.querySelector('#sec-1 .panel');
   const education = $('sec-1');
   const portfolio = $('portfolio');
-  const hiThere = $('education');
+  // Requested tweak: Education (now between Experience and the artworks) has
+  // no fade at all — neither the original #education fade-in nor the fade-out
+  // the section before the artworks used to get.
+  const experienceSec = $('experience');
   const imagesSec = $('images-sec');
-  const experience = $('experience');
+  const outro = $('outro');
+  const banner = document.querySelector('.outro__banner');
   const prgs = $('prgs');
   const logoimg = $('logoimg');
   const social = $('social');
@@ -67,13 +71,35 @@ export function initFades() {
     }
     customFadeOutAnimation(education, W - 300);
     customFadeOutAnimation(portfolio, W - 300);
-    customFadeOutAnimation(hiThere, W - 300);
+    // Work Experience now follows the Portfolio; fade it in like Education did.
+    customFadeOutAnimation(experienceSec, W - 300);
     customFadeOutAnimation(imagesSec, W - 300);
     customFadeInAnimationDisplayNone(education, logoimg, W - 300);
     customFadeOutAnimation(imagesSec, W - 300);
     customFadeInAnimationDisplayNone(imagesSec, social, W - 300);
     customFadeInAnimation(imagesSec, myProgress, W - 300);
-    customFadeInAnimation(imagesSec, experience, W - 500);
+    // Requested tweak: the artworks hide the fixed social icons (they carry
+    // their own) and the progress bar, but the closing "Thanks again!" screen
+    // brings both back, fading in as it slides on (same ramp as the other
+    // fades). Runs last so it overrides the artworks' hide above.
+    const ox = outro.getBoundingClientRect().x;
+    if (ox < W - 300) {
+      const opacity = ox <= 0 ? 1 : (W - 300 - ox) / (W - 300);
+      social.classList.remove('display-none');
+      social.style.opacity = opacity;
+      myProgress.style.opacity = opacity;
+    }
+    // Requested tweak: once the closing screen fills the viewport, its content
+    // stays pinned for a further 60vw of scroll (the section is 160vw wide)
+    // and the banner card rises from below the screen over that stretch
+    // (scroll-driven, eased). Keep the 0.6 in sync with #outro's width.
+    if (banner) {
+      const p = Math.min(1, Math.max(0, -ox / (W * 0.6)));
+      const eased = 1 - Math.pow(1 - p, 3);
+      const rise = (1 - eased) * window.innerHeight * 0.7;
+      banner.style.transform = rise > 0.5 ? `translate3d(0, ${rise}px, 0)` : '';
+      banner.style.opacity = eased * 0.75; // the banner tops out at 75% opacity
+    }
   };
 
   onScroll(run);

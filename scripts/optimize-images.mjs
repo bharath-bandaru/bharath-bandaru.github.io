@@ -34,6 +34,10 @@ const pictures = [
   // (IMG_20161022_185631.jpg, 3264×2448) at width 760, quality 80.
   // projects/ux-india-app.webp was made separately from an app screenshot
   // (Screenshot_2016-10-09-18-21-42.png) at height 800, quality 82.
+  // projects/chain-banner.webp was made separately from the game's store banner
+  // (banner-1.webp, 3542×1778) at width 960, quality 82.
+  // outro-banner.webp was made separately from the YouTube channel banner
+  // (channels4_banner.jpg, 2556×424) at width 1400, quality 82.
   ['one kitchen.png', 'experience/one-kitchen.webp', {}],
   ['logo for dark bg.png', 'experience/logo-dark-bg.webp', { height: 240 }],
 ];

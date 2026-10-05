@@ -1,0 +1,131 @@
+// Resume bottom sheet (resumePanel.js): a rounded-top window that peeks up
+// from the bottom edge while the resume icon is hovered and slides up to fill
+// the screen (top corners still rounded) when clicked.
+$resume-radius: 18px;
+$resume-peek: 120px; // visible height of the peeking window
+$resume-top-gap: 78px; // sky above the open sheet so its rounded corners show
+$resume-side-gap: 12.5vw; // sheet spans the middle 75% of the screen
+
+.resume-panel {
+    position: fixed;
+    inset: 0;
+    z-index: 1000000; // above the fixed UI and the contact drawer, below the cursor
+    pointer-events: none;
+    background: rgba(0, 0, 0, 0);
+    // Transitions switch on one frame after init (.is-ready, resumePanel.js)
+    // so the resting off-screen state is never animated into on load.
+    &.is-ready {
+        transition: background-color 0.45s ease;
+    }
+    &[data-state='open'] {
+        pointer-events: auto;
+        background: rgba(0, 0, 0, 0.6);
+    }
+}
+
+.resume-panel__sheet {
+    position: absolute;
+    left: $resume-side-gap;
+    right: $resume-side-gap;
+    bottom: 0;
+    height: calc(100vh - #{$resume-top-gap});
+    display: flex;
+    flex-direction: column;
+    background: #111;
+    color: #ebebeb;
+    border: 1px solid rgba(255, 255, 255, 0.14); // light hairline edge
+    border-bottom: 0;
+    border-radius: $resume-radius $resume-radius 0 0;
+    box-shadow: 0 -12px 40px rgba(0, 0, 0, 0.6);
+    overflow: hidden;
+    pointer-events: auto;
+    // Hidden: fully below the screen. Peek: only the top $resume-peek shows.
+    transform: translate3d(0, 100%, 0);
+    .is-ready & {
+        transition: transform 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    will-change: transform;
+    cursor: pointer;
+    [data-state='peek'] & {
+        transform: translate3d(0, calc(100% - #{$resume-peek}), 0);
+    }
+    [data-state='open'] & {
+        transform: translate3d(0, 0, 0);
+        cursor: auto;
+    }
+    // While the bar is being dragged the offset follows the pointer (inline
+    // transform) with no easing.
+    &.is-dragging {
+        transition: none;
+        .resume-panel__frame {
+            pointer-events: none; // keep the drag's pointer events out of the PDF
+        }
+    }
+}
+
+.resume-panel__bar {
+    flex: none;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    height: 56px;
+    cursor: grab; // draggable: pull up to open, down to peek / dismiss
+    touch-action: none;
+    user-select: none;
+    -webkit-user-select: none;
+    &:active {
+        cursor: grabbing;
+    }
+    padding: 0 12px 0 24px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    font-size: 15px;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    // Avenir's caps sit high in the em box, so the row reads as having extra
+    // room below; nudge the items down a touch (no layout change).
+    .resume-panel__title,
+    .resume-panel__newtab,
+    .resume-panel__close {
+        transform: translateY(2px);
+    }
+    .resume-panel__title {
+        flex: 1;
+        color: #4caf50;
+    }
+    .resume-panel__newtab {
+        font-weight: 400;
+        letter-spacing: 0.04em;
+        text-transform: none;
+        color: #ebebeb;
+        opacity: 0.7;
+        text-decoration: none;
+        &:hover {
+            opacity: 1;
+            color: #4caf50;
+        }
+    }
+    .resume-panel__close {
+        appearance: none;
+        border: 0;
+        background: transparent;
+        color: #ebebeb;
+        font-size: 28px;
+        line-height: 1;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        cursor: pointer;
+        &:hover {
+            background: rgba(255, 255, 255, 0.08);
+            color: #4caf50;
+        }
+    }
+}
+
+.resume-panel__frame {
+    flex: 1;
+    width: 100%;
+    border: 0;
+    background: #1a1a1a;
+}

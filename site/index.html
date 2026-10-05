@@ -114,6 +114,8 @@
                     src="./src/assets/images/ui/insta.svg" width="24px" height="24px" alt=""></a>
             <a class="pin-social" href="https://in.pinterest.com/bandarubharath/" target="_blank" rel="noopener" aria-label="Pinterest"><img id="pin"
                     src="./src/assets/images/ui/pin.svg" width="24px" height="24px" alt=""></a>
+            <a class="resume-social" href="/docs/resume.pdf" target="_blank" rel="noopener" aria-label="Resume"><img id="resume-icon"
+                    src="./src/assets/images/ui/article.svg" width="24px" height="24px" alt=""></a>
         </div>
 
         <div class="position-b-r display-none" id="progressHide">
@@ -159,6 +161,18 @@
                 <p>Feel free to contact me. :)</p>
             </div>
         </div>
+        <!-- Resume bottom sheet (resumePanel.js): peeks on hover of the resume icon, slides up on click. -->
+        <!-- `hidden` keeps it out of the way until the stylesheet and script are in; resumePanel.js reveals it. -->
+        <div class="resume-panel" id="resume-panel" data-state="hidden" aria-hidden="true" hidden>
+            <div class="resume-panel__sheet" role="dialog" aria-label="Resume">
+                <div class="resume-panel__bar">
+                    <span class="resume-panel__title">Resume</span>
+                    <a class="resume-panel__newtab" href="/docs/resume.pdf" target="_blank" rel="noopener">Open in new tab ↗</a>
+                    <button type="button" class="resume-panel__close" aria-label="Close resume">×</button>
+                </div>
+                <iframe class="resume-panel__frame" data-src="/docs/resume.pdf#toolbar=0&amp;navpanes=0&amp;view=FitH" title="Resume (PDF)" loading="lazy"></iframe>
+            </div>
+        </div>
         <div data-scroll-container id="main-container">
             <div class="container">
                 <div id="logo">
@@ -195,15 +209,12 @@
                                     <span>
                                         <p class=" pp f-46"></p>
                                         <span></span>
-                                        <p data-parallax="1" class="word-wrap-css m-0 hello-text f-46 intro-text-1"> I am a<span class="menu"><span class="menu__item"><span class="menu__item-inner-wrap"> <s><a class="special-a"> International Student</a></s> </span></span></span>working as <span>Senior Principal Software Engineer</span> at <span>Script Health</span>, Chicago, United States
+                                        <p data-parallax="1" class="word-wrap-css m-0 hello-text f-46 intro-text-1"> I am <span class="menu"><span class="menu__item"><span class="menu__item-inner-wrap"> <s><a class="special-a"> an International Student</a></s> </span></span></span>working as <span>Senior Principal Software Engineer</span> at <span>Script Health</span>, Chicago, United States
                                         </p>
-                                        <div data-parallax="1" class="m-0" style="display: flex; align-items: center;">
+                                        <div data-parallax="1" class="m-0" style="display: flex; align-items: center; padding-top: 10px;">
                                             <div class="f-26"> Glad to meet you!&nbsp;</div>
                                             <div style="font-size: 36px;">🍻 </div>
                                         </div>
-                                        <p data-parallax="1" class="m-0 f-18 resume-line">
-                                            <span class="menu"><span class="menu__item" data-reveal="resume"><span class="menu__item-inner-wrap"><a class="a-tag resume-link" href="/docs/resume.pdf" target="_blank" rel="noopener">Resume ↗</a></span></span></span>
-                                        </p>
                                     </span>
                                 </div>
                             </div>
@@ -308,7 +319,7 @@
                                                     <p class="tag color-green"> DATA STRUCTURES</p>
                                                     <p class="tag"> HOOKS</p>
                                                 </div>
-                                                <img src="./src/assets/images/projects/chain.webp" width="300px" alt="">
+                                                <img src="./src/assets/images/projects/chain-banner.webp" width="450" height="226" style="border-radius: 12px; padding: 5px 0;" alt="Chain Reaction game board with four players' orbs">
                                                 <div style="text-align: left; line-height: 1.1;">
                                                     <p class="m-0 f-18" style="text-align: left; font-weight: 600;">
                                                         Play the GAME here.</p>
@@ -348,7 +359,7 @@
                                                     <p class="tag"> FIREBASE</p>
                                                     <p class="tag"> FIGMA</p>
                                                 </div>
-                                                <img src="./src/assets/images/projects/escape.webp" width="350px" alt="">
+                                                <img src="./src/assets/images/projects/escape.webp" width="450" style="border-radius: 12px; padding: 5px 0;" alt="">
                                                 <div style="text-align: left; line-height: 1.1;">
                                                     <p class="m-0 f-18" style="text-align: left; font-weight: 600;">
                                                         Play the GAME here.</p>
@@ -586,11 +597,11 @@
                                                     style="font-weight: 600; width: auto;">Anti-Ragging Android
                                                     Application</p>
                                                 <p class="word-wrap-css f-18 m-0" style="opacity: 0.75; width: auto;">An Android app allows students to send emergency notification to anti-bullying squad with location and student information on single tap from home screen widget. First project and the begining of my software journey.</p>
+                                                <img class="min-high" src="./src/assets/images/projects/anti-ragging-press.webp" width="280px" height="469" style="padding: 8px 0 4px;" alt="Newspaper coverage of the Anti-Ragging app">
                                                 <div class="d-flex" style="margin-top: 4px; margin-bottom: 8px;">
                                                     <p class="tag color-green"> JAVA</p>
                                                     <p class="tag"> ANDROID</p>
                                                 </div>
-                                                <img class="min-high" src="./src/assets/images/projects/anti-ragging-press.webp" width="280px" height="469" alt="Newspaper coverage of the Anti-Ragging app">
                                             </div>
                                             <p class="m-0 f-24 p-year color-green">[AUG-2014]</p>
                                         </div>
@@ -601,175 +612,179 @@
                         </div>
                     </div>
                 </section>
-                <section class=" d-flex" data-scroll-section id="fixed-elements-three">
-                    <div class="v5-sticky" style="z-index: 1000;"><h1 style=" position: absolute; top: 80px; margin-right: 100px; padding-left: 50px; font-size: 46px; z-index: 1000;"
-                        >
-                        Education.&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</h1></div>
-                    <div id="education" style="width: 1366px">
-                        <div style="width: 1366px; height: 100vh; align-items: center;" class="d-flex"
-                            data-scroll-id="section-3" data-parallax="1">
-                            <div style="align-items: center;">
-                                <div class="education-graph d-block" style="width: 1366px">
-                                    <div class="ps-timeline-sec-1">
-                                        <div class="t-container" id="line">
-                                            <ol class="ps-timeline" style="margin-left: 100px;">
-                                                <li id="1">
-                                                    <span class="ps-sp-top"></span>
-                                                    <p class="year">2013</p>
-                                                    <div class="ps-top">
-                                                    </div>
-                                                </li>
-                                                <li id="2">
-                                                    <div class="ps-top-1">
-                                                        <p
-                                                            style="margin-bottom: 10px; font-size: 30px; font-weight: 600;">
-                                                            Jawaharlal Nehru Technological University <br>
-                                                        <div style="font-size: 24px; color: #39833C; font-weight: 600;">
-                                                            Bachelors in Technology <br> 3.6 GPA </div>
-                                                        </p>
-                                                    </div>
-                                                    <div class="ps-bot-1">
-                                                        <div>
-                                                            <img src="./src/assets/images/ui/expand-less.svg" alt="">
-                                                            <p
-                                                                style="padding-top: 18px; font-size: 24px;visibility: hidden;">
-                                                                👶</p>
-                                                        </div>
-                                                    </div>
-                                                </li>
-                                                <li id="3">
-                                                </li>
-                                                <li id="5">
-                                                    <span class="ps-sp-top"></span>
-                                                    <p class="year">2017</p>
-                                                </li>
-                                                <li id="6">
-                                                </li>
-                                                <li id="7">
-                                                </li>
-                                                <li id="8">
-                                                </li>
-                                                <li id="9">
-                                                    <div class="ps-bot-2">
-                                                        <div class="ps-top-2">
-                                                            <p
-                                                                style="margin-bottom: 10px; font-size: 24px;  text-align: center; font-weight: 600; color: #909090;">
-                                                                Lots of YouTube & <br> hands-on learning. </p>
-
-                                                        </div>
-                                                        <div>
-                                                            <p style="font-size: 24px; visibility: hidden;">👨‍🎤</p>
-                                                            <img style="padding-top: 15px;"
-                                                                src="./src/assets/images/ui/expand-more.svg" alt="">
-                                                        </div>
-                                                    </div>
-                                                </li>
-                                                <li id="4">
-                                                </li>
-                                                <li id="10">
-                                                </li>
-                                                <li id="11">
-                                                </li>
-                                                <li id="12">
-                                                </li>
-                                                <li id="13">
-                                                    <span class="ps-sp-top"></span>
-                                                    <p class="year">2021</p>
-                                                </li>
-                                                <li id="14">
-                                                    <div class="ps-top-1">
-                                                        <p
-                                                            style="margin-bottom: 10px; font-size: 30px; font-weight: 600;">
-                                                            Illinois Institute of Technology<br>
-                                                        <div class="gray-color"
-                                                            style="font-size: 24px; color: #39833C; font-weight: 600;">
-                                                            Masters in Artificial Intelligence <br> 3.6 GPA (again)</div>
-                                                        </p>
-                                                    </div>
-                                                    <div class="ps-bot-1">
-                                                        <div>
-                                                            <img src="./src/assets/images/ui/expand-less.svg" alt="">
-                                                            <p
-                                                                style="padding-top: 18px; font-size: 24px; visibility: hidden;">
-                                                                🔥</p>
-                                                        </div>
-                                                    </div>
-                                                </li>
-                                                <li id="15">
-                                                </li>
-                                                <li id="16">
-                                                </li>
-                                                <li id="17">
-                                                </li>
-                                                <li id="18">
-                                                </li>
-                                                <li id="19">
-                                                </li>
-                                                <li id="20">
-                                                </li>
-                                            </ol>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- <div style="display: inline-table;
-                        width: 30vw;    margin: 20px 0; padding-top: 1.5vh;
-                        border-top: 3px dashed #bfbfbf;"></div> -->
-                        </div>
-                        <div id="courses" style="    position: absolute;
-                    bottom: 180px;">
-                            <p class="m-0"
-                                style="font-weight: 600; font-size: 20px; text-transform: uppercase; margin: 0px !important; opacity: 0.75;" data-parallax="5"> &lt;<span class="color-green">courses</span>&gt; </p>
-                            <p class="m-0"
-                                style="font-weight: 500px; font-family: Bebas Neue; font-size: 30px; letter-spacing: 0.15em; width: 100vw; opacity: 0.5;" data-parallax="5">Computer Vision • Artificial Intelligence • Natural Language Processing • Data Preparation and Analysis • Machine Learning • Algorithms • Advanced Data Structures • Object-Oriented Analysis & Design • Databases</p>
-                        </div>
-                    </div>
-                </section>
                 <section data-scroll-section id="experience">
                         <div class="v5-sticky" style="z-index: 30;"><h1 style=" position: absolute;
                 top: 80px; padding-left: 50px; font-size: 46px; z-index: 30; background: radial-gradient(50% 50% at 50% 50%, #000000 0%, rgba(0, 0, 0, 0.397041) 47.92%, rgba(0, 0, 0, 0.243094) 68.75%, rgba(0, 0, 0, 0) 94.27%);"
                             >Work
                             Experience.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                         </h1></div>
-                    <div style="width: 1800px; height: 100vh; align-items: center;" class="d-flex"
-                        data-scroll-id="section-4">
-                        <div style="align-items: center;" data-parallax="1">
-                            <div class="education-graph d-block" style="width: 1536;">
-                                <div class="ps-timeline-sec-3" style="width: 1536px !important;">
-                                    <div class="t-container" id="line">
-                                        <ol class="ps-timeline">
-                                            <li style="position: absolute;
-                                        width: 500px;
-                                        background: #000;
-                                        height: 500px;
-                                        left: -170px;
-                                        bottom: 1.5px;" id="1">
-                                            </li>
-                                            <li id="2">
-                                            </li>
-                                        </ol>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
+                    <div style="width: 2860px; height: 100vh; align-items: center;" class="d-flex"
+                        data-scroll-id="section-4"></div>
 
                     <div style="    position: absolute;
                 bottom: 146px;" class="d-flex">
                         <div style="align-items: center;">
-                            <div class="education-graph d-block" style="width: 2150.4px;">
+                            <div class="education-graph d-block" style="width: 2860px;">
                                 <div class="ps-timeline-sec-2">
                                     <div class="t-container">
                                         <ol class="ps-timeline" style="margin-left: 100px;">
-                                            <li id="1">
+                                            <li>
                                                 <span class="ps-sp-top"></span>
-                                                <p class="year">2016</p>
-                                                <div class="ps-top-3">
-                                                    <p class="start-icon"></p>
+                                                <p class="year">2026</p>
+                                            </li>
+                                            <li>
+                                                <div class="ps-top-1">
+                                                    <div class="mb-20 p-10 border-dashed f-30"
+                                                        style="width: 500px;">
+                                                        <p class="word-wrap-css"
+                                                            style="font-weight: 600;font-size: 24px;">Working as <b class="color-green" style="font-weight: inherit;">Senior Principal Software Engineer</b>. <small style="font-size: 18px; font-weight: 400; opacity: 0.75;">Leading a team of full-stack developers building and scaling a healthcare platform, end to end across frontend, backend and cloud.</small>
+                                                        <p class="word-wrap-css"
+                                                            style="font-size: 18px; opacity: 0.75; ">React JS, Node JS, Flutter, Postgres, AWS (Lambda, RDS, S3), HIPAA data pipelines, LLM agents</p>
+                                                        </p>
+                                                        <div class="role-history min-high">
+                                                            <p class="role-history__title">Senior Software Engineer <small>May 2023 – Jun 2026</small></p>
+                                                            <p class="role-history__desc">Built the pharmacist prescribing portal for McKesson and 150+ pharmacies, a real-time insurance claims pipeline, and HIPAA-compliant data pipelines feeding Looker dashboards.</p>
+                                                            <p class="role-history__title">Software Engineer, Intern <small>Jun 2022 – May 2023</small></p>
+                                                            <p class="role-history__desc">Shipped point-of-care testing and prescribing for pharmacists, and automated pharmacy onboarding to save ~100 hours of manual work per cycle.</p>
+                                                        </div>
+                                                    </div>
+                                                    <p style="margin-bottom: 10px; font-size: 24px; font-weight: 600;">
+                                                        Script Health<br>
+                                                    <p class="color-green"
+                                                        style="font-size: 24px; opacity: 0.75; font-weight: 600;">
+                                                        Senior Principal Software Engineer</p>
+                                                    </p>
+                                                </div>
+                                                <div class="ps-bot-1">
+                                                    <div>
+                                                        <img src="./src/assets/images/ui/expand-less.svg" alt="">
+                                                        <p
+                                                            style="padding-top: 18px; font-size: 24px;visibility: hidden;">
+                                                            🍎</p>
+                                                    </div>
                                                 </div>
                                             </li>
-                                            <li id="2">
+                                            <li></li>
+                                            <li></li>
+                                            <li></li>
+                                            <li></li>
+                                            <li></li>
+                                            <li></li>
+                                            <li></li>
+                                            <li></li>
+                                            <li>
+                                                <span class="ps-sp-top"></span>
+                                                <p class="year">2022</p>
+                                            </li>
+                                            <li>
+                                                <span class="ps-sp-top"></span>
+                                                <p class="year">2021</p>
+                                            </li>
+                                            <li>
+                                                <div class="ps-top-1">
+                                                    <div class="mb-20 p-10 border-dashed f-30 ">
+                                                        <p class="word-wrap-css"
+                                                            style="font-weight: 600;font-size: 24px;">Worked as a <b class="color-green" style="font-weight: inherit;">Software Engineer</b>.
+                                                        <p class="word-wrap-css"
+                                                            style="font-size: 18px; opacity: 0.75; ">Spring-boot, JPA, spring-cloud micro services, Angular, Oracle, Python, Jenkins</p>
+                                                        </p>
+                                                    </div>
+                                                    <p style="margin-bottom: 10px; font-size: 24px; font-weight: 600;">
+                                                        JPMorgan Chase & Co.<br>
+                                                    <p class="color-green"
+                                                        style="font-size: 24px; opacity: 0.75; font-weight: 600;">
+                                                        Associate Software Engineer</p>
+                                                    </p>
+                                                </div>
+                                                <div class="ps-bot-1">
+                                                    <div>
+                                                        <img src="./src/assets/images/ui/expand-less.svg" alt="">
+                                                        <p
+                                                            style="padding-top: 18px; font-size: 24px;visibility: hidden;">
+                                                            🍎</p>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                            <li></li>
+                                            <li></li>
+                                            <li></li>
+                                            <li></li>
+                                            <li></li>
+                                            <li>
+                                                <span class="ps-sp-top"></span>
+                                                <p class="year">MID-2017</p>
+                                            </li>
+                                            <li>
+                                                <div class="ps-top-1" style="margin-left: 13px;">
+                                                    <div class="mb-20 p-10 border-dashed f-30 ">
+                                                        <p class="word-wrap-css"
+                                                            style="font-weight: 600;font-size: 24px;">Built websites and few mobile applications in both iOS, android.
+                                                        <p class="word-wrap-css"
+                                                            style="font-size: 18px; opacity: 0.75; ">Java, Swift, HTML,
+                                                            CSS, JS</p>
+                                                        </p>
+                                                    </div>
+                                                    <p style="margin-bottom: 10px; font-size: 24px; font-weight: 600;">
+                                                        Lots of Freelancing.<br>
+                                                    <p class="color-green"
+                                                        style="font-size: 24px; opacity: 0.75; font-weight: 600;">
+                                                        Mobile/Web Developer</p>
+                                                    </p>
+                                                </div>
+                                                <div class="ps-bot-1" style="margin-left: 20px;">
+                                                    <div>
+                                                        <img src="./src/assets/images/ui/expand-less.svg" alt="">
+                                                        <p
+                                                            style="padding-top: 18px; font-size: 24px;visibility: hidden;">
+                                                            🖥🖱</p>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                            <li></li>
+                                            <li></li>
+                                            <li></li>
+                                            <li></li>
+                                            <li>
+                                                <span class="ps-sp-top"></span>
+                                                <p class="year">2017</p>
+                                            </li>
+                                            <li>
+                                                <div class="ps-top-1" style="margin-left: 20px;">
+                                                    <div class="mb-20 p-10 border-dashed f-30 ">
+                                                        <p class="word-wrap-css"
+                                                            style="font-weight: 600;font-size: 24px;">Worked on Python,
+                                                            Angular & JAVA project.
+                                                        <p class="word-wrap-css"
+                                                            style="font-size: 18px; opacity: 0.75; ">Spring & Apache
+                                                            ibatis, Bitbucket API</p>
+                                                        </p>
+                                                    </div>
+                                                    <p style="margin-bottom: 10px; font-size: 24px; font-weight: 600;">
+                                                        JPMorgan Chase & Co.<br>
+                                                    <p class="color-green"
+                                                        style="font-size: 24px; opacity: 0.75; font-weight: 600;">
+                                                        Software Development Intern</p>
+                                                    </p>
+                                                </div>
+                                                <div class="ps-bot-1" style="margin-left: 20px;">
+                                                    <div>
+                                                        <img src="./src/assets/images/ui/expand-less.svg" alt="">
+                                                        <p
+                                                            style="padding-top: 18px; font-size: 24px;visibility: hidden;">
+                                                            👨‍💻</p>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                            <li></li>
+                                            <li></li>
+                                            <li></li>
+                                            <li></li>
+                                            <li></li>
+                                            <li>
+                                                <span class="ps-sp-top"></span>
+                                                <p class="year">MID-2016</p>
+                                            </li>
+                                            <li>
                                                 <div class="ps-bot-1">
                                                     <div>
                                                         <img src="./src/assets/images/ui/expand-less.svg" alt="">
@@ -799,199 +814,15 @@
                                                     </p>
                                                 </div>
                                             </li>
-                                            <li id="3">
-                                            </li>
-                                            <li id="5">
-                                            </li>
-                                            <li id="6">
-                                            </li>
-                                            <li id="7">
-                                            </li>
-                                            <li id="8">
-                                            </li>
-                                            <li id="37">
-                                            </li>
-                                            <li id="38">
-                                            </li>
-                                            <li id="9">
-                                            </li>
-                                            <li id="4">
+                                            <li></li>
+                                            <li></li>
+                                            <li></li>
+                                            <li></li>
+                                            <li></li>
+                                            <li></li>
+                                            <li>
                                                 <span class="ps-sp-top"></span>
-                                                <p class="year">MID-2016</p>
-                                            </li>
-                                            <li id="10">
-                                                <div class="ps-top-1" style="margin-left: 20px;">
-                                                    <div class="mb-20 p-10 border-dashed f-30 ">
-                                                        <p class="word-wrap-css"
-                                                            style="font-weight: 600;font-size: 24px;">Worked on Python,
-                                                            Angular & JAVA project.
-                                                        <p class="word-wrap-css"
-                                                            style="font-size: 18px; opacity: 0.75; ">Spring & Apache
-                                                            ibatis, Bitbucket API</p>
-                                                        </p>
-                                                    </div>
-                                                    <p style="margin-bottom: 10px; font-size: 24px; font-weight: 600;">
-                                                        JPMorgan Chase & Co.<br>
-                                                    <p class="color-green"
-                                                        style="font-size: 24px; opacity: 0.75; font-weight: 600;">
-                                                        Software Development Intern</p>
-                                                    </p>
-                                                </div>
-                                                <div class="ps-bot-1" style="margin-left: 20px;">
-                                                    <div>
-                                                        <img src="./src/assets/images/ui/expand-less.svg" alt="">
-                                                        <p
-                                                            style="padding-top: 18px; font-size: 24px;visibility: hidden;">
-                                                            👨‍💻</p>
-                                                    </div>
-                                                </div>
-                                            </li>
-                                            <li id="11">
-                                            </li>
-                                            <li id="12">
-                                            </li>
-                                            <li id="13">
-                                            </li>
-                                            <li id="14">
-                                            </li>
-                                            <li id="15">
-                                            </li>
-                                            <li id="16">
-                                                <span class="ps-sp-top"></span>
-                                                <p class="year">2017</p>
-                                            </li>
-                                            <li id="17">
-                                            </li>
-                                            <li id="18">
-                                                <div class="ps-top-1" style="margin-left: 13px;">
-                                                    <div class="mb-20 p-10 border-dashed f-30 ">
-                                                        <p class="word-wrap-css"
-                                                            style="font-weight: 600;font-size: 24px;">Built websites and few mobile applications in both iOS, android.
-                                                        <p class="word-wrap-css"
-                                                            style="font-size: 18px; opacity: 0.75; ">Java, Swift, HTML,
-                                                            CSS, JS</p>
-                                                        </p>
-                                                    </div>
-                                                    <p style="margin-bottom: 10px; font-size: 24px; font-weight: 600;">
-                                                        Lots of Freelancing.<br>
-                                                    <p class="color-green"
-                                                        style="font-size: 24px; opacity: 0.75; font-weight: 600;">
-                                                        Mobile/Web Developer</p>
-                                                    </p>
-                                                </div>
-                                                <div class="ps-bot-1" style="margin-left: 20px;">
-                                                    <div>
-                                                        <img src="./src/assets/images/ui/expand-less.svg" alt="">
-                                                        <p
-                                                            style="padding-top: 18px; font-size: 24px;visibility: hidden;">
-                                                            🖥🖱</p>
-                                                    </div>
-                                                </div>
-                                            </li>
-                                            <li id="19">
-                                            </li>
-                                            <li id="20">
-                                                <span class="ps-sp-top"></span>
-                                                <p class="year">MID-2017</p>
-                                            </li>
-                                            <li id="21">
-                                            </li>
-                                            <li id="22">
-                                            </li>
-                                            <li id="23">
-                                            </li>
-                                            <li id="24">
-                                            </li>
-                                            <li id="25">
-                                                <div class="ps-top-1">
-                                                    <div class="mb-20 p-10 border-dashed f-30 ">
-                                                        <p class="word-wrap-css"
-                                                            style="font-weight: 600;font-size: 24px;">Worked as a Software Engineer.
-                                                        <p class="word-wrap-css"
-                                                            style="font-size: 18px; opacity: 0.75; ">Spring-boot, JPA, spring-cloud micro services, Angular, Oracle, Python, Jenkins</p>
-                                                        </p>
-                                                    </div>
-                                                    <p style="margin-bottom: 10px; font-size: 24px; font-weight: 600;">
-                                                        JPMorgan Chase & Co.<br>
-                                                    <p class="color-green"
-                                                        style="font-size: 24px; opacity: 0.75; font-weight: 600;">
-                                                        Associate Software Engineer</p>
-                                                    </p>
-                                                </div>
-                                                <div class="ps-bot-1">
-                                                    <div>
-                                                        <img src="./src/assets/images/ui/expand-less.svg" alt="">
-                                                        <p
-                                                            style="padding-top: 18px; font-size: 24px;visibility: hidden;">
-                                                            🍎</p>
-                                                    </div>
-                                                </div>
-                                            </li>
-                                            <li id="26">
-                                            </li>
-                                            <li id="27">
-
-                                            </li>
-                                            <li id="28">
-
-                                            </li>
-                                            <li id="29">
-                                            </li>
-                                            <li id="30">
-                                            </li>
-                                            <li id="31">
-                                                <span class="ps-sp-top"></span>
-                                                <p class="year">2021</p>
-                                            </li>
-                                            <li id="31">
-                                                <span class="ps-sp-top"></span>
-                                                <p class="year">2022</p>
-                                            </li>
-                                            <li id="32">
-                                                <div class="ps-top-1">
-                                                    <div class="mb-20 p-10 border-dashed f-30" data-tape-anchor
-                                                        style="width: 500px;">
-                                                        <p class="word-wrap-css"
-                                                            style="font-weight: 600;font-size: 24px;">Working as Senior Principal Software Engineer.
-                                                        <p class="word-wrap-css"
-                                                            style="font-size: 18px; opacity: 0.75; ">Leading a team of full-stack developers building and scaling a healthcare platform, end to end across frontend, backend and cloud.</p>
-                                                        <p class="word-wrap-css"
-                                                            style="font-size: 18px; opacity: 0.75; ">React JS, Node JS, Flutter, Postgres, AWS (Lambda, RDS, S3), HIPAA data pipelines, LLM agents</p>
-                                                        </p>
-                                                        <div class="role-history min-high">
-                                                            <p class="role-history__title">Senior Software Engineer <small>May 2023 – Jun 2026</small></p>
-                                                            <p class="role-history__desc">Built the pharmacist prescribing portal for McKesson and 150+ pharmacies, a real-time insurance claims pipeline, and HIPAA-compliant data pipelines feeding Looker dashboards.</p>
-                                                            <p class="role-history__title">Software Engineer, Intern <small>Jun 2022 – May 2023</small></p>
-                                                            <p class="role-history__desc">Shipped point-of-care testing and prescribing for pharmacists, and automated pharmacy onboarding to save ~100 hours of manual work per cycle.</p>
-                                                        </div>
-                                                    </div>
-                                                    <p style="margin-bottom: 10px; font-size: 24px; font-weight: 600;">
-                                                        Script Health<br>
-                                                    <p class="color-green"
-                                                        style="font-size: 24px; opacity: 0.75; font-weight: 600;">
-                                                        Senior Principal Software Engineer</p>
-                                                    </p>
-                                                </div>
-                                                <div class="ps-bot-1">
-                                                    <div>
-                                                        <img src="./src/assets/images/ui/expand-less.svg" alt="">
-                                                        <p
-                                                            style="padding-top: 18px; font-size: 24px;visibility: hidden;">
-                                                            🍎</p>
-                                                    </div>
-                                                </div>
-                                            </li>
-                                            <li id="33">
-                                            </li>
-                                            <li id="34">
-                                            </li>
-                                            <li id="35">
-                                            </li>
-                                            <li id="36">
-                                            </li>
-                                            <li id="39">
-                                                <span class="ps-sp-top"></span>
-                                                <p class="year">2026</p>
+                                                <p class="year">2016</p>
                                             </li>
                                         </ol>
                                     </div>
@@ -1001,23 +832,116 @@
 
                     </div>
                 </section>
-                <!-- Ribbon scene (Locomotive-demo style direction blocks): a fixed layer of
-                     crossing bands. Once the last experience card reaches the centre the
-                     experience section drops to a crawl behind the bands (tape.js), so the
-                     scene plays over the end of the timeline; it fades out as the artworks
-                     header arrives. Each band is rotated by its wrapper; the inner
-                     span carries the parallax so the text slides along the band, all keyed off
-                     this section so they move together while it is in view. -->
-                <section data-scroll-section id="tape-scene" class="tape-scene" aria-label="A few things about me">
-                    <div class="tape" id="tape">
-                        <div class="tape-item -five"><span data-parallax="4" data-parallax-target="#tape-scene">Build products people love</span></div>
-                        <div class="tape-item -two"><span data-parallax="2" data-parallax-target="#tape-scene">Castles made of code</span></div>
-                        <div class="tape-item -three"><span data-parallax="3" data-parallax-target="#tape-scene">Curious by default</span></div>
-                        <div class="tape-item -one"><span data-parallax="6" data-parallax-target="#tape-scene">Designer at heart, engineer by trade</span></div>
-                        <div class="tape-item -four"><span data-parallax="5" data-parallax-target="#tape-scene">Building a better tomorrow</span></div>
+                <section class=" d-flex" data-scroll-section id="fixed-elements-three">
+                    <div class="v5-sticky" style="z-index: 1000;"><h1 style=" position: absolute; top: 80px; margin-right: 100px; padding-left: 50px; font-size: 46px; z-index: 1000;"
+                        >
+                        Education.&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</h1></div>
+                    <div id="education" style="width: 1366px">
+                        <div style="width: 1366px; height: 100vh; align-items: center;" class="d-flex"
+                            data-scroll-id="section-3">
+                            <div style="align-items: center;">
+                                <div class="education-graph d-block" style="width: 1366px">
+                                    <div class="ps-timeline-sec-1">
+                                        <div class="t-container" id="line">
+                                            <div class="edu-rail"></div>
+                                            <ol class="ps-timeline" style="margin-left: 100px;">
+                                                <li>
+                                                    <span class="ps-sp-top"></span>
+                                                    <p class="year">2021</p>
+                                                </li>
+                                                <li>
+                                                    <div class="ps-top-1">
+                                                        <p
+                                                            style="margin-bottom: 10px; font-size: 30px; font-weight: 600;">
+                                                            Illinois Institute of Technology<br>
+                                                        <div class="gray-color"
+                                                            style="font-size: 24px; color: #39833C; font-weight: 600;">
+                                                            Masters in Artificial Intelligence <br> 3.6 GPA (again)</div>
+                                                        </p>
+                                                    </div>
+                                                    <div class="ps-bot-1">
+                                                        <div>
+                                                            <img src="./src/assets/images/ui/expand-less.svg" alt="">
+                                                            <p
+                                                                style="padding-top: 18px; font-size: 24px; visibility: hidden;">
+                                                                🔥</p>
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                                <li></li>
+                                                <li></li>
+                                                <li></li>
+                                                <li></li>
+                                                <li></li>
+                                                <li></li>
+                                                <li>
+                                                    <span class="ps-sp-top"></span>
+                                                    <p class="year">2017</p>
+                                                </li>
+                                                <li style="left: -38px;"><!-- centred between the 2017 and 2013 dots -->
+                                                    <div class="ps-bot-2">
+                                                        <div class="ps-top-2">
+                                                            <p
+                                                                style="margin-bottom: 10px; font-size: 24px;  text-align: center; font-weight: 600; color: #909090;">
+                                                                Lots of YouTube & <br> hands-on learning. </p>
+
+                                                        </div>
+                                                        <div>
+                                                            <p style="font-size: 24px; visibility: hidden;">👨‍🎤</p>
+                                                            <img style="padding-top: 15px;"
+                                                                src="./src/assets/images/ui/expand-more.svg" alt="">
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                                <li>
+                                                    <span class="ps-sp-top"></span>
+                                                    <p class="year">2013</p>
+                                                </li>
+                                                <li>
+                                                    <div class="ps-top-1">
+                                                        <p
+                                                            style="margin-bottom: 10px; font-size: 30px; font-weight: 600;">
+                                                            Jawaharlal Nehru Technological University <br>
+                                                        <div style="font-size: 24px; color: #39833C; font-weight: 600;">
+                                                            Bachelors in Technology <br> 3.6 GPA </div>
+                                                        </p>
+                                                    </div>
+                                                    <div class="ps-bot-1">
+                                                        <div>
+                                                            <img src="./src/assets/images/ui/expand-less.svg" alt="">
+                                                            <p
+                                                                style="padding-top: 18px; font-size: 24px;visibility: hidden;">
+                                                                👶</p>
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                                <li></li>
+                                                <li></li>
+                                                <li></li>
+                                                <li></li>
+                                                <li></li>
+                                                <li></li>
+                                                <li></li>
+                                                <li></li>
+                                            </ol>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- <div style="display: inline-table;
+                        width: 30vw;    margin: 20px 0; padding-top: 1.5vh;
+                        border-top: 3px dashed #bfbfbf;"></div> -->
+                        </div>
+                        <div id="courses" style="    position: absolute;
+                    bottom: 180px; left: 40px;">
+                            <p class="m-0"
+                                style="font-weight: 600; font-size: 20px; text-transform: uppercase; margin: 0px !important; opacity: 0.75;" data-parallax="5"> &lt;<span class="color-green">courses</span>&gt; </p>
+                            <p class="m-0"
+                                style="font-weight: 500px; font-family: Bebas Neue; font-size: 30px; letter-spacing: 0.15em; width: 100vw; opacity: 0.5;" data-parallax="5">Computer Vision • Artificial Intelligence • Natural Language Processing • Data Preparation and Analysis<br>Machine Learning • Algorithms • Advanced Data Structures • Object-Oriented Analysis & Design • Databases</p>
+                        </div>
                     </div>
                 </section>
-                <section data-scroll-section>
+                <section data-scroll-section id="artworks">
                     <div id="images-sec">
                         <div style="height: 100vh; display: inline-block; display: inline-block;"
                             data-scroll-id="section-5">
@@ -1176,12 +1100,39 @@
                                     </div>
                                     <div class="d-flex center-all" style="height: 100%; padding-left: 100px;">
                                         <div class="d-flex">
-                                            <h1 class="mr-3" id="theEnd">. . .</h1>
+                                            <h1 class="mr-3" id="theEnd" data-tape-anchor>. . .</h1>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
+                    </div>
+                </section>
+                <!-- Ribbon scene (Locomotive-demo style direction blocks): a fixed layer of
+                     crossing bands that closes the strip. Once the artworks' trailing ". . ." reaches
+                     the centre the artworks drop to a crawl behind the bands (tape.js) and the
+                     ribbons fade in for the rest of the scroll. Each band is rotated by its wrapper; the inner
+                     span carries the parallax so the text slides along the band, all keyed off
+                     this section so they move together while it is in view. -->
+                <section data-scroll-section id="tape-scene" class="tape-scene" aria-label="A few things about me">
+                    <div class="tape" id="tape">
+                        <div class="tape-item -five"><span data-parallax="4" data-parallax-target="#tape-scene">Build products people love</span></div>
+                        <div class="tape-item -two"><span data-parallax="2" data-parallax-target="#tape-scene">Castles made of code</span></div>
+                        <div class="tape-item -three"><span data-parallax="3" data-parallax-target="#tape-scene">Curious by default</span></div>
+                        <div class="tape-item -one"><span data-parallax="6" data-parallax-target="#tape-scene">Designer at heart, engineer by trade</span></div>
+                        <div class="tape-item -four"><span data-parallax="5" data-parallax-target="#tape-scene">Building a better tomorrow</span></div>
+                    </div>
+                </section>
+                <!-- Outro: the ribbons fade out as this screen slides in; the button opens LinkedIn in a new tab. -->
+                <section data-scroll-section id="outro" class="outro" aria-label="Thanks again">
+                    <!-- 160vw wide: the extra 60vw of scroll, with the content pinned, drives the banner rising from the bottom (fades.js). -->
+                    <div class="outro__inner">
+                        <p class="outro__title">Thanks again!</p>
+                        <a class="button-f outro__hire pointer" id="hireMe" href="https://www.linkedin.com/in/bharathbandaru/" target="_blank" rel="noopener">
+                            <span class="button-f__text"><span class="button-f__text-inner"><span class="outro__hire-icon" aria-hidden="true"></span>Hire me.</span></span>
+                        </a>
+                        <p class="outro__cheer" aria-hidden="true">🙌</p>
+                        <img class="outro__banner" src="./src/assets/images/outro-banner.webp" width="1400" height="232" alt="Hands spelling bharath in sign language" loading="lazy" decoding="async">
                     </div>
                 </section>
             </div>
