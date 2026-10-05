@@ -77,7 +77,10 @@ const HOVER = 'a, button, .pointer, .drag-area';
 export function initCursor() {
   const el = document.querySelector('.cursor-n');
   if (!el) return null;
-  window.addEventListener('mousemove', (ev) => (mouse = getMousePos(ev)));
+  let touching = false; // see the pointer listeners below
+  window.addEventListener('mousemove', (ev) => {
+    if (!touching) mouse = getMousePos(ev);
+  });
   const cursor = new Cursor(el);
 
   document.addEventListener('mouseover', (e) => {
@@ -91,6 +94,36 @@ export function initCursor() {
   });
   document.documentElement.addEventListener('mouseleave', () => cursor.hide());
   document.documentElement.addEventListener('mouseenter', () => cursor.show());
+
+  // Requested tweak: on hybrid devices (touch + trackpad/mouse) the dot has no
+  // business on screen while the user is touching — hide it on touch input and
+  // bring it back as soon as a real mouse moves. Touch also synthesises mouse
+  // events, so ignore those while touching.
+  document.addEventListener(
+    'pointerdown',
+    (e) => {
+      if (e.pointerType === 'touch') {
+        touching = true;
+        cursor.hide();
+      }
+    },
+    { passive: true },
+  );
+  document.addEventListener(
+    'pointermove',
+    (e) => {
+      if (e.pointerType === 'touch') {
+        if (!touching) {
+          touching = true;
+          cursor.hide();
+        }
+      } else if (touching) {
+        touching = false;
+        cursor.show();
+      }
+    },
+    { passive: true },
+  );
 
   return cursor;
 }

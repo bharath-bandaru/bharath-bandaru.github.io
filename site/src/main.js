@@ -28,8 +28,10 @@ import { initCursor } from './js/cursor.js';
 import { initHoverReveal } from './js/hoverReveal.js';
 import { initMagneticButton } from './js/buttonCtrl.js';
 import { initResumePanel } from './js/resumePanel.js';
+import { initNoZoom } from './js/noZoom.js';
 
 history.scrollRestoration = 'manual';
+initNoZoom();
 window.scrollTo(0, 0);
 
 initHints();

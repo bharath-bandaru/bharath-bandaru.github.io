@@ -4,7 +4,8 @@ Personal portfolio served by GitHub Pages straight from this repository's root.
 Desktop gets a horizontal-scroll site built with Vite and
 [Locomotive Scroll v5](https://scroll.locomotive.ca/) (Lenis); screens 900px and
 narrower are redirected to `/m/`, the original single-page site (append `?desktop`
-to the URL to bypass).
+to the URL to bypass); `/m/` sends wider screens back to `/` (append `?mobile` to
+bypass).
 
 ## Repository layout
 

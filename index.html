@@ -9,7 +9,8 @@
     <!-- minimum-scale=1 keeps mobile browsers from zooming out to fit the horizontal strip,
          which would otherwise inflate the layout viewport (fixed UI, vh units, scroll limit). -->
     <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
-    <!-- Phones and small tablets get the original single-page site at /m/ (add ?desktop to bypass).
+    <!-- Phones and small tablets get the original single-page site at /m/ (add ?desktop to bypass);
+         /m/ sends bigger screens back here (add ?mobile there to bypass).
          Placed after the viewport meta on purpose: before it, phones report a 980px layout viewport. -->
     <script>
         if (window.matchMedia('(max-width: 900px)').matches && !/desktop/.test(location.search)) {
@@ -31,6 +32,9 @@
     <meta property="og:image" content="https://bharath-bandaru.github.io/images/profile.jpg">
     <meta name="twitter:card" content="summary">
     <link rel="icon" href="/images/logo.png" type="image/png">
+    <!-- Home-screen icon (iPhone / iPad "Add to Home Screen"): the avatar on black. -->
+    <link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png">
+    <meta name="apple-mobile-web-app-title" content="Bharath">
     <link rel="preload" as="font" type="font/woff2" crossorigin href="/fonts/AvenirNextLTPro-Regular.woff2">
     <link rel="preload" as="font" type="font/woff2" crossorigin href="/fonts/AvenirNextLTPro-Demi.woff2">
     <!-- Critical styles: black first paint and fixed overlays before the main stylesheet
@@ -42,8 +46,8 @@
         #terminal { z-index: 99; }
         .display-none { display: none !important; }
     </style>
-  <script type="module" crossorigin src="/assets/index-DHRlZudH.js"></script>
-  <link rel="stylesheet" crossorigin href="/assets/index-CblVzCE1.css">
+  <script type="module" crossorigin src="/assets/index-Rqc_jSd-.js"></script>
+  <link rel="stylesheet" crossorigin href="/assets/index-CsHzlpDg.css">
 </head>
 
 <body class="loading">
@@ -314,11 +318,12 @@
                                                 style="min-width: 400px; max-width: 500px;">
                                                 <p class="word-wrap-css f-24 m-0"
                                                     style="font-weight: 600; width: auto;"> Chain Reaction Game</p> 
-                                                    <p class="word-wrap-css f-18 m-0" style="opacity: 0.75; width: auto;"> <span>Online multiplayer game designed and developed using React JS</span>. Using react hooks and firebase real database, this is a single page game applicaion I developed for fun and learning React JS. Recently I added AI player to play with you, implemented using Minimax algorithm.</p>
+                                                    <p class="word-wrap-css f-18 m-0" style="opacity: 0.75; width: auto;"> <span>Online multiplayer game designed and developed using React JS</span>. Using react hooks and firebase real database, this is a single page game applicaion I developed for fun and learning React JS. Recently I added AI player to play with you, implemented using Minimax algorithm. Now on Android and iOS with <span>17K+ downloads</span>.</p>
                                                 </p>
                                                 <div class="d-flex"
                                                     style="margin-top: 4px; margin-bottom: 8px; align-items: baseline;">
                                                     <p class="tag color-green"> REACT </p>
+                                                    <p class="tag color-green"> FLUTTER</p>
                                                     <p class="tag color-green"> DATA STRUCTURES</p>
                                                     <p class="tag"> HOOKS</p>
                                                 </div>
@@ -859,7 +864,7 @@
                                                         <img class="exp-logo exp-logo--iit" src="/assets/illinois-tech-KOGnV57v.webp" width="120" height="120" alt="Illinois Tech">
                                                         <p
                                                             style="margin-bottom: 10px; font-size: 30px; font-weight: 600;">
-                                                            Illinois Institute of Technology<br>
+                                                            Illinois Institute of Technology<br> Chicago, IL, United States<br>
                                                         <div class="gray-color"
                                                             style="font-size: 24px; color: #39833C; font-weight: 600;">
                                                             Masters in Artificial Intelligence <br> 3.6 GPA (again)</div>
@@ -905,10 +910,10 @@
                                                 </li>
                                                 <li>
                                                     <div class="ps-top-1">
-                                                        <img class="exp-logo exp-logo--vnr" src="/assets/vnrvjiet-CC7l9czW.webp" width="460" height="120" alt="VNR Vignana Jyothi Institute of Engineering and Technology">
+                                                        <img class="exp-logo exp-logo--vnr" src="/assets/vnrvjiet-58N8Y21q.webp" width="108" height="120" alt="VNR Vignana Jyothi Institute of Engineering and Technology">
                                                         <p
                                                             style="margin-bottom: 10px; font-size: 30px; font-weight: 600;">
-                                                            VNRVJIET (JNTUH) <br>
+                                                            VNRVJIET, Hyderabad, India <br> Jawaharlal Nehru Technological University <br>
                                                         <div style="font-size: 24px; color: #39833C; font-weight: 600;">
                                                             Bachelors in Technology <br> 3.6 GPA </div>
                                                         </p>

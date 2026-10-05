@@ -7,7 +7,28 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Annie+Use+Your+Telescope&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="icon" href="/images/logo.png" type="image/png">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Home-screen icon (iPhone / iPad "Add to Home Screen"): the avatar on black. -->
+  <link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png">
+  <meta name="apple-mobile-web-app-title" content="Bharath">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no">
+  <!-- Bigger screens get the desktop portfolio at / (add ?mobile to bypass); the reverse of the
+       redirect on / that sends ≤ 900px screens here. -->
+  <script>
+    if (window.matchMedia('(min-width: 901px)').matches && !/mobile/.test(location.search)) {
+      location.replace('/' + location.hash);
+    }
+  </script>
+  <!-- No pinch / double-tap zoom on touch devices (iOS Safari ignores user-scalable=no, so back it up). -->
+  <style>html, body { touch-action: pan-x pan-y; }</style>
+  <script>
+    (function () {
+      var block = function (e) { e.preventDefault(); };
+      ['gesturestart', 'gesturechange', 'gestureend'].forEach(function (t) { document.addEventListener(t, block, { passive: false }); });
+      document.addEventListener('touchmove', function (e) { if (e.touches.length > 1 || (typeof e.scale === 'number' && e.scale !== 1)) e.preventDefault(); }, { passive: false });
+      var last = 0;
+      document.addEventListener('touchend', function (e) { var now = Date.now(); if (now - last < 300) e.preventDefault(); last = now; }, { passive: false });
+    })();
+  </script>
   <meta name="theme-color" id="themeColor" content="#000000">
   <meta name="color-scheme" content="dark light">
   <meta name="apple-mobile-web-app-capable" content="yes">

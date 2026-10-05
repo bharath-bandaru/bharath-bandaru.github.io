@@ -38,8 +38,8 @@ const pictures = [
   // (trimmed, alpha, height 84 = 3× the 28px chip); experience/jpmorgan.webp
   // from JP-Morgan-Chase-Emblem.png (trimmed, alpha, height 156 = 3× 52px).
   // experience/illinois-tech.webp (illinois-institute-of-technology-logo-png_
-  // seeklogo-488855.png) and experience/vnrvjiet.webp (large_113_….png) were
-  // trimmed and exported at height 120 (3× the 40px education chips).
+  // seeklogo-488855.png) and experience/vnrvjiet.webp (Official_logo_of_VNRVJIET.png)
+  // were trimmed and exported at height 120 (3× the 40px education chips).
   // projects/chain-banner.webp was made separately from the game's store banner
   // (banner-1.webp, 3542×1778) at width 960, quality 82.
   // outro-banner.webp was made separately from the YouTube channel banner

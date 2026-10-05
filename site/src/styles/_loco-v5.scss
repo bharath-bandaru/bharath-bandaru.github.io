@@ -180,6 +180,24 @@ body {
     background: #000;
     margin-left: 300px; // breathing room after the last Portfolio card
 }
+// Requested tweak: on touch screens the navigation hint's arrow sits before
+// the text and points left (hints.js moves it, adds the class and animates it
+// along X).
+.up-arrow--left {
+    margin-right: 4px;
+    position: relative;
+    top: 5px; // centres the 18px glyph on the text's x-height (the row aligns on baselines)
+    img {
+        transform: rotate(-90deg);
+    }
+}
+// Requested tweak: no pinch / double-tap zoom on touch devices (with
+// noZoom.js; the viewport meta alone is ignored by iOS Safari). Panning stays
+// allowed so Lenis / native scrolling keep working.
+html,
+body {
+    touch-action: pan-x pan-y;
+}
 // Requested tweak: credit line along the bottom of the terminal screen (shown
 // and hidden with the terminal by preloader.js).
 // Styled like the ephileo-googly home credit: 13px sentence case, foreground
@@ -296,14 +314,14 @@ body {
         background: #fff;
     }
     // Education: the Illinois Tech mark is its own red square (no chip);
-    // the VNR VJIET mark is red on white.
+    // the VNR VJIET emblem is red on a padded white chip.
     &.exp-logo--iit {
         height: 40px;
         padding: 0;
     }
     &.exp-logo--vnr {
-        height: 30px;
-        padding: 6px 14px; // room around the mark inside the 42px chip
+        height: 40px;
+        padding: 6px 8px;
         background: #fff;
     }
 }
