@@ -180,6 +180,28 @@ body {
     background: #000;
     margin-left: 300px; // breathing room after the last Portfolio card
 }
+// Requested tweak: credit line along the bottom of the terminal screen (shown
+// and hidden with the terminal by preloader.js).
+// Styled like the ephileo-googly home credit: 13px sentence case, foreground
+// at 45%, 24px off the bottom.
+.intro-credit {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: max(24px, env(safe-area-inset-bottom));
+    z-index: 1000;
+    margin: 0;
+    text-align: center;
+    font-size: 13px;
+    font-weight: 400;
+    letter-spacing: normal;
+    text-transform: none;
+    color: rgba(235, 235, 235, 0.45);
+    pointer-events: none;
+    .intro-credit__dot {
+        margin: 0 6px;
+    }
+}
 // fades.js drifts the pinned artworks header over the gallery's second half.
 #images-sec .v5-sticky-block {
     will-change: transform;

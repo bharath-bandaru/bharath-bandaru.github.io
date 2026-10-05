@@ -22,6 +22,7 @@ export function runPreloader({ onEnter }) {
   const contact = $('contact');
   const social = $('social');
   const progressHide = $('progressHide');
+  const introCredit = $('intro-credit');
 
   [contact, enter1, enter2, enter3, name, social, progressHide].forEach((el) =>
     el.classList.add('display-none'),
@@ -38,7 +39,10 @@ export function runPreloader({ onEnter }) {
   // The terminal window stays hidden (black backdrop only) while the name
   // screen plays; in the reference it sat below the fold during that phase.
   const drag = $('drag');
-  const showTerminal = () => drag.classList.remove('display-none');
+  const showTerminal = () => {
+    drag.classList.remove('display-none');
+    if (introCredit) introCredit.classList.remove('display-none');
+  };
 
   nameTimer = setInterval(() => {
     timeleft--;
@@ -217,6 +221,7 @@ export function runPreloader({ onEnter }) {
       if (width >= 75) {
         clearInterval(id);
         terminal.classList.add('display-none');
+        if (introCredit) introCredit.classList.add('display-none');
         onDone();
       } else {
         width++;
