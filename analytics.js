@@ -84,8 +84,12 @@
       var an = mods[1];
       return an.isSupported().then(function (ok) {
         if (!ok) return;
-        var analytics = an.getAnalytics(app.initializeApp(firebaseConfig));
-        if (debug) an.setAnalyticsCollectionEnabled(analytics, true);
+        var fb = app.initializeApp(firebaseConfig);
+        // Debug mode at the gtag config level marks every hit (page_view included),
+        // so the session shows up as a device in Firebase > Analytics > DebugView.
+        var analytics = debug
+          ? an.initializeAnalytics(fb, { config: { debug_mode: true } })
+          : an.getAnalytics(fb);
         // User properties can slice every report (device category, country, ...)
         // by variant once registered under GA4 Admin > Custom definitions.
         an.setUserProperties(analytics, { variant: variant, pointer: pointer });
