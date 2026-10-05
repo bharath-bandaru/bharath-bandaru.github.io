@@ -4,22 +4,28 @@ import { clamp } from './utils.js';
 const SEPARATOR = '  \u2022  ';
 const REPEAT = 3;
 const FADE_LERP = 0.08; // per-frame easing of the layer's opacity toward its scroll target
-const SLOW_RATE = 0.95; // the artworks' lag per px of scroll while the ribbons show (≈ 5% speed)
+const SLOW_RATE = 0.8; // the artworks' lag per px of scroll while the ribbons build (≈ 20% speed)
 
 // Ribbon scene closing the strip, over the end of the artworks: a fixed layer
 // of crossing bands; only the text slides along them (parallax keyed off the
 // scene section). Each band's line is written once in the markup and repeated
 // here three times, bullet-separated. Once the artworks' trailing ". . ."
-// (marked data-tape-anchor) reaches the centre of the screen the ribbons fade
-// in and the artworks section drops to a crawl behind them (so there is no
-// empty stretch), then fade out again — together with the artworks — as the
-// closing "Thanks again!" screen (the section after the scene) slides in.
+// (marked data-tape-anchor) has come into view on the right the ribbons fade
+// in and the artworks drop to a crawl behind them (so there is no empty
+// stretch); as the closing "Thanks again!" screen (the section after the
+// scene) slides in, the ribbons fade out — together with the artworks, which
+// pick up full speed again for that last stretch.
 export function initTape() {
   const tape = document.getElementById('tape');
   if (!tape) return;
   const scene = tape.parentElement;
   const next = scene.nextElementSibling; // the outro; null if the scene ever closes the strip
-  const panel = scene.previousElementSibling;
+  // The section before the scene fades with the ribbons; the crawl (translate)
+  // is applied to its [data-tape-panel] child when it has one, so a sticky
+  // header inside the section is not dragged along (a transform on the
+  // section would shift its sticky descendants).
+  const section = scene.previousElementSibling;
+  const panel = (section && section.querySelector('[data-tape-panel]')) || section;
   const anchor = document.querySelector('[data-tape-anchor]');
   const spans = [...tape.querySelectorAll('.tape-item > span')];
   const lines = spans.map((span) => span.textContent.trim());
@@ -31,9 +37,12 @@ export function initTape() {
     const W = window.innerWidth;
     const sceneLeft = scene.getBoundingClientRect().left + window.scrollX;
     const sceneEnd = sceneLeft + scene.offsetWidth;
-    // Trigger: the anchor (untransformed) centred on screen.
+    // Trigger: the anchor (untransformed) about 85% of the way across the
+    // screen, i.e. just after the gallery's trailing ". . ." comes into view,
+    // so the artworks slow down and the ribbons start while that end is
+    // still on the right.
     const a = anchor ? anchor.getBoundingClientRect() : null;
-    const from = a ? a.left + window.scrollX - lag + a.width / 2 - W / 2 : sceneLeft - W * 0.6;
+    const from = a ? a.left + window.scrollX - lag + a.width / 2 - W * 0.85 : sceneLeft - W * 0.6;
     // Fade-out ends when the next section fills the screen, starting half a
     // screen earlier. (With no next section the end would lie past the maximum
     // scroll, so the ribbons would never fade out.)
@@ -65,13 +74,14 @@ export function initTape() {
     const past = Math.min(scroll, outTo) - from;
     const fadeIn = clamp(past / ramp, 0, 1);
     const fadeOut = clamp((outTo - scroll) / (outTo - outFrom), 0, 1);
-    lag = Math.max(0, past) * SLOW_RATE;
-    if (panel) {
-      panel.style.transform = lag ? `translate3d(${lag}px, 0, 0)` : '';
-      // The crawling section fades out with the ribbons, so its tail is gone
-      // by the time the next section fills the screen.
-      panel.style.opacity = fadeOut;
-    }
+    // The crawl only lasts while the ribbons build and hold; once they start
+    // fading out (scroll ≥ outFrom) the lag stops growing, so the artworks
+    // move at full scroll speed again while the ribbons disappear.
+    lag = clamp(past, 0, Math.max(0, outFrom - from)) * SLOW_RATE;
+    if (panel) panel.style.transform = lag ? `translate3d(${lag}px, 0, 0)` : '';
+    // The section fades out with the ribbons, so its tail is gone by the time
+    // the next section fills the screen.
+    if (section) section.style.opacity = fadeOut;
     target = Math.min(fadeIn, fadeOut);
     if (!raf) tick();
   };

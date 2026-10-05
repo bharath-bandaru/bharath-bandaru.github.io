@@ -122,8 +122,9 @@ a.outro__hire {
     }
 }
 
-// tape.js makes the artworks section crawl (translateX) behind the ribbons.
-#artworks {
+// tape.js makes the artwork rows crawl (translateX) behind the ribbons (the
+// section's sticky header stays put).
+.artworks-crawl {
     will-change: transform;
 }
 

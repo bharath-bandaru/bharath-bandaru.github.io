@@ -180,6 +180,15 @@ body {
     background: #000;
     margin-left: 300px; // breathing room after the last Portfolio card
 }
+// fades.js drifts the pinned artworks header over the gallery's second half.
+#images-sec .v5-sticky-block {
+    will-change: transform;
+}
+// Requested tweak: the artwork rows stop short of the bottom edge so the fixed
+// progress bar (bottom right, 30px in) stays clear of the tiles.
+#image-scroll.set-height {
+    height: calc(100vh - 225px - 70px);
+}
 // The artworks header ("Thanks for stopping by") is centred in a 100vw block,
 // so its text starts ~460px into the section; pull the section back so it
 // follows the end of the Education line without a long empty stretch.

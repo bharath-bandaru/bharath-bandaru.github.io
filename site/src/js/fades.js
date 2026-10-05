@@ -1,4 +1,5 @@
 import { onScroll } from './scroll.js';
+import { clamp } from './utils.js';
 
 // Ported verbatim from the reference index.js (customFadeOutAnimation 546-556,
 // customFadeInAnimation 558-568, customFadeInAnimationDisplayNone 586-598).
@@ -55,11 +56,12 @@ export function initFades() {
   const experienceSec = $('experience');
   const imagesSec = $('images-sec');
   const outro = $('outro');
+  const artworks = $('artworks');
+  const artHeader = document.querySelector('#images-sec .v5-sticky-block');
   const banner = document.querySelector('.outro__banner');
   const prgs = $('prgs');
   const logoimg = $('logoimg');
   const social = $('social');
-  const myProgress = $('myProgress');
 
   // Mirrors the lscroll.on('scroll') body at index.js:412-435, same call order.
   const run = () => {
@@ -77,17 +79,25 @@ export function initFades() {
     customFadeInAnimationDisplayNone(education, logoimg, W - 300);
     customFadeOutAnimation(imagesSec, W - 300);
     customFadeInAnimationDisplayNone(imagesSec, social, W - 300);
-    customFadeInAnimation(imagesSec, myProgress, W - 300);
-    // Requested tweak: the artworks hide the fixed social icons (they carry
-    // their own) and the progress bar, but the closing "Thanks again!" screen
-    // brings both back, fading in as it slides on (same ramp as the other
-    // fades). Runs last so it overrides the artworks' hide above.
+    // Requested tweak: the progress bar stays visible over the artworks (the
+    // reference hid it there; the artworks block now leaves room for it), and
+    // the artworks hide the fixed social icons (they carry their own) but the
+    // closing "Thanks again!" screen brings them back, fading in as it slides
+    // on (same ramp as the other fades). Runs last so it overrides the hide.
     const ox = outro.getBoundingClientRect().x;
     if (ox < W - 300) {
-      const opacity = ox <= 0 ? 1 : (W - 300 - ox) / (W - 300);
       social.classList.remove('display-none');
-      social.style.opacity = opacity;
-      myProgress.style.opacity = opacity;
+      social.style.opacity = ox <= 0 ? 1 : (W - 300 - ox) / (W - 300);
+    }
+    // Requested tweak: the pinned "Thanks for stopping by" block sits still
+    // through the first half of the gallery, then drifts slowly to the left
+    // over the second half (up to 160px), so it is not frozen for the whole
+    // stretch.
+    if (artHeader && artworks) {
+      const a = artworks.getBoundingClientRect();
+      const p = clamp(-a.left / (a.width - W), 0, 1);
+      const drift = p > 0.5 ? -(p - 0.5) * 2 * 160 : 0;
+      artHeader.style.transform = drift ? `translate3d(${drift}px, 0, 0)` : '';
     }
     // Requested tweak: once the closing screen fills the viewport, its content
     // stays pinned for a further 60vw of scroll (the section is 160vw wide)
