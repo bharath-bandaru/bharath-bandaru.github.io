@@ -5,6 +5,7 @@ const SEPARATOR = '  •  ';
 const REPEAT = 3;
 const SLOW_RATE = 0.95; // About's lag per px of scroll once the ribbons start (≈ 5% speed)
 const TRIGGER = 0.1; // ribbons start this fraction of a screen after landing on About
+const FADE_LERP = 0.08; // per-frame easing of the layer's opacity toward its scroll target
 
 // Ribbon scene: a fixed band layer over About; only the text slides along the
 // bands (parallax). Each band's line is written once in the markup and
@@ -51,7 +52,21 @@ export function initTape() {
       panel.style.pointerEvents = fadeOut < 1 ? 'none' : '';
       panel.toggleAttribute('data-parallax-hold', past > 0); // keep the inner parallax still
     }
-    tape.style.opacity = Math.min(fadeIn, fadeOut);
+    target = Math.min(fadeIn, fadeOut);
+    if (!raf) tick();
+  };
+
+  // The scroll-driven opacity is the target; the painted opacity eases toward
+  // it over a few frames, so a fast wheel flick fades the ribbons in instead of
+  // popping them.
+  let target = 0;
+  let shown = 0;
+  let raf = 0;
+  const tick = () => {
+    shown += (target - shown) * FADE_LERP;
+    if (Math.abs(target - shown) < 0.002) shown = target;
+    tape.style.opacity = shown;
+    raf = shown === target ? 0 : requestAnimationFrame(tick);
   };
 
   const refresh = () => {

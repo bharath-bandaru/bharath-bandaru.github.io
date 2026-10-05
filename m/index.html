@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 
 <head>
   <meta charset="UTF-8">
@@ -8,9 +8,10 @@
   <link href="https://fonts.googleapis.com/css2?family=Annie+Use+Your+Telescope&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="icon" href="/images/logo.png" type="image/png">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" id="themeColor" content="#faf8f5">
+  <meta name="theme-color" id="themeColor" content="#000000">
+  <meta name="color-scheme" content="dark light">
   <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <title>Bharath Bandaru - GitHub Portfolio</title>
   <meta name="description"
     content="Play Chain Reaction, an exciting online multiplayer game. Challenge your friends and enjoy the strategic gameplay. Available on Google Play.">
@@ -18,7 +19,7 @@
     content="Chain Reaction, Online Multiplayer Game, Strategic Game, Bharath Bandaru, Google Play Games, Chain reaction Game, chainreaction, chainreactiongame, bestchainreaction game, best chain reaction game, best design award goes to this chian reaction">
   <meta name="author" content="Bharath Bandaru">
   <style>
-    /* ---- Warm Editorial palette ---- */
+    /* ---- Palette: black with signal green (matches the desktop site) ---- */
     :root {
       --bg-main: #faf8f5;
       --bg-body: #1a1714;
@@ -26,57 +27,57 @@
       --text-secondary: #6b6560;
       --text-copyright: #8a847c;
       --text-contact: #1a1a1a;
-      --border-profile: rgba(224,120,86,0.5);
-      --accent: #e07856;
-      --accent-2: #c95f3e;
+      --border-profile: rgba(61,139,64,0.5);
+      --accent: #3d8b40;
+      --accent-2: #2e6b31;
       --on-accent: #ffffff;
-      --glow: rgba(224,120,86,0.35);
+      --glow: rgba(61,139,64,0.35);
       --dot-color: #1a1a1a;
       --btn-bg: #1a1a1a;
       --btn-text: #faf8f5;
       --btn-hover: #2d2a26;
-      --toggle-bg: #e07856;
-      --toggle-hover: #c95f3e;
+      --toggle-bg: #3d8b40;
+      --toggle-hover: #2e6b31;
       --dropdown-bg: #2d2a26;
       --dropdown-hover: #44403a;
       --social-filter: brightness(0);
-      --link-color: #c95f3e;
+      --link-color: #2e7d32;
       --footer-bg: #1a1714;
       --footer-text: #faf8f5;
       --footer-label: #a89f96;
       --footer-email: #faf8f5;
-      --footer-social-bg: #e07856;
-      --footer-social-hover: #c95f3e;
+      --footer-social-bg: #3d8b40;
+      --footer-social-hover: #2e6b31;
       --footer-social-filter: brightness(0) invert(1);
     }
 
     [data-theme="dark"] {
-      --bg-main: #1a1714;
+      --bg-main: #000000;
       --text-primary: #faf8f5;
       --text-secondary: #a89f96;
       --text-copyright: #877f75;
       --text-contact: #faf8f5;
-      --border-profile: rgba(232,145,111,0.5);
-      --accent: #e8916f;
-      --accent-2: #e07856;
-      --on-accent: #1a1714;
-      --glow: rgba(232,145,111,0.4);
+      --border-profile: rgba(76,175,80,0.5);
+      --accent: #4caf50;
+      --accent-2: #3d8b40;
+      --on-accent: #000000;
+      --glow: rgba(76,175,80,0.45);
       --dot-color: #faf8f5;
       --btn-bg: #faf8f5;
       --btn-text: #1a1714;
       --btn-hover: #e8e2da;
-      --toggle-bg: #e8916f;
-      --toggle-hover: #e07856;
-      --dropdown-bg: #2a2520;
-      --dropdown-hover: #44403a;
+      --toggle-bg: #4caf50;
+      --toggle-hover: #3d8b40;
+      --dropdown-bg: #1c1c1e;
+      --dropdown-hover: #2c2c2e;
       --social-filter: brightness(0) invert(1);
-      --link-color: #e8916f;
-      --footer-bg: #faf8f5;
-      --footer-text: #1a1714;
-      --footer-label: #6b6560;
-      --footer-email: #1a1714;
-      --footer-social-bg: #e07856;
-      --footer-social-hover: #c95f3e;
+      --link-color: #4caf50;
+      --footer-bg: #1c1c1e;
+      --footer-text: #faf8f5;
+      --footer-label: #a89f96;
+      --footer-email: #faf8f5;
+      --footer-social-bg: #4caf50;
+      --footer-social-hover: #3d8b40;
       --footer-social-filter: brightness(0) invert(1);
     }
 
@@ -85,7 +86,8 @@
       a, button, a * { cursor: pointer; }
     }
 
-    html { background-color: var(--bg-main); }
+    html { background-color: var(--bg-main); color-scheme: light; }
+    [data-theme="dark"] { color-scheme: dark; } /* Safari tints its toolbars and overscroll from this */
     html, body { transition: background-color 0.4s ease; }
 
     ::selection { background-color: var(--accent); color: var(--on-accent); }
@@ -248,7 +250,7 @@
       padding: 10px 24px; background: var(--btn-bg); color: var(--btn-text);
       text-decoration: none; border-radius: 8px; font-size: 14px;
       font-family: 'SF Mono', SFMono-Regular, ui-monospace, Menlo, Monaco, Consolas, monospace;
-      letter-spacing: 0.5px; cursor: pointer;
+      font-weight: 700; letter-spacing: 0.5px; cursor: pointer;
       transition: background-color 0.2s, transform 0.2s, box-shadow 0.2s;
     }
     .action-btn:hover { background: var(--btn-hover); transform: translateY(-2px); box-shadow: 0 6px 18px var(--glow); }
@@ -336,7 +338,7 @@
         </p>
         <p class="reveal" style="font-size: 15px; margin-bottom:0; letter-spacing: 0; padding-top: 3px; animation-delay: 0.45s;">Glad to meet you! <span style="font-size: 24px;">🍻</span></p>
         <br>
-        <p class="reveal" style="font-size: 15px; margin: -1px 1px 14px 1px; animation-delay: 0.5s;">You're seeing the lite version. The full interactive portfolio lives on desktop —<br>open it on a bigger screen and hit <a href="/" style="color: inherit; text-decoration: underline;">Reload</a>.</p>
+        <p class="reveal" style="font-size: 15px; margin: -1px 1px 14px 1px; animation-delay: 0.5s;">You're seeing the lite version. —<br>open it on a bigger screen and hit <a href="/" style="color: inherit; text-decoration: underline;">Reload</a>.</p>
         <br>
 
          <div class="reveal" style="display: flex; justify-content: center; gap: 12px; flex-wrap: wrap; animation-delay: 0.58s;">
@@ -400,10 +402,13 @@
     // Theme toggle
     const themeToggle = document.getElementById('themeToggle');
     const themeColor = document.getElementById('themeColor');
-    const savedTheme = localStorage.getItem('theme') || 'light';
+    const savedTheme = localStorage.getItem('theme') || 'dark';
     if (savedTheme === 'dark') {
       document.documentElement.setAttribute('data-theme', 'dark');
       themeToggle.textContent = '🌙';
+    } else {
+      document.documentElement.removeAttribute('data-theme');
+      themeToggle.textContent = '☀️';
     }
     syncThemeColor();
 
