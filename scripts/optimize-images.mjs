@@ -28,6 +28,12 @@ const pictures = [
   ['project-6.png', 'projects/project-6.webp', {}],
   ['screenshot.png', 'projects/screenshot.webp', {}],
   ['fickle.png', 'projects/fickle.webp', {}],
+  // projects/anti-ragging-press.webp was made separately from a press clipping
+  // (IMG_2561.JPG, 450×754) at width 560, quality 82.
+  // projects/ux-india.webp was made separately from a conference photo
+  // (IMG_20161022_185631.jpg, 3264×2448) at width 760, quality 80.
+  // projects/ux-india-app.webp was made separately from an app screenshot
+  // (Screenshot_2016-10-09-18-21-42.png) at height 800, quality 82.
   ['one kitchen.png', 'experience/one-kitchen.webp', {}],
   ['logo for dark bg.png', 'experience/logo-dark-bg.webp', { height: 240 }],
 ];

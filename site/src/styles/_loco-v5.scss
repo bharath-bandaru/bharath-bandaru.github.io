@@ -193,21 +193,108 @@ body {
 }
 
 // Requested tweak: the last experience block is wider than in the original, so
-// the timeline ended underneath it. Continue the solid line 140px (::before) so
+// the timeline ended underneath it. Continue the solid line 200px (::before) so
 // it clears the block like the original did, and keep the original short dashed
 // stub (::after) at the new end.
 .ps-timeline-sec-2 .t-container ol.ps-timeline::before {
     content: '';
     position: absolute;
     left: auto; // the original ::before sits at left: 20px
-    width: 140px;
+    width: 200px;
     border-top: 3px solid #bfbfbf;
     right: -160px; // margin: 20px → starts flush with the line end
     top: -20px;
     margin: 20px;
 }
 .ps-timeline-sec-2 .t-container ol.ps-timeline::after {
-    right: -200px; // original geometry shifted by the 140px extension
+    right: -260px; // original geometry shifted by the 200px extension
+}
+
+// Requested tweak: the Script Health card lists the earlier roles there under
+// the current one (hidden on short viewports via .min-high, like the logos).
+.role-history {
+    margin-top: 14px;
+    padding-top: 12px;
+    border-top: 1px dashed rgba(191, 191, 191, 0.45);
+    text-align: left;
+    white-space: normal; // the horizontal strip sets nowrap on every section
+}
+.role-history__title {
+    font-size: 17px;
+    font-weight: 600;
+    line-height: 1.3;
+    small {
+        font-weight: 400;
+        opacity: 0.6;
+        margin-left: 6px;
+        font-size: 15px;
+    }
+}
+.role-history__desc {
+    font-size: 15px;
+    line-height: 1.35;
+    opacity: 0.75;
+    padding-bottom: 10px; // the timeline zeroes <p> margins with !important
+    &:last-child {
+        padding-bottom: 0;
+    }
+}
+
+// Requested tweak: image carousel in a portfolio card (UX India): cross-fading
+// slides in a fixed box, dots below (carousel.js auto-advances and wires the
+// dots).
+.carousel {
+    width: 350px;
+    margin: 10px auto 8px;
+    white-space: normal;
+}
+.carousel__track {
+    position: relative;
+    width: 100%;
+    height: 400px; // tall enough for the portrait app screenshot to read
+    overflow: hidden;
+    background: #000;
+}
+@media (max-height: 765px) {
+    .carousel__track {
+        height: 300px;
+    }
+}
+.carousel__slide {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    opacity: 0;
+    transition: opacity 0.6s ease;
+    &.is-active {
+        opacity: 1;
+    }
+}
+.carousel__dots {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    padding-top: 10px;
+    button {
+        width: 8px;
+        height: 8px;
+        padding: 0;
+        border: 0;
+        border-radius: 50%;
+        background: #555;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+        &.is-active {
+            background: #4caf50;
+        }
+    }
+}
+@media (prefers-reduced-motion: reduce) {
+    .carousel__slide {
+        transition: none;
+    }
 }
 
 // Requested tweak: in the portfolio cards' link blocks, put the spacing after
@@ -228,4 +315,10 @@ body {
 }
 #portfolio .border-dashed a.a-tag + br {
     display: none;
+}
+// …but a second link right after a first (Fickle's server + client repos)
+// still gets its own line.
+#portfolio .border-dashed a.a-tag + br + a.a-tag {
+    display: block;
+    line-height: 1.3;
 }

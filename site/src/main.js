@@ -21,6 +21,7 @@ import { initProgress } from './js/progress.js';
 import { initScrollbar } from './js/scrollbar.js';
 import { initParallax } from './js/parallax.js';
 import { initTape } from './js/tape.js';
+import { initCarousels } from './js/carousel.js';
 import { runPreloader } from './js/preloader.js';
 import { initContact } from './js/contact.js';
 import { initCursor } from './js/cursor.js';
@@ -40,6 +41,7 @@ const contact = initContact();
 const runFades = initFades();
 const parallax = initParallax();
 initTape();
+initCarousels();
 initScrollbar();
 
 if (pointerFx()) {

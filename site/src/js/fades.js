@@ -1,5 +1,4 @@
 import { onScroll } from './scroll.js';
-import { clamp } from './utils.js';
 
 // Ported verbatim from the reference index.js (customFadeOutAnimation 546-556,
 // customFadeInAnimation 558-568, customFadeInAnimationDisplayNone 586-598).
@@ -38,14 +37,6 @@ function customFadeInAnimationDisplayNone(ele2, ele3, res) {
   }
 }
 
-// Requested tweak: Portfolio follows the ribbon scene, so it fades in from the
-// moment it enters the viewport (x = start) and is fully opaque by x = end. The
-// original curve left it at ~12% opacity by the time the ribbons had faded.
-function fadeInBetween(el, start, end) {
-  const x = el.getBoundingClientRect().x;
-  el.style.opacity = clamp((start - x) / (start - end), 0, 1);
-}
-
 // v4 `currentElements[id]` ≡ element intersects the viewport horizontally.
 const inView = (el) => {
   const r = el.getBoundingClientRect();
@@ -75,7 +66,7 @@ export function initFades() {
       prgs.style.opacity = 0;
     }
     customFadeOutAnimation(education, W - 300);
-    fadeInBetween(portfolio, W, W * 0.7);
+    customFadeOutAnimation(portfolio, W - 300);
     customFadeOutAnimation(hiThere, W - 300);
     customFadeOutAnimation(imagesSec, W - 300);
     customFadeInAnimationDisplayNone(education, logoimg, W - 300);

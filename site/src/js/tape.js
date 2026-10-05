@@ -1,59 +1,49 @@
 import { onScroll, getLenis } from './scroll.js';
 import { clamp } from './utils.js';
 
-const SEPARATOR = '  •  ';
+const SEPARATOR = '  \u2022  ';
 const REPEAT = 3;
-const SLOW_RATE = 0.95; // About's lag per px of scroll once the ribbons start (≈ 5% speed)
-const TRIGGER = 0.1; // ribbons start this fraction of a screen after landing on About
 const FADE_LERP = 0.08; // per-frame easing of the layer's opacity toward its scroll target
+const SLOW_RATE = 0.95; // experience's lag per px of scroll while the ribbons show (≈ 5% speed)
 
-// Ribbon scene: a fixed band layer over About; only the text slides along the
-// bands (parallax). Each band's line is written once in the markup and
-// repeated here three times, bullet-separated. Shortly after landing on About
-// the layer fades in while About, still centred, drops to a crawl behind it;
-// both fade out together over the start of Portfolio.
+// Ribbon scene over the end of Work Experience: a fixed layer of crossing
+// bands; only the text slides along them (parallax keyed off the scene
+// section). Each band's line is written once in the markup and repeated here
+// three times, bullet-separated. Once the last experience card reaches the
+// centre of the screen the ribbons fade in and the experience section drops to
+// a crawl behind them (so there is no empty stretch), until the artworks header
+// ("Thanks for stopping by") slides in over it; the ribbons are gone when that
+// header fills the screen.
 export function initTape() {
   const tape = document.getElementById('tape');
   if (!tape) return;
   const scene = tape.parentElement;
-  const panel = scene.querySelector('.about-pin');
-  const portfolioTitle = document.querySelector('#portfolio .v5-sticky h1');
+  const next = document.getElementById('images-sec');
+  const panel = document.getElementById('experience');
+  const anchor = document.querySelector('[data-tape-anchor]');
   const spans = [...tape.querySelectorAll('.tape-item > span')];
   const lines = spans.map((span) => span.textContent.trim());
+
+  let lag = 0; // current translateX of the experience section
 
   // Scroll positions that drive the layer.
   const range = () => {
     const W = window.innerWidth;
-    const start = scene.getBoundingClientRect().left + window.scrollX; // About lands
-    const end = start + scene.offsetWidth - W; // scene ends, Portfolio enters
-    const slowFrom = W * TRIGGER; // ribbons start, About starts crawling
-    // Fade-out runs from `hold` after the scene ends until the "Portfolio."
-    // title is centred on screen (measured before it starts sticking).
-    const title = portfolioTitle ? portfolioTitle.getBoundingClientRect() : null;
-    const outTo = title ? title.left + window.scrollX + title.width / 2 - W / 2 : end + W / 2;
-    return { W, start, end, ramp: W * 0.3, hold: W * 0.1, outTo, slowFrom };
+    const sceneLeft = scene.getBoundingClientRect().left + window.scrollX;
+    const sceneEnd = sceneLeft + scene.offsetWidth;
+    // Trigger: the last experience card (untransformed) centred on screen.
+    const a = anchor ? anchor.getBoundingClientRect() : null;
+    const from = a ? a.left + window.scrollX - lag + a.width / 2 - W / 2 : sceneLeft - W * 0.6;
+    // Fade-out ends when the artworks header fills the screen, starting half
+    // a screen earlier.
+    const outTo = next ? next.getBoundingClientRect().left + window.scrollX : sceneEnd;
+    return { from, ramp: W * 0.3, outFrom: outTo - W * 0.5, outTo };
   };
 
   const fill = () => {
     spans.forEach((span, i) => {
       span.textContent = Array(REPEAT).fill(lines[i]).join(SEPARATOR);
     });
-  };
-
-  const update = (scroll) => {
-    const { W, start, end, ramp, hold, outTo, slowFrom } = range();
-    const past = Math.min(scroll, end + W) - start - slowFrom; // scroll since the ribbons started
-    const fadeIn = clamp(past / ramp, 0, 1);
-    const fadeOut = clamp((outTo - scroll) / (outTo - end - hold), 0, 1);
-    if (panel) {
-      const lag = Math.max(0, past) * SLOW_RATE;
-      panel.style.transform = lag ? `translate3d(${lag}px, 0, 0)` : '';
-      panel.style.opacity = fadeOut;
-      panel.style.pointerEvents = fadeOut < 1 ? 'none' : '';
-      panel.toggleAttribute('data-parallax-hold', past > 0); // keep the inner parallax still
-    }
-    target = Math.min(fadeIn, fadeOut);
-    if (!raf) tick();
   };
 
   // The scroll-driven opacity is the target; the painted opacity eases toward
@@ -67,6 +57,17 @@ export function initTape() {
     if (Math.abs(target - shown) < 0.002) shown = target;
     tape.style.opacity = shown;
     raf = shown === target ? 0 : requestAnimationFrame(tick);
+  };
+
+  const update = (scroll) => {
+    const { from, ramp, outFrom, outTo } = range();
+    const past = Math.min(scroll, outTo) - from;
+    const fadeIn = clamp(past / ramp, 0, 1);
+    const fadeOut = clamp((outTo - scroll) / (outTo - outFrom), 0, 1);
+    lag = Math.max(0, past) * SLOW_RATE;
+    if (panel) panel.style.transform = lag ? `translate3d(${lag}px, 0, 0)` : '';
+    target = Math.min(fadeIn, fadeOut);
+    if (!raf) tick();
   };
 
   const refresh = () => {

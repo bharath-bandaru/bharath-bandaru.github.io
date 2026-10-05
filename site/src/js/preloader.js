@@ -1,11 +1,13 @@
 import anime from 'animejs';
 import { mqFine, mqReduced } from './caps.js';
 
-// Ported from the reference index.js:161-394 with the original timings:
+// Ported from the reference index.js:161-394. Timings (requested tweak: the
+// terminal phase is faster than the reference's — bar at 25 ms/step instead of
+// 50, no 1 s countdown before it and no hold after it):
 //   t=0      "BHARATH BANDARU" → "CROSSING OCEANS TO FETCH DATA .."
-//   t=4000   name screen hidden, terminal visible, 1s countdown
-//   t=5000   enterPage(): loading bar (75 × 50ms), terminal hides at 75%
-//   t=9200   fixed UI fades in, page scrolls to About (onEnter)
+//   t=4000   name screen hidden, terminal visible, loading bar starts
+//   t≈5900   bar complete (75 × 25ms): terminal hides, fixed UI fades in,
+//            page scrolls to About (onEnter)
 // Removed: the "bigger screen" gate and the page reload that served it.
 // Added: tap on the terminal skips (touch has no Enter key).
 
@@ -29,7 +31,6 @@ export function runPreloader({ onEnter }) {
   let clickedEnter = false;
   let entered = false;
   let nameTimer = null;
-  let skipTimer = null;
 
   preLoader.textContent = 'BHARATH BANDARU';
   startAnime();
@@ -84,14 +85,8 @@ export function runPreloader({ onEnter }) {
   }
 
   function enterLoader() {
-    skipTimer = setInterval(() => {
-      timeleft--;
-      if (timeleft <= 0) {
-        if (!clickedEnter) enterPage();
-        $('countdown').innerHTML = '';
-        clearInterval(skipTimer);
-      }
-    }, 1000);
+    $('countdown').innerHTML = '';
+    if (!clickedEnter) enterPage();
   }
 
   const currentdate = new Date();
@@ -115,7 +110,6 @@ export function runPreloader({ onEnter }) {
     clickedEnter = true;
     $('countdown').classList.add('vis-hide');
     clearInterval(nameTimer);
-    clearInterval(skipTimer);
     preLoader.classList.add('display-none');
     showTerminal();
     enterPage();
@@ -135,8 +129,8 @@ export function runPreloader({ onEnter }) {
     $('cur-blink').classList.add('display-none');
     $('click-enter').classList.add('vis-hide');
     enter1.classList.remove('display-none');
-    move();
-    setTimeout(() => {
+    move(reveal);
+    function reveal() {
       onEnter();
       enter2.classList.remove('display-none');
       enter3.classList.remove('display-none');
@@ -202,19 +196,20 @@ export function runPreloader({ onEnter }) {
           easing: 'easeOutExpo',
           duration: 50,
         });
-    }, 4200);
+    }
   }
 
-  function move() {
+  function move(onDone) {
     const elem = $('loadingBar');
     let width = 0;
     let greenStr = '';
-    const id = setInterval(frame, 50);
+    const id = setInterval(frame, 25);
 
     function frame() {
       if (width >= 75) {
         clearInterval(id);
         terminal.classList.add('display-none');
+        onDone();
       } else {
         width++;
         elem.style.width = width + '%';
