@@ -93,10 +93,18 @@ stats/
   variant/desktop, mobile    page loads per variant
   daily/YYYY-MM-DD/variant   the same, per UTC day
   timezone/America_Chicago   page loads per browser time zone (a rough "where")
+  clicks/<target>/total      link clicks; target = hire, resume, github, linkedin,
+                             instagram, pinterest or email
+  clicks/<target>/desktop    the same, per variant (and /mobile)
+  clicks/<target>/daily/YYYY-MM-DD   the same, per UTC day
 views/<push id>              one row per page load: ts, day, variant, redirectedFrom,
                              bypass, timezone, language, viewport, screen, dpr, pointer,
                              touch, orientation, standalone, referrer, userAgent
 ```
+
+Tracked clicks are "Hire me" plus any link to the resume, the GitHub profile
+(not repo links), LinkedIn, Instagram, Pinterest or email, wherever it sits on
+either page; each also sends a `link_click` event (param `target`) to GA4.
 
 Each page load is one atomic multi-path update (the row plus every counter).
 The rules in `database.rules.json` allow the public site to do only that:

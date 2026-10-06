@@ -12,6 +12,8 @@
 // 2. Firebase Realtime Database, for a glanceable view without digging through
 //    GA4 reports: ready-made counters under /stats (total, per variant, per
 //    day and variant, per time zone) and one row per visit under /views.
+//    Clicks on "Hire me", the social tiles, email and the resume are counted
+//    under /stats/clicks.
 //    Security rules (database.rules.json) only allow creating a view row and
 //    incrementing a counter by exactly one; nothing is readable from the web.
 //
@@ -126,51 +128,107 @@
     return dbApi.update(dbApi.ref(db), updates);
   }
 
-  Promise.all([
+  // Which tracked link a click landed on, by href so every copy of a tile
+  // (header, contact panel, footer, phone page) counts without extra markup.
+  // Repo links (github.com/bharath-bandaru/<repo>) are not the GitHub tile.
+  var TARGETS = [
+    ['resume', /\/docs\/resume\.pdf/],
+    ['github', /^https:\/\/github\.com\/bharath-bandaru\/?$/],
+    ['linkedin', /linkedin\.com\/in\//],
+    ['instagram', /instagram\.com\//],
+    ['pinterest', /pinterest\.com\//],
+    ['email', /^mailto:/],
+  ];
+  function clickTarget(a) {
+    if (a.id === 'hireMe') return 'hire';
+    var href = a.getAttribute('href') || '';
+    for (var i = 0; i < TARGETS.length; i++) if (TARGETS[i][1].test(href)) return TARGETS[i][0];
+    return '';
+  }
+
+  // Counters only for clicks, no per-click rows.
+  function recordClick(db, dbApi, target) {
+    var day = new Date().toISOString().slice(0, 10);
+    var updates = {};
+    var base = 'stats/clicks/' + target + '/';
+    updates[base + 'total'] = dbApi.increment(1);
+    updates[base + variant] = dbApi.increment(1);
+    updates[base + 'daily/' + day] = dbApi.increment(1);
+    return dbApi.update(dbApi.ref(db), updates);
+  }
+
+  // Resolves once the SDK is up; clicks before that wait for it.
+  var ready = Promise.all([
     import(SDK + 'firebase-app.js'),
     import(SDK + 'firebase-analytics.js'),
     import(SDK + 'firebase-database.js'),
-  ])
-    .then(function (mods) {
-      var app = mods[0];
-      var an = mods[1];
-      var dbApi = mods[2];
-      var fb = app.initializeApp(firebaseConfig);
+  ]).then(function (mods) {
+    var app = mods[0];
+    var an = mods[1];
+    var dbApi = mods[2];
+    var fb = app.initializeApp(firebaseConfig);
+    var db = dbApi.getDatabase(fb);
 
-      recordView(dbApi.getDatabase(fb), dbApi)
-        .then(function () {
-          if (debug) console.info('[analytics] view recorded in the Realtime Database');
-        })
-        .catch(function (err) {
-          if (debug) console.warn('[analytics] database write failed', err);
-        });
-
-      return an.isSupported().then(function (ok) {
-        if (!ok) return;
-        // Debug mode at the gtag config level marks every hit (page_view included),
-        // so the session shows up as a device in Firebase > Analytics > DebugView.
-        var analytics = debug
-          ? an.initializeAnalytics(fb, { config: { debug_mode: true } })
-          : an.getAnalytics(fb);
-        // User properties can slice every report (device category, country, ...)
-        // by variant once registered under GA4 Admin > Custom definitions.
-        an.setUserProperties(analytics, { variant: variant, pointer: pointer });
-        an.logEvent(
-          analytics,
-          'portfolio_view',
-          debug ? Object.assign({ debug_mode: true }, params) : params,
-        );
-
-        // Small helper for later: window.track('event_name', { ...params }).
-        window.track = function (name, extra) {
-          var p = Object.assign({ variant: variant }, extra || {});
-          if (debug) p.debug_mode = true;
-          an.logEvent(analytics, name, p);
-        };
-        if (debug) console.info('[analytics] portfolio_view', params);
+    recordView(db, dbApi)
+      .then(function () {
+        if (debug) console.info('[analytics] view recorded in the Realtime Database');
+      })
+      .catch(function (err) {
+        if (debug) console.warn('[analytics] database write failed', err);
       });
-    })
-    .catch(function (err) {
-      if (debug) console.warn('[analytics] failed to load', err);
+
+    return an.isSupported().then(function (ok) {
+      if (!ok) return { db: db, dbApi: dbApi };
+      // Debug mode at the gtag config level marks every hit (page_view included),
+      // so the session shows up as a device in Firebase > Analytics > DebugView.
+      var analytics = debug
+        ? an.initializeAnalytics(fb, { config: { debug_mode: true } })
+        : an.getAnalytics(fb);
+      // User properties can slice every report (device category, country, ...)
+      // by variant once registered under GA4 Admin > Custom definitions.
+      an.setUserProperties(analytics, { variant: variant, pointer: pointer });
+      an.logEvent(
+        analytics,
+        'portfolio_view',
+        debug ? Object.assign({ debug_mode: true }, params) : params,
+      );
+
+      // Small helper for later: window.track('event_name', { ...params }).
+      window.track = function (name, extra) {
+        var p = Object.assign({ variant: variant }, extra || {});
+        if (debug) p.debug_mode = true;
+        an.logEvent(analytics, name, p);
+      };
+      if (debug) console.info('[analytics] portfolio_view', params);
+      return { db: db, dbApi: dbApi };
     });
+  });
+  ready.catch(function (err) {
+    if (debug) console.warn('[analytics] failed to load', err);
+  });
+
+  // Every tracked link opens in a new tab (or the resume sheet, or the mail
+  // app), so this page stays alive for the write. Delegated in the capture
+  // phase, so it sees clicks other handlers preventDefault (the resume sheet);
+  // auxclick covers middle-click.
+  function onClick(e) {
+    if (e.type === 'auxclick' && e.button !== 1) return;
+    var a = e.target.closest && e.target.closest('a');
+    var target = a && clickTarget(a);
+    if (!target) return;
+    ready
+      .then(function (fx) {
+        if (window.track) window.track('link_click', { target: target });
+        return recordClick(fx.db, fx.dbApi, target);
+      })
+      .then(function () {
+        if (debug)
+          console.info('[analytics] ' + target + ' click recorded in the Realtime Database');
+      })
+      .catch(function (err) {
+        if (debug) console.warn('[analytics] click write failed', err);
+      });
+  }
+  document.addEventListener('click', onClick, true);
+  document.addEventListener('auxclick', onClick, true);
 })();

@@ -23,6 +23,19 @@
         "$tz": {
           ".write": "$tz.length <= 64 && newData.isNumber() && ((!data.exists() && newData.val() == 1) || newData.val() == data.val() + 1)"
         }
+      },
+      "clicks": {
+        "$target": {
+          ".validate": "$target.matches(/^(hire|resume|github|linkedin|instagram|pinterest|email)$/)",
+          "$variant": {
+            ".write": "$variant.matches(/^(total|desktop|mobile)$/) && newData.isNumber() && ((!data.exists() && newData.val() == 1) || newData.val() == data.val() + 1)"
+          },
+          "daily": {
+            "$day": {
+              ".write": "$day.matches(/^[0-9]{4}-[0-9]{2}-[0-9]{2}$/) && newData.isNumber() && ((!data.exists() && newData.val() == 1) || newData.val() == data.val() + 1)"
+            }
+          }
+        }
       }
     },
 
